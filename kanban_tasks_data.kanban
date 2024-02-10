@@ -11,8 +11,6 @@
 			"uuid": "2a75b23c-581f-406d-9295-910813872bed",
 			"title": "Todo",
 			"tasks": [
-				"87ff376d-0bbb-454d-b168-4559ada615f3",
-				"ea5b2667-739a-4046-afd6-bbc06db56357",
 				"45f528bc-fdae-4f15-913f-951621835da9",
 				"ed64d58e-61ba-46ff-9e5b-bcba35ed5a4c",
 				"2ddeb472-3c34-4334-8567-22eada0bb757",
@@ -27,8 +25,8 @@
 			"uuid": "7eef13de-40bd-46c5-9947-055715090f4d",
 			"title": "Doing",
 			"tasks": [
-				"d37b7333-ebab-4dcb-a4d1-39294b1a4b93",
-				"cdddbf03-c8c2-4699-ae23-1db936d14273"
+				"cdddbf03-c8c2-4699-ae23-1db936d14273",
+				"ea5b2667-739a-4046-afd6-bbc06db56357"
 			]
 		},
 		{
@@ -36,7 +34,9 @@
 			"title": "Done",
 			"tasks": [
 				"d026ddca-9083-462b-9725-df63376858a5",
-				"0b190117-e9a2-4cc1-859d-5c6fc5f9d289"
+				"0b190117-e9a2-4cc1-859d-5c6fc5f9d289",
+				"d37b7333-ebab-4dcb-a4d1-39294b1a4b93",
+				"87ff376d-0bbb-454d-b168-4559ada615f3"
 			]
 		}
 	],
@@ -71,9 +71,34 @@
 		{
 			"uuid": "87ff376d-0bbb-454d-b168-4559ada615f3",
 			"title": "Dodging",
-			"description": "",
+			"description": "Dodging uses a specified amount of stamina to launch the character in a specific direction. While dodging, the character is also invincible.\n\nScrap below, changed to use a timer instead of a minimum velocity/speed\n---\n\nsupply character\nadd bool for \"busy dodging\"\n---\nexport dodge speed\nexport array of ray casts for dodge direction of velocity is zero\nexport min dodging velocity threshold\n---\ndodge function:\ncheck if not already dodging...\nget character velocity normalised\nif zero...\npick randomly from an exported array of rays until all have been tried\ncheck each for a collision\nthe first one without a collision will be used as the dodge direction\nif none are available, just pick a random one and use it anyway\n...end if\nscale the dodge direction by the exported dodge speed value\nset character velocity to dodge direction\nset doding to true\n---\nis dodging function:\ncheck if dodging and character velocity is above the dodging threshold...\nif above, return true, otherwise ste dodging to false and return false\n...else return false",
 			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
-			"steps": []
+			"steps": [
+				{
+					"details": "Create dodging class with character parameter",
+					"done": true
+				},
+				{
+					"details": "Add parameters for doding speed and array of ray casts",
+					"done": true
+				},
+				{
+					"details": "Add local private var for tracking dodging",
+					"done": true
+				},
+				{
+					"details": "Add minimum dodging velocity",
+					"done": true
+				},
+				{
+					"details": "Add function to check if dodging",
+					"done": true
+				},
+				{
+					"details": "Add dodge function",
+					"done": true
+				}
+			]
 		},
 		{
 			"uuid": "ea5b2667-739a-4046-afd6-bbc06db56357",
@@ -153,7 +178,7 @@
 			"steps": [
 				{
 					"details": "Add jumping-related logic",
-					"done": false
+					"done": true
 				}
 			]
 		}

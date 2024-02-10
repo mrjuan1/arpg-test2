@@ -59,9 +59,10 @@ material = ExtResource("1_1wiyq")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 0, 4, 4)
 
-[node name="Character" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera")]
+[node name="Character" type="CharacterBody3D" parent="." node_paths=PackedStringArray("dodge_timer", "camera")]
 script = ExtResource("3_oyp42")
 velocity_to_target_y_rotation = true
+dodge_timer = NodePath("DodgeTimer")
 camera = NodePath("../Camera3D")
 
 [node name="CharacterCollision" type="CollisionShape3D" parent="Character"]
@@ -76,3 +77,7 @@ mesh = SubResource("CapsuleMesh_hoap4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0.45)
 mesh = SubResource("BoxMesh_hxq52")
 skeleton = NodePath("../CharacterMesh")
+
+[node name="DodgeTimer" type="Timer" parent="Character"]
+wait_time = 0.25
+one_shot = true

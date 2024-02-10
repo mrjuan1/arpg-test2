@@ -14,7 +14,7 @@ extends CharacterBody3D
 @export_subgroup("Rotation")
 @export var y_rotation_lerp_speed: float = Movement.DEFAULT_Y_ROTATION_LERP_SPEED
 @export var y_rotation_air_dampening: float = Movement.DEFAULT_Y_ROTATION_AIR_DAMPENING
-@export_subgroup("Misc")
+@export_subgroup("")
 @export var velocity_to_target_y_rotation: bool = Movement.DEFAULT_VELOCITY_TO_TARGET_Y_ROTATION
 @export var y_reset: float = Movement.DEFAULT_Y_RESET
 
@@ -23,6 +23,15 @@ extends CharacterBody3D
 @export_subgroup("Double-jumping")
 @export var double_jump_min_velocity: float = Jumping.DEFAULT_DOUBLE_JUMP_MIN_VELOCITY
 @export var double_jump_scale: float = Jumping.DEFAULT_DOUBLE_JUMP_SCALE
+
+@export_group("Dodging")
+@export var dodge_timer: Timer
+@export_subgroup("Dodging speed")
+@export var floor_dodge_speed: float = Dodging.DEFAULT_FLOOR_DODGE_SPEED
+@export var air_dodge_speed: float = Dodging.DEFAULT_AIR_DODGE_SPEED
+@export_subgroup("")
+@export var dodging_min_directional_speed: float = Dodging.DEFAULT_MIN_DIRECTIONAL_SPEED
+@export var dodging_stationary_air_dampening: float = Dodging.DEFAULT_STATIONARY_AIR_DAMPENING
 
 @export_group("Camera")
 @export var camera: Camera3D
@@ -63,6 +72,17 @@ var input_vec: Vector2 = Vector2.ZERO
 	double_jump_scale,
 )
 
+@onready var dodging: Dodging = Dodging.new(
+	movement,
+	dodge_timer,
+
+	floor_dodge_speed,
+	air_dodge_speed,
+
+	dodging_min_directional_speed,
+	dodging_stationary_air_dampening,
+)
+
 @onready var player_camera: PlayerCamera = PlayerCamera.new(
 	self,
 	camera,
@@ -86,6 +106,8 @@ func _process(_delta: float) -> void:
 
 	if Input.is_action_just_pressed("jump"):
 		jumping.jump()
+	elif Input.is_action_just_pressed("dodge"):
+		dodging.dodge()
 
 func _physics_process(delta: float) -> void:
 	movement.physics_process(delta)

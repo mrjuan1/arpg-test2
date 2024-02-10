@@ -87,6 +87,12 @@ func _init(
 #endregion constructor
 
 #region functions
+func get_character() -> Character:
+	return _character
+
+func set_direction(direction: Vector2) -> void:
+	_target_y_rotation = atan2(direction.y, direction.x)
+
 func physics_process(delta: float) -> void:
 	var movement_speed_lerp_speed: float = _movement_speed_lerp_speed * delta
 	var velocity_lerp_speed: float = _velocity_lerp_speed * delta
@@ -118,7 +124,4 @@ func physics_process(delta: float) -> void:
 	if _character.position.y < _y_reset:
 		_character.position = reset_position
 		printerr("Character \"%s\" fell off the map, resetting their position..." % _character.name)
-
-func set_direction(direction: Vector2) -> void:
-	_target_y_rotation = atan2(direction.y, direction.x)
 #endregion functions
