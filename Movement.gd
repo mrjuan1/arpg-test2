@@ -8,6 +8,7 @@ const DEFAULT_GRAVITY_MULTIPLIER: float = 2.0
 const DEFAULT_INITIAL_MOVEMENT_SPEED: float = 5.0
 const DEFAULT_MOVEMENT_SPEED_LERP_SPEED: float = 10.0
 const DEFAULT_MOVEMENT_SPEED_AIR_DAMPENING: float = 0.1
+const DEFAULT_MAX_AIR_MOVEMENT_MULTIPLIER: float = 2.0
 
 const DEFAULT_VELOCITY_LERP_SPEED: float = 10.0
 const DEFAULT_VELOCITY_AIR_DAMPENING: float = 0.1
@@ -26,6 +27,7 @@ var _gravity: float
 var _movement_speed: float
 var _movement_speed_lerp_speed: float
 var _movement_speed_air_dampening: float
+var _max_air_movement_multiplier: float
 
 var _target_velocity: Vector2
 var _velocity_lerp_speed: float
@@ -54,6 +56,7 @@ func _init(
 	initial_movement_speed: float = DEFAULT_INITIAL_MOVEMENT_SPEED,
 	movement_speed_lerp_speed: float = DEFAULT_MOVEMENT_SPEED_LERP_SPEED,
 	movement_speed_air_dampening: float = DEFAULT_MOVEMENT_SPEED_AIR_DAMPENING,
+	max_air_movement_multiplier: float = DEFAULT_MAX_AIR_MOVEMENT_MULTIPLIER,
 
 	velocity_lerp_speed: float = DEFAULT_VELOCITY_LERP_SPEED,
 	velocity_air_dampening: float = DEFAULT_VELOCITY_AIR_DAMPENING,
@@ -71,6 +74,7 @@ func _init(
 	movement_speed = _movement_speed
 	_movement_speed_lerp_speed = movement_speed_lerp_speed
 	_movement_speed_air_dampening = movement_speed_air_dampening
+	_max_air_movement_multiplier = max_air_movement_multiplier
 
 	_target_velocity = Vector2.ZERO
 	_velocity_lerp_speed = velocity_lerp_speed
@@ -94,11 +98,13 @@ func set_direction(direction: Vector2) -> void:
 	_target_y_rotation = atan2(direction.y, direction.x)
 
 func physics_process(delta: float) -> void:
+	var is_on_floor: bool = _character.is_on_floor()
+
 	var movement_speed_lerp_speed: float = _movement_speed_lerp_speed * delta
 	var velocity_lerp_speed: float = _velocity_lerp_speed * delta
 	var y_rotation_lerp_speed: float = _y_rotation_lerp_speed * delta
 
-	if not _character.is_on_floor():
+	if not is_on_floor:
 		_character.velocity.y -= _gravity * delta
 		movement_speed_lerp_speed *= _movement_speed_air_dampening
 		velocity_lerp_speed *= _velocity_air_dampening
@@ -118,6 +124,11 @@ func physics_process(delta: float) -> void:
 
 	_character.velocity.x = lerpf(_character.velocity.x, _target_velocity.x, velocity_lerp_speed)
 	_character.velocity.z = lerpf(_character.velocity.z, _target_velocity.y, velocity_lerp_speed)
+
+	if not is_on_floor:
+		var max_air_movement: float = movement_speed * _max_air_movement_multiplier
+		_character.velocity.x = clampf(_character.velocity.x, -max_air_movement, max_air_movement)
+		_character.velocity.z = clampf(_character.velocity.z, -max_air_movement, max_air_movement)
 
 	_character.move_and_slide()
 

@@ -8,6 +8,7 @@ extends CharacterBody3D
 @export var initial_movement_speed: float = Movement.DEFAULT_INITIAL_MOVEMENT_SPEED
 @export var movement_speed_lerp_speed: float = Movement.DEFAULT_MOVEMENT_SPEED_LERP_SPEED
 @export var movement_speed_air_dampening: float = Movement.DEFAULT_MOVEMENT_SPEED_AIR_DAMPENING
+@export var max_air_movement_multiplier: float = Movement.DEFAULT_MAX_AIR_MOVEMENT_MULTIPLIER
 @export_subgroup("Velocity")
 @export var velocity_lerp_speed: float = Movement.DEFAULT_VELOCITY_LERP_SPEED
 @export var velocity_air_dampening: float = Movement.DEFAULT_VELOCITY_AIR_DAMPENING
@@ -53,6 +54,7 @@ var input_vec: Vector2 = Vector2.ZERO
 	initial_movement_speed,
 	movement_speed_lerp_speed,
 	movement_speed_air_dampening,
+	max_air_movement_multiplier,
 
 	velocity_lerp_speed,
 	velocity_air_dampening,

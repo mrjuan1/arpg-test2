@@ -59,6 +59,7 @@ func dodge() -> void:
 
 		if xz_velocity.length_squared() > _min_directional_speed:
 			dodge_velocity = character.velocity.normalized()
+			dodge_velocity.y = 0.0
 		else:
 			var direction: Vector2 = Vector2.from_angle(randf_range(0.0, TAU))
 			dodge_velocity = Vector3(direction.x, 0.0, direction.y)
