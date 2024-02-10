@@ -11,7 +11,6 @@
 			"uuid": "2a75b23c-581f-406d-9295-910813872bed",
 			"title": "Todo",
 			"tasks": [
-				"0b190117-e9a2-4cc1-859d-5c6fc5f9d289",
 				"87ff376d-0bbb-454d-b168-4559ada615f3",
 				"ea5b2667-739a-4046-afd6-bbc06db56357",
 				"45f528bc-fdae-4f15-913f-951621835da9",
@@ -28,6 +27,7 @@
 			"uuid": "7eef13de-40bd-46c5-9947-055715090f4d",
 			"title": "Doing",
 			"tasks": [
+				"d37b7333-ebab-4dcb-a4d1-39294b1a4b93",
 				"cdddbf03-c8c2-4699-ae23-1db936d14273"
 			]
 		},
@@ -35,7 +35,8 @@
 			"uuid": "cfd612a1-151a-4ac6-a306-f10c05e2b58d",
 			"title": "Done",
 			"tasks": [
-				"d026ddca-9083-462b-9725-df63376858a5"
+				"d026ddca-9083-462b-9725-df63376858a5",
+				"0b190117-e9a2-4cc1-859d-5c6fc5f9d289"
 			]
 		}
 	],
@@ -63,7 +64,7 @@
 		{
 			"uuid": "0b190117-e9a2-4cc1-859d-5c6fc5f9d289",
 			"title": "Jumping",
-			"description": "",
+			"description": "Jumping can only be initiated when on the floor. It sets the character's Y velocity to an exported value. If a jump input is pressed while in air and below a certain velocity, a double-jump will be performed. This can only happen once per-jump.\n\nJumping will use an exported amount of stamina. Double-jumping will use a separate exported amount of stamina.",
 			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
 			"steps": []
 		},
@@ -143,6 +144,18 @@
 			"description": "functions:\nset direction - takes a vector2\nexpose movement speed\nexpose moving bool\n---\nexport starting movement speed\nset original movement speed to starting movement speed\nset current movement speed to original movement speed\nalways lerp current movement speed to original movement speed\nexport movement speed lerp speed\nexport movement speed air-dampening factor?\n---\nset target velocity to vec2 zero\nset target y rotation to current y rotation\nexport velocity lerp speed\nexport y rotation lerp speed\nexport velocity air-dampening factor\nexport y rotation air-dampening factor\n---\nexport gravity multiplier\nset gravity to project settings gravity value times the gravity multiplier\n---\nexport bool for deriving velocity from target y rotation instead of current y rotation\n---\nset direction function:\nset target y rotation to atan of direction vector\n---\nphysics process function:\nscale all lerp values by delta\nif not on ground...\ndecrease y velocity by gravity times delta\nscale all lerp speeds by their air-dampening values\n...end if\nif moving...\nget directional vector from target or current y rotation depening on a setting\nscale the directional vector by the current movement speed\nset the target velocity to the result\n...else...\nset the target velocity to zero\n...end if\nlerp movement speed, velocity and y rotation\nmove and slide\n---",
 			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
 			"steps": []
+		},
+		{
+			"uuid": "d37b7333-ebab-4dcb-a4d1-39294b1a4b93",
+			"title": "Camera",
+			"description": "",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": [
+				{
+					"details": "Add jumping-related logic",
+					"done": false
+				}
+			]
 		}
 	],
 	"layout": {
