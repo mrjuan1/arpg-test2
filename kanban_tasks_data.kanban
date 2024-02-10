@@ -10,20 +10,141 @@
 		{
 			"uuid": "2a75b23c-581f-406d-9295-910813872bed",
 			"title": "Todo",
-			"tasks": []
+			"tasks": [
+				"0b190117-e9a2-4cc1-859d-5c6fc5f9d289",
+				"87ff376d-0bbb-454d-b168-4559ada615f3",
+				"ea5b2667-739a-4046-afd6-bbc06db56357",
+				"45f528bc-fdae-4f15-913f-951621835da9",
+				"ed64d58e-61ba-46ff-9e5b-bcba35ed5a4c",
+				"2ddeb472-3c34-4334-8567-22eada0bb757",
+				"6984e823-051f-4622-b4e5-550e47a71f25",
+				"1d4a84e3-80f0-4bfa-9f4e-dc8ded043bf8",
+				"506720e5-64c8-495a-8def-f8297f3ba311",
+				"3280b4ad-3dbf-4e9c-b1d8-b574f7e5b1a2",
+				"1a0a878c-f167-4b56-9199-e9024cfb4ef6"
+			]
 		},
 		{
 			"uuid": "7eef13de-40bd-46c5-9947-055715090f4d",
 			"title": "Doing",
-			"tasks": []
+			"tasks": [
+				"cdddbf03-c8c2-4699-ae23-1db936d14273"
+			]
 		},
 		{
 			"uuid": "cfd612a1-151a-4ac6-a306-f10c05e2b58d",
 			"title": "Done",
-			"tasks": []
+			"tasks": [
+				"d026ddca-9083-462b-9725-df63376858a5"
+			]
 		}
 	],
-	"tasks": [],
+	"tasks": [
+		{
+			"uuid": "cdddbf03-c8c2-4699-ae23-1db936d14273",
+			"title": "Create shared character logic",
+			"description": "Create character logic that can be shared between the player, enemies, companions and NPCs.",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": [
+				{
+					"details": "Define tasks for logic",
+					"done": true
+				},
+				{
+					"details": "Add descriptions to tasks",
+					"done": false
+				},
+				{
+					"details": "Implement tasks",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "0b190117-e9a2-4cc1-859d-5c6fc5f9d289",
+			"title": "Jumping",
+			"description": "",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": []
+		},
+		{
+			"uuid": "87ff376d-0bbb-454d-b168-4559ada615f3",
+			"title": "Dodging",
+			"description": "",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": []
+		},
+		{
+			"uuid": "ea5b2667-739a-4046-afd6-bbc06db56357",
+			"title": "Attacking",
+			"description": "",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": []
+		},
+		{
+			"uuid": "45f528bc-fdae-4f15-913f-951621835da9",
+			"title": "HP",
+			"description": "",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": []
+		},
+		{
+			"uuid": "ed64d58e-61ba-46ff-9e5b-bcba35ed5a4c",
+			"title": "Stamina",
+			"description": "",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": []
+		},
+		{
+			"uuid": "2ddeb472-3c34-4334-8567-22eada0bb757",
+			"title": "Strength",
+			"description": "",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": []
+		},
+		{
+			"uuid": "6984e823-051f-4622-b4e5-550e47a71f25",
+			"title": "Defence",
+			"description": "",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": []
+		},
+		{
+			"uuid": "1d4a84e3-80f0-4bfa-9f4e-dc8ded043bf8",
+			"title": "Experience",
+			"description": "",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": []
+		},
+		{
+			"uuid": "506720e5-64c8-495a-8def-f8297f3ba311",
+			"title": "Levelling",
+			"description": "",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": []
+		},
+		{
+			"uuid": "3280b4ad-3dbf-4e9c-b1d8-b574f7e5b1a2",
+			"title": "Magic",
+			"description": "",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": []
+		},
+		{
+			"uuid": "1a0a878c-f167-4b56-9199-e9024cfb4ef6",
+			"title": "Projectiles",
+			"description": "",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": []
+		},
+		{
+			"uuid": "d026ddca-9083-462b-9725-df63376858a5",
+			"title": "Movement",
+			"description": "functions:\nset direction - takes a vector2\nexpose movement speed\nexpose moving bool\n---\nexport starting movement speed\nset original movement speed to starting movement speed\nset current movement speed to original movement speed\nalways lerp current movement speed to original movement speed\nexport movement speed lerp speed\nexport movement speed air-dampening factor?\n---\nset target velocity to vec2 zero\nset target y rotation to current y rotation\nexport velocity lerp speed\nexport y rotation lerp speed\nexport velocity air-dampening factor\nexport y rotation air-dampening factor\n---\nexport gravity multiplier\nset gravity to project settings gravity value times the gravity multiplier\n---\nexport bool for deriving velocity from target y rotation instead of current y rotation\n---\nset direction function:\nset target y rotation to atan of direction vector\n---\nphysics process function:\nscale all lerp values by delta\nif not on ground...\ndecrease y velocity by gravity times delta\nscale all lerp speeds by their air-dampening values\n...end if\nif moving...\nget directional vector from target or current y rotation depening on a setting\nscale the directional vector by the current movement speed\nset the target velocity to the result\n...else...\nset the target velocity to zero\n...end if\nlerp movement speed, velocity and y rotation\nmove and slide\n---",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": []
+		}
+	],
 	"layout": {
 		"columns": [
 			[
