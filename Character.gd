@@ -26,7 +26,12 @@ extends CharacterBody3D
 
 @export_group("Camera")
 @export var camera: Camera3D
-@export var camera_lerp_speed: float = PlayerCamera.DEFAULT_CAMERA_LERP_SPEED
+@export_subgroup("Lerp speeds")
+@export var camera_xz_lerp_speed: float = PlayerCamera.DEFAULT_CAMERA_XZ_LERP_SPEED
+@export var camera_y_lerp_speed: float = PlayerCamera.DEFAULT_CAMERA_Y_LERP_SPEED
+@export_subgroup("Y follow distances")
+@export var camera_y_positive_follow_distance: float = PlayerCamera.DEFAULT_CAMERA_Y_POSITIVE_FOLLOW_DISTANCE
+@export var camera_y_negative_follow_distance: float = PlayerCamera.DEFAULT_CAMERA_Y_NEGATIVE_FOLLOW_DISTANCE
 #endregion exports
 
 #region variables
@@ -60,9 +65,13 @@ var input_vec: Vector2 = Vector2.ZERO
 
 @onready var player_camera: PlayerCamera = PlayerCamera.new(
 	self,
-
 	camera,
-	camera_lerp_speed,
+
+	camera_xz_lerp_speed,
+	camera_y_lerp_speed,
+
+	camera_y_positive_follow_distance,
+	camera_y_negative_follow_distance,
 )
 #endregion variables
 
