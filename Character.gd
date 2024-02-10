@@ -16,6 +16,7 @@ extends CharacterBody3D
 @export var y_rotation_air_dampening: float = Movement.DEFAULT_Y_ROTATION_AIR_DAMPENING
 @export_subgroup("Misc")
 @export var velocity_to_target_y_rotation: bool = Movement.DEFAULT_VELOCITY_TO_TARGET_Y_ROTATION
+@export var y_reset: float = Movement.DEFAULT_Y_RESET
 
 @export_group("Jumping")
 @export var jump_height: float = Jumping.DEFAULT_JUMP_HEIGHT
@@ -46,6 +47,7 @@ var input_vec: Vector2 = Vector2.ZERO
 	y_rotation_air_dampening,
 
 	velocity_to_target_y_rotation,
+	y_reset,
 )
 
 @onready var jumping: Jumping = Jumping.new(

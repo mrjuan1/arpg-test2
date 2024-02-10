@@ -16,6 +16,7 @@ const DEFAULT_Y_ROTATION_LERP_SPEED: float = 10.0
 const DEFAULT_Y_ROTATION_AIR_DAMPENING: float = 0.5
 
 const DEFAULT_VELOCITY_TO_TARGET_Y_ROTATION: bool = false
+const DEFAULT_Y_RESET: float = -30.0
 #endregion constants
 
 #region privates
@@ -35,11 +36,14 @@ var _y_rotation_lerp_speed: float
 var _y_rotation_air_dampening: float
 
 var _velocity_to_target_y_rotation: bool
+var _y_reset: float
 #endregion privates
 
 #region publics
 var movement_speed: float
 var moving: bool = false
+
+var reset_position: Vector3
 #endregion publics
 
 #region constructor
@@ -58,6 +62,7 @@ func _init(
 	y_rotation_air_dampening: float = DEFAULT_Y_ROTATION_AIR_DAMPENING,
 
 	velocity_to_target_y_rotation: bool = DEFAULT_VELOCITY_TO_TARGET_Y_ROTATION,
+	y_reset: float = DEFAULT_Y_RESET,
 ) -> void:
 	_character = character
 	_gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * gravity_multiplier
@@ -76,6 +81,9 @@ func _init(
 	_y_rotation_air_dampening = y_rotation_air_dampening
 
 	_velocity_to_target_y_rotation = velocity_to_target_y_rotation
+	_y_reset = y_reset
+
+	reset_position = _character.position
 #endregion constructor
 
 #region functions
@@ -106,6 +114,10 @@ func physics_process(delta: float) -> void:
 	_character.velocity.z = lerpf(_character.velocity.z, _target_velocity.y, velocity_lerp_speed)
 
 	_character.move_and_slide()
+
+	if _character.position.y < _y_reset:
+		_character.position = reset_position
+		printerr("Character \"%s\" fell off the map, resetting their position..." % _character.name)
 
 func set_direction(direction: Vector2) -> void:
 	_target_y_rotation = atan2(direction.y, direction.x)
