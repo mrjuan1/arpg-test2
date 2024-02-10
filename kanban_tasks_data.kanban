@@ -104,9 +104,50 @@
 		{
 			"uuid": "ea5b2667-739a-4046-afd6-bbc06db56357",
 			"title": "Attacking",
-			"description": "",
+			"description": "Melee attacks consist of triggered combos, each getting weaker, and each requiring less stamina to perform. Each combo can be charged-up with an extra stamina cost too to make them stronger or trigger a stagger/knockback. Character cannot move while charging attacks. In air, charge attacks cannot be performed and each attack combo will use much more stamina to keep the character in the air.\n\n---\nexport initial strength\nexport initial strength charge rate\nexport initial strength max charge\nexport initial strength reduction\nexport strength reduction factor\n---\ndefine strength charge\n---\ncharge attack function: (delta)\nincrease strength charge\nif max charge is reached, adjust strength and release attack\n---\nrelease attack function:\nfire attack signal with strength\nreduce strength, charge rate and max charge by their respective reduction values\nlower reduction values by their respective reduction factors\nif combo is zero, start combo timer\nincrease combo\n---\ncombo timer timeout:\nreset combo",
 			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
-			"steps": []
+			"steps": [
+				{
+					"details": "Add exports for initial strength, charge rate and max charge",
+					"done": true
+				},
+				{
+					"details": "Add exports for reduction factors",
+					"done": true
+				},
+				{
+					"details": "Add exports for reduction decrememnts",
+					"done": true
+				},
+				{
+					"details": "Add export for max combos (0 is infinite)",
+					"done": true
+				},
+				{
+					"details": "Add export for attack timer",
+					"done": true
+				},
+				{
+					"details": "Define variable for strength charge and combo",
+					"done": true
+				},
+				{
+					"details": "Define signal for released attack",
+					"done": true
+				},
+				{
+					"details": "Add charge and release attack functions",
+					"done": true
+				},
+				{
+					"details": "Tweak default constants",
+					"done": false
+				},
+				{
+					"details": "Further integrate with character",
+					"done": false
+				}
+			]
 		},
 		{
 			"uuid": "45f528bc-fdae-4f15-913f-951621835da9",
