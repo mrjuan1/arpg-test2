@@ -1,0 +1,76 @@
+[gd_scene load_steps=12 format=3 uid="uid://dwhx1oceopqqn"]
+
+[ext_resource type="Material" uid="uid://cn5iowwsepxbh" path="res://TestMaterial.tres" id="1_1wiyq"]
+[ext_resource type="Script" path="res://TestArea.gd" id="1_ymii5"]
+[ext_resource type="Material" uid="uid://ceojehcun6eky" path="res://CharacterMaterial.tres" id="2_pha63"]
+[ext_resource type="Script" path="res://Character.gd" id="3_oyp42"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cu8dv"]
+sky_horizon_color = Color(0.64625, 0.6635, 0.6875, 1)
+ground_bottom_color = Color(0.2, 0.2, 0.2, 1)
+ground_horizon_color = Color(0.64625, 0.6635, 0.6875, 1)
+
+[sub_resource type="Sky" id="Sky_hx8gv"]
+sky_material = SubResource("ProceduralSkyMaterial_cu8dv")
+
+[sub_resource type="Environment" id="Environment_p4ljj"]
+background_mode = 2
+sky = SubResource("Sky_hx8gv")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_xcgwy"]
+vertices = PackedVector3Array(-49.5, 0.5, -49.5, -49.5, 0.5, 49.5, 49.5, 0.5, 49.5, 49.5, 0.5, -49.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ovgpm"]
+radius = 0.25
+height = 1.7
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hoap4"]
+material = ExtResource("2_pha63")
+radius = 0.25
+height = 1.7
+radial_segments = 16
+
+[sub_resource type="BoxMesh" id="BoxMesh_hxq52"]
+material = ExtResource("2_pha63")
+size = Vector3(0.1, 0.1, 0.5)
+
+[node name="TestArea" type="Node3D"]
+script = ExtResource("1_ymii5")
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_p4ljj")
+
+[node name="Light" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="NavigationRegion" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_xcgwy")
+
+[node name="Floor" type="CSGBox3D" parent="NavigationRegion"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(100, 1, 100)
+material = ExtResource("1_1wiyq")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 0, 4, 4)
+
+[node name="Character" type="CharacterBody3D" parent="."]
+script = ExtResource("3_oyp42")
+
+[node name="CharacterCollision" type="CollisionShape3D" parent="Character"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+shape = SubResource("CapsuleShape3D_ovgpm")
+
+[node name="CharacterMesh" type="MeshInstance3D" parent="Character"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+mesh = SubResource("CapsuleMesh_hoap4")
+
+[node name="CharacterPointerMesh" type="MeshInstance3D" parent="Character"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0.45)
+mesh = SubResource("BoxMesh_hxq52")
+skeleton = NodePath("../CharacterMesh")
