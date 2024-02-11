@@ -2,136 +2,149 @@ class_name Character
 extends CharacterBody3D
 
 #region exports
+@export_group("Stats")
+@export_subgroup("Stamina")
+@export var _stamina: float = Stamina.DEFAULT_STAMINA
+@export var _max_stamina: float = Stamina.DEFAULT_MAX_STAMINA
+@export var _stamina_recharge_rate: float = Stamina.DEFAULT_STAMINA_RECHARGE_RATE
+
 @export_group("Movement")
-@export var gravity_multiplier: float = Movement.DEFAULT_GRAVITY_MULTIPLIER
+@export var _gravity_multiplier: float = Movement.DEFAULT_GRAVITY_MULTIPLIER
 @export_subgroup("Movement speed")
-@export var initial_movement_speed: float = Movement.DEFAULT_INITIAL_MOVEMENT_SPEED
-@export var movement_speed_lerp_speed: float = Movement.DEFAULT_MOVEMENT_SPEED_LERP_SPEED
-@export var movement_speed_air_dampening: float = Movement.DEFAULT_MOVEMENT_SPEED_AIR_DAMPENING
-@export var max_air_movement_multiplier: float = Movement.DEFAULT_MAX_AIR_MOVEMENT_MULTIPLIER
+@export var _initial_movement_speed: float = Movement.DEFAULT_INITIAL_MOVEMENT_SPEED
+@export var _movement_speed_lerp_speed: float = Movement.DEFAULT_MOVEMENT_SPEED_LERP_SPEED
+@export var _movement_speed_air_dampening: float = Movement.DEFAULT_MOVEMENT_SPEED_AIR_DAMPENING
+@export var _max_air_movement_multiplier: float = Movement.DEFAULT_MAX_AIR_MOVEMENT_MULTIPLIER
 @export_subgroup("Velocity")
-@export var velocity_lerp_speed: float = Movement.DEFAULT_VELOCITY_LERP_SPEED
-@export var velocity_air_dampening: float = Movement.DEFAULT_VELOCITY_AIR_DAMPENING
+@export var _velocity_lerp_speed: float = Movement.DEFAULT_VELOCITY_LERP_SPEED
+@export var _velocity_air_dampening: float = Movement.DEFAULT_VELOCITY_AIR_DAMPENING
 @export_subgroup("Rotation")
-@export var y_rotation_lerp_speed: float = Movement.DEFAULT_Y_ROTATION_LERP_SPEED
-@export var y_rotation_air_dampening: float = Movement.DEFAULT_Y_ROTATION_AIR_DAMPENING
+@export var _y_rotation_lerp_speed: float = Movement.DEFAULT_Y_ROTATION_LERP_SPEED
+@export var _y_rotation_air_dampening: float = Movement.DEFAULT_Y_ROTATION_AIR_DAMPENING
 @export_subgroup("")
-@export var velocity_to_target_y_rotation: bool = Movement.DEFAULT_VELOCITY_TO_TARGET_Y_ROTATION
-@export var y_reset: float = Movement.DEFAULT_Y_RESET
+@export var _velocity_to_target_y_rotation: bool = Movement.DEFAULT_VELOCITY_TO_TARGET_Y_ROTATION
+@export var _y_reset: float = Movement.DEFAULT_Y_RESET
 
 @export_group("Jumping")
-@export var jump_height: float = Jumping.DEFAULT_JUMP_HEIGHT
+@export var _jump_height: float = Jumping.DEFAULT_JUMP_HEIGHT
 @export_subgroup("Double-jumping")
-@export var double_jump_min_velocity: float = Jumping.DEFAULT_DOUBLE_JUMP_MIN_VELOCITY
-@export var double_jump_scale: float = Jumping.DEFAULT_DOUBLE_JUMP_SCALE
+@export var _double_jump_min_velocity: float = Jumping.DEFAULT_DOUBLE_JUMP_MIN_VELOCITY
+@export var _double_jump_scale: float = Jumping.DEFAULT_DOUBLE_JUMP_SCALE
 
 @export_group("Dodging")
-@export var dodge_timer: Timer
+@export var _dodge_timer: Timer
 @export_subgroup("Dodging speed")
-@export var floor_dodge_speed: float = Dodging.DEFAULT_FLOOR_DODGE_SPEED
-@export var air_dodge_speed: float = Dodging.DEFAULT_AIR_DODGE_SPEED
+@export var _floor_dodge_speed: float = Dodging.DEFAULT_FLOOR_DODGE_SPEED
+@export var _air_dodge_speed: float = Dodging.DEFAULT_AIR_DODGE_SPEED
 @export_subgroup("")
-@export var dodging_min_directional_speed: float = Dodging.DEFAULT_MIN_DIRECTIONAL_SPEED
-@export var dodging_stationary_air_dampening: float = Dodging.DEFAULT_STATIONARY_AIR_DAMPENING
+@export var _dodging_min_directional_speed: float = Dodging.DEFAULT_MIN_DIRECTIONAL_SPEED
+@export var _dodging_stationary_air_dampening: float = Dodging.DEFAULT_STATIONARY_AIR_DAMPENING
 
 @export_group("Melee")
-@export var combo_timer: Timer
+@export var _combo_timer: Timer
 @export_subgroup("Strength")
-@export var initial_strength: float = Melee.DEFAULT_INITIAL_STRENGTH
-@export var initial_strength_reduction_factor: float = Melee.DEFAULT_INITIAL_STRENGTH_REDUCTION_FACTOR
-@export var strength_reduction_decrement: float = Melee.DEFAULT_STRENGTH_REDUCTION_DECREMENT
+@export var _initial_strength: float = Melee.DEFAULT_INITIAL_STRENGTH
+@export var _initial_strength_reduction_factor: float = Melee.DEFAULT_INITIAL_STRENGTH_REDUCTION_FACTOR
+@export var _strength_reduction_decrement: float = Melee.DEFAULT_STRENGTH_REDUCTION_DECREMENT
 @export_subgroup("Charge rate")
-@export var initial_charge_rate: float = Melee.DEFAULT_INITIAL_CHARGE_RATE
-@export var initial_charge_rate_reduction_factor: float = Melee.DEFAULT_INITIAL_CHARGE_RATE_REDUCTION_FACTOR
-@export var charge_rate_reduction_decrement: float = Melee.DEFAULT_CHARGE_RATE_REDUCTION_DECREMENT
+@export var _initial_charge_rate: float = Melee.DEFAULT_INITIAL_CHARGE_RATE
+@export var _initial_charge_rate_reduction_factor: float = Melee.DEFAULT_INITIAL_CHARGE_RATE_REDUCTION_FACTOR
+@export var _charge_rate_reduction_decrement: float = Melee.DEFAULT_CHARGE_RATE_REDUCTION_DECREMENT
 @export_subgroup("Max charge")
-@export var initial_max_charge: float = Melee.DEFAULT_INITIAL_MAX_CHARGE
-@export var initial_max_charge_reduction_factor: float = Melee.DEFAULT_INITIAL_MAX_CHARGE_REDUCTION_FACTOR
-@export var max_charge_reduction_decrement: float = Melee.DEFAULT_MAX_CHARGE_REDUCTION_DECREMENT
+@export var _initial_max_charge: float = Melee.DEFAULT_INITIAL_MAX_CHARGE
+@export var _initial_max_charge_reduction_factor: float = Melee.DEFAULT_INITIAL_MAX_CHARGE_REDUCTION_FACTOR
+@export var _max_charge_reduction_decrement: float = Melee.DEFAULT_MAX_CHARGE_REDUCTION_DECREMENT
 @export_subgroup("")
-@export var release_strength_cutoff: float = Melee.DEFAULT_RELEASE_STRENGTH_CUTOFF
-@export var max_combos: int = Melee.DEFAULT_MAX_COMBOS
+@export var _release_strength_cutoff: float = Melee.DEFAULT_RELEASE_STRENGTH_CUTOFF
+@export var _max_combos: int = Melee.DEFAULT_MAX_COMBOS
 
 @export_group("Camera")
-@export var camera: Camera3D
+@export var _camera: Camera3D
 @export_subgroup("Lerp speeds")
-@export var camera_xz_lerp_speed: float = PlayerCamera.DEFAULT_CAMERA_XZ_LERP_SPEED
-@export var camera_y_lerp_speed: float = PlayerCamera.DEFAULT_CAMERA_Y_LERP_SPEED
+@export var _camera_xz_lerp_speed: float = PlayerCamera.DEFAULT_CAMERA_XZ_LERP_SPEED
+@export var _camera_y_lerp_speed: float = PlayerCamera.DEFAULT_CAMERA_Y_LERP_SPEED
 @export_subgroup("Y follow distances")
-@export var camera_y_positive_follow_distance: float = PlayerCamera.DEFAULT_CAMERA_Y_POSITIVE_FOLLOW_DISTANCE
-@export var camera_y_negative_follow_distance: float = PlayerCamera.DEFAULT_CAMERA_Y_NEGATIVE_FOLLOW_DISTANCE
+@export var _camera_y_positive_follow_distance: float = PlayerCamera.DEFAULT_CAMERA_Y_POSITIVE_FOLLOW_DISTANCE
+@export var _camera_y_negative_follow_distance: float = PlayerCamera.DEFAULT_CAMERA_Y_NEGATIVE_FOLLOW_DISTANCE
 #endregion exports
 
 var input_vec: Vector2 = Vector2.ZERO
 var charging_melee: bool = false
 
 #region onready
+@onready var stamina: Stamina = Stamina.new(
+	_stamina,
+	_max_stamina,
+
+	_stamina_recharge_rate,
+)
+
 @onready var movement: Movement = Movement.new(
 	self,
-	gravity_multiplier,
+	_gravity_multiplier,
 
-	initial_movement_speed,
-	movement_speed_lerp_speed,
-	movement_speed_air_dampening,
-	max_air_movement_multiplier,
+	_initial_movement_speed,
+	_movement_speed_lerp_speed,
+	_movement_speed_air_dampening,
+	_max_air_movement_multiplier,
 
-	velocity_lerp_speed,
-	velocity_air_dampening,
+	_velocity_lerp_speed,
+	_velocity_air_dampening,
 
-	y_rotation_lerp_speed,
-	y_rotation_air_dampening,
+	_y_rotation_lerp_speed,
+	_y_rotation_air_dampening,
 
-	velocity_to_target_y_rotation,
-	y_reset,
+	_velocity_to_target_y_rotation,
+	_y_reset,
 )
 
 @onready var jumping: Jumping = Jumping.new(
 	self,
 
-	jump_height,
-	double_jump_min_velocity,
-	double_jump_scale,
+	_jump_height,
+	_double_jump_min_velocity,
+	_double_jump_scale,
 )
 
 @onready var dodging: Dodging = Dodging.new(
 	movement,
-	dodge_timer,
+	_dodge_timer,
 
-	floor_dodge_speed,
-	air_dodge_speed,
+	_floor_dodge_speed,
+	_air_dodge_speed,
 
-	dodging_min_directional_speed,
-	dodging_stationary_air_dampening,
+	_dodging_min_directional_speed,
+	_dodging_stationary_air_dampening,
 )
 
 @onready var melee: Melee = Melee.new(
-	combo_timer,
+	_combo_timer,
 
-	initial_strength,
-	initial_strength_reduction_factor,
-	strength_reduction_decrement,
+	_initial_strength,
+	_initial_strength_reduction_factor,
+	_strength_reduction_decrement,
 
-	initial_charge_rate,
-	initial_charge_rate_reduction_factor,
-	charge_rate_reduction_decrement,
+	_initial_charge_rate,
+	_initial_charge_rate_reduction_factor,
+	_charge_rate_reduction_decrement,
 
-	initial_max_charge,
-	initial_max_charge_reduction_factor,
-	max_charge_reduction_decrement,
+	_initial_max_charge,
+	_initial_max_charge_reduction_factor,
+	_max_charge_reduction_decrement,
 
-	release_strength_cutoff,
-	max_combos,
+	_release_strength_cutoff,
+	_max_combos,
 )
 
 @onready var player_camera: PlayerCamera = PlayerCamera.new(
 	self,
-	camera,
+	_camera,
 
-	camera_xz_lerp_speed,
-	camera_y_lerp_speed,
+	_camera_xz_lerp_speed,
+	_camera_y_lerp_speed,
 
-	camera_y_positive_follow_distance,
-	camera_y_negative_follow_distance,
+	_camera_y_positive_follow_distance,
+	_camera_y_negative_follow_distance,
 )
 
 func _ready() -> void:
@@ -187,5 +200,3 @@ func _on_melee_attack_released(strength: float, combo: int) -> void:
 	var lunge_vec: Vector2 = Vector2.from_angle(rotation.y + Movement.HALF_PI) * lunge_speed
 	velocity.x = -lunge_vec.x
 	velocity.z = lunge_vec.y
-
-	prints("Melee attack released with strength", strength, "at combo", combo)

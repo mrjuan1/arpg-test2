@@ -90,7 +90,6 @@ func _init(
 	reset_position = _character.position
 #endregion constructor
 
-#region functions
 var assigned_character: Character:
 	get:
 		return _character
@@ -99,6 +98,7 @@ var direction: Vector2:
 	set(value):
 		_target_y_rotation = atan2(value.y, value.x)
 
+#region functions
 func physics_process(delta: float) -> void:
 	var is_on_floor: bool = _character.is_on_floor()
 

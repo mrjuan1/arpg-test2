@@ -59,12 +59,12 @@ material = ExtResource("1_1wiyq")
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 0, 4, 4)
 
-[node name="Character" type="CharacterBody3D" parent="." node_paths=PackedStringArray("dodge_timer", "combo_timer", "camera")]
+[node name="Character" type="CharacterBody3D" parent="." node_paths=PackedStringArray("_dodge_timer", "_combo_timer", "_camera")]
 script = ExtResource("3_oyp42")
-velocity_to_target_y_rotation = true
-dodge_timer = NodePath("DodgeTimer")
-combo_timer = NodePath("ComboTimer")
-camera = NodePath("../Camera")
+_velocity_to_target_y_rotation = true
+_dodge_timer = NodePath("DodgeTimer")
+_combo_timer = NodePath("ComboTimer")
+_camera = NodePath("../Camera")
 
 [node name="CharacterCollision" type="CollisionShape3D" parent="Character"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
