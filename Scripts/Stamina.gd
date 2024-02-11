@@ -27,6 +27,14 @@ func _init(
 	_stamina_recharge_rate = stamina_recharge_rate
 #endregion constructor
 
+var current: float:
+	get:
+		return _stamina
+
+var max: float:
+	get:
+		return _max_stamina
+
 var recharge_rate: float:
 	get:
 		return _stamina_recharge_rate

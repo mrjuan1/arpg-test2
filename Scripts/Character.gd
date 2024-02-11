@@ -7,6 +7,8 @@ extends CharacterBody3D
 @export var _stamina: float = Stamina.DEFAULT_STAMINA
 @export var _max_stamina: float = Stamina.DEFAULT_MAX_STAMINA
 @export var _stamina_recharge_rate: float = Stamina.DEFAULT_STAMINA_RECHARGE_RATE
+@export_subgroup("Labels")
+@export var _stamina_label: Label
 
 @export_group("Movement")
 @export var _gravity_multiplier: float = Movement.DEFAULT_GRAVITY_MULTIPLIER
@@ -39,6 +41,9 @@ extends CharacterBody3D
 @export_subgroup("")
 @export var _dodging_min_directional_speed: float = Dodging.DEFAULT_MIN_DIRECTIONAL_SPEED
 @export var _dodging_stationary_air_dampening: float = Dodging.DEFAULT_STATIONARY_AIR_DAMPENING
+@export_subgroup("Stamina")
+@export var _floor_dodge_stamina: float = Dodging.DEFAULT_FLOOR_DODGE_STAMINA
+@export var _air_dodge_stamina: float = Dodging.DEFAULT_AIR_DODGE_STAMINA
 
 @export_group("Melee")
 @export var _combo_timer: Timer
@@ -115,6 +120,9 @@ var charging_melee: bool = false
 
 	_dodging_min_directional_speed,
 	_dodging_stationary_air_dampening,
+
+	_floor_dodge_stamina,
+	_air_dodge_stamina,
 )
 
 @onready var melee: Melee = Melee.new(
@@ -179,6 +187,10 @@ func _process(delta: float) -> void:
 			else:
 				melee.release_attack()
 
+		stamina.recharge_stamina(delta)
+
+	_update_stamina_label()
+
 func _physics_process(delta: float) -> void:
 	if charging_melee:
 		var reverse_vec: Vector2 = Vector2.from_angle(rotation.y + (PI / 2.0)) * 0.5
@@ -200,3 +212,6 @@ func _on_melee_attack_released(strength: float, combo: int) -> void:
 	var lunge_vec: Vector2 = Vector2.from_angle(rotation.y + Movement.HALF_PI) * lunge_speed
 	velocity.x = -lunge_vec.x
 	velocity.z = lunge_vec.y
+
+func _update_stamina_label() -> void:
+	_stamina_label.text = ("Stamina: %.1f/%.1f" % [stamina.current, stamina.max])
