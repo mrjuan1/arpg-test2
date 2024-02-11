@@ -90,10 +90,6 @@ func _init(
 	reset_position = _character.position
 #endregion constructor
 
-var assigned_character: Character:
-	get:
-		return _character
-
 var direction: Vector2:
 	set(value):
 		_target_y_rotation = atan2(value.y, value.x)

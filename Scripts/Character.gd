@@ -107,7 +107,7 @@ var charging_melee: bool = false
 )
 
 @onready var dodging: Dodging = Dodging.new(
-	movement,
+	self,
 	_dodge_timer,
 
 	_floor_dodge_speed,
