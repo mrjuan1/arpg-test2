@@ -12,13 +12,13 @@
 			"title": "Todo",
 			"tasks": [
 				"45f528bc-fdae-4f15-913f-951621835da9",
-				"ed64d58e-61ba-46ff-9e5b-bcba35ed5a4c",
 				"2ddeb472-3c34-4334-8567-22eada0bb757",
 				"6984e823-051f-4622-b4e5-550e47a71f25",
 				"1d4a84e3-80f0-4bfa-9f4e-dc8ded043bf8",
 				"506720e5-64c8-495a-8def-f8297f3ba311",
 				"3280b4ad-3dbf-4e9c-b1d8-b574f7e5b1a2",
 				"1a0a878c-f167-4b56-9199-e9024cfb4ef6",
+				"967222d2-d78b-441c-a5ec-a928427fe9b5",
 				"33b186ee-1be9-494a-ac26-9a5938bad7bd"
 			]
 		},
@@ -26,7 +26,8 @@
 			"uuid": "7eef13de-40bd-46c5-9947-055715090f4d",
 			"title": "Doing",
 			"tasks": [
-				"cdddbf03-c8c2-4699-ae23-1db936d14273"
+				"cdddbf03-c8c2-4699-ae23-1db936d14273",
+				"ed64d58e-61ba-46ff-9e5b-bcba35ed5a4c"
 			]
 		},
 		{
@@ -231,6 +232,13 @@
 		{
 			"uuid": "33b186ee-1be9-494a-ac26-9a5938bad7bd",
 			"title": "Tweak melee parameters",
+			"description": "",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": []
+		},
+		{
+			"uuid": "967222d2-d78b-441c-a5ec-a928427fe9b5",
+			"title": "Re-look at movement class and remove unneeded public variables",
 			"description": "",
 			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
 			"steps": []

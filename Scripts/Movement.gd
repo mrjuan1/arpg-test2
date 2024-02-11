@@ -91,11 +91,13 @@ func _init(
 #endregion constructor
 
 #region functions
-func get_character() -> Character:
-	return _character
+var assigned_character: Character:
+	get:
+		return _character
 
-func set_direction(direction: Vector2) -> void:
-	_target_y_rotation = atan2(direction.y, direction.x)
+var direction: Vector2:
+	set(value):
+		_target_y_rotation = atan2(value.y, value.x)
 
 func physics_process(delta: float) -> void:
 	var is_on_floor: bool = _character.is_on_floor()

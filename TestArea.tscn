@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://dwhx1oceopqqn"]
 
 [ext_resource type="Material" uid="uid://cn5iowwsepxbh" path="res://TestMaterial.tres" id="1_1wiyq"]
-[ext_resource type="Script" path="res://TestArea.gd" id="1_ymii5"]
+[ext_resource type="Script" path="res://Scripts/TestArea.gd" id="1_ymii5"]
 [ext_resource type="Material" uid="uid://ceojehcun6eky" path="res://CharacterMaterial.tres" id="2_pha63"]
-[ext_resource type="Script" path="res://Character.gd" id="3_oyp42"]
+[ext_resource type="Script" path="res://Scripts/Character.gd" id="3_oyp42"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cu8dv"]
 sky_horizon_color = Color(0.64625, 0.6635, 0.6875, 1)

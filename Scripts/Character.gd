@@ -151,7 +151,7 @@ func _process(delta: float) -> void:
 	else:
 		input_vec = Input.get_vector("left", "right", "up", "down")
 		if input_vec:
-			movement.set_direction(input_vec)
+			movement.direction = input_vec
 			movement.moving = true
 		else:
 			movement.moving = false

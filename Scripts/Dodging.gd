@@ -52,7 +52,7 @@ func _on_dodge_timer_timeout() -> void:
 
 func dodge() -> void:
 	if not _is_dodging:
-		var character = _movement.get_character()
+		var character: Character = _movement.assigned_character
 		var xz_velocity: Vector2 = Vector2(character.velocity.x, character.velocity.z)
 
 		var dodge_velocity: Vector3
@@ -65,7 +65,7 @@ func dodge() -> void:
 			dodge_velocity = Vector3(direction.x, 0.0, direction.y)
 			if not character.is_on_floor():
 				dodge_velocity *= _stationary_air_dampening
-			_movement.set_direction(-direction)
+			_movement.direction = -direction
 
 		if character.is_on_floor():
 			dodge_velocity *= _floor_dodge_speed
