@@ -44,7 +44,7 @@ var _max_charge_reduction_decrement: float
 var _release_strength_cutoff: float
 var _max_combos: int
 
-var _may_charge: bool = true
+var _may_attack: bool = true
 var _combo: int = 0
 var _charge: float = 0.0
 
@@ -97,14 +97,8 @@ func _init(
 #endregion constructor
 
 #region functions
-func _on_combo_timer_timeout() -> void:
-	if _combo > 0:
-		_combo = 0
-	else:
-		_may_charge = true
-
-func charge_attack(delta: float) -> ChargeState:
-	if _may_charge:
+func _prepare_attack() -> bool:
+	if _may_attack:
 		if not _combo_timer.is_stopped():
 			_combo_timer.stop()
 
@@ -118,6 +112,18 @@ func charge_attack(delta: float) -> ChargeState:
 			_max_charge = _initial_max_charge
 			_max_charge_reduction_factor = _initial_max_charge_reduction_factor
 
+		return true
+
+	return false
+
+func _on_combo_timer_timeout() -> void:
+	if _combo > 0:
+		_combo = 0
+	else:
+		_may_attack = true
+
+func charge_attack(delta: float) -> ChargeState:
+	if _prepare_attack():
 		_charge += _charge_rate * delta
 		if _charge > _max_charge:
 			_charge = _max_charge
@@ -129,26 +135,27 @@ func charge_attack(delta: float) -> ChargeState:
 	return ChargeState.COOLING_OFF
 
 func release_attack() -> void:
-	var release_strength: float = _strength + _charge
-	if release_strength < _release_strength_cutoff:
-		release_strength = _release_strength_cutoff
-	attack_released.emit(release_strength, _combo)
+	if _prepare_attack():
+		var release_strength: float = _strength + _charge
+		if release_strength < _release_strength_cutoff:
+			release_strength = _release_strength_cutoff
+		attack_released.emit(release_strength, _combo)
 
-	_charge = 0.0
+		_charge = 0.0
 
-	_combo += 1
-	if (_max_combos > 0 and _combo == _max_combos) or release_strength == _release_strength_cutoff:
-		_combo = 0
-		_may_charge = false
-	else:
-		_strength *= _strength_reduction_factor
-		_strength_reduction_factor -= _strength_reduction_decrement
+		_combo += 1
+		if (_max_combos > 0 and _combo == _max_combos) or release_strength == _release_strength_cutoff:
+			_combo = 0
+			_may_attack = false
+		else:
+			_strength *= _strength_reduction_factor
+			_strength_reduction_factor -= _strength_reduction_decrement
 
-		_charge_rate *= _charge_rate_reduction_factor
-		_charge_rate_reduction_factor -= _charge_rate_reduction_decrement
+			_charge_rate *= _charge_rate_reduction_factor
+			_charge_rate_reduction_factor -= _charge_rate_reduction_decrement
 
-		_max_charge *= _max_charge_reduction_factor
-		_max_charge_reduction_factor -= _max_charge_reduction_decrement
+			_max_charge *= _max_charge_reduction_factor
+			_max_charge_reduction_factor -= _max_charge_reduction_decrement
 
-	_combo_timer.start()
+		_combo_timer.start()
 #endregion functions

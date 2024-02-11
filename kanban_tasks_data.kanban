@@ -18,14 +18,14 @@
 				"1d4a84e3-80f0-4bfa-9f4e-dc8ded043bf8",
 				"506720e5-64c8-495a-8def-f8297f3ba311",
 				"3280b4ad-3dbf-4e9c-b1d8-b574f7e5b1a2",
-				"1a0a878c-f167-4b56-9199-e9024cfb4ef6"
+				"1a0a878c-f167-4b56-9199-e9024cfb4ef6",
+				"33b186ee-1be9-494a-ac26-9a5938bad7bd"
 			]
 		},
 		{
 			"uuid": "7eef13de-40bd-46c5-9947-055715090f4d",
 			"title": "Doing",
 			"tasks": [
-				"ea5b2667-739a-4046-afd6-bbc06db56357",
 				"cdddbf03-c8c2-4699-ae23-1db936d14273"
 			]
 		},
@@ -37,7 +37,8 @@
 				"0b190117-e9a2-4cc1-859d-5c6fc5f9d289",
 				"d37b7333-ebab-4dcb-a4d1-39294b1a4b93",
 				"87ff376d-0bbb-454d-b168-4559ada615f3",
-				"243e4625-afef-4e13-b4d3-1db28f077bed"
+				"243e4625-afef-4e13-b4d3-1db28f077bed",
+				"ea5b2667-739a-4046-afd6-bbc06db56357"
 			]
 		}
 	],
@@ -140,12 +141,8 @@
 					"done": true
 				},
 				{
-					"details": "Tweak default constants",
-					"done": false
-				},
-				{
 					"details": "Further integrate with character",
-					"done": false
+					"done": true
 				}
 			]
 		},
@@ -227,6 +224,13 @@
 		{
 			"uuid": "243e4625-afef-4e13-b4d3-1db28f077bed",
 			"title": "Fix moving too quickling while in air",
+			"description": "",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": []
+		},
+		{
+			"uuid": "33b186ee-1be9-494a-ac26-9a5938bad7bd",
+			"title": "Tweak melee parameters",
 			"description": "",
 			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
 			"steps": []

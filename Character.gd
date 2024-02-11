@@ -161,12 +161,31 @@ func _process(delta: float) -> void:
 		elif Input.is_action_just_pressed("dodge"):
 			dodging.dodge()
 		elif Input.is_action_just_pressed("attack"):
-			charging_melee = true
+			if is_on_floor():
+				charging_melee = true
+			else:
+				melee.release_attack()
 
 func _physics_process(delta: float) -> void:
+	if charging_melee:
+		var reverse_vec: Vector2 = Vector2.from_angle(rotation.y + (PI / 2.0)) * 0.5
+		velocity.x = reverse_vec.x
+		velocity.z = -reverse_vec.y
+
 	movement.physics_process(delta)
 	player_camera.physics_process(delta)
 #endregion processing
 
 func _on_melee_attack_released(strength: float, combo: int) -> void:
+	var lunge_speed: float
+	if is_on_floor():
+		lunge_speed = 10.0
+	else:
+		lunge_speed = 3.0
+		velocity.y = 2.0
+
+	var lunge_vec: Vector2 = Vector2.from_angle(rotation.y + Movement.HALF_PI) * lunge_speed
+	velocity.x = -lunge_vec.x
+	velocity.z = lunge_vec.y
+
 	prints("Melee attack released with strength", strength, "at combo", combo)
