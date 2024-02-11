@@ -80,7 +80,7 @@ func _init(
 	_velocity_lerp_speed = velocity_lerp_speed
 	_velocity_air_dampening = velocity_air_dampening
 
-	_target_y_rotation = _character.rotation.y
+	_target_y_rotation = _character.rotation.y + HALF_PI
 	_y_rotation_lerp_speed = y_rotation_lerp_speed
 	_y_rotation_air_dampening = y_rotation_air_dampening
 
