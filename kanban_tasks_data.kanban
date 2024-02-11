@@ -11,11 +11,7 @@
 			"uuid": "2a75b23c-581f-406d-9295-910813872bed",
 			"title": "Todo",
 			"tasks": [
-				"45f528bc-fdae-4f15-913f-951621835da9",
-				"2ddeb472-3c34-4334-8567-22eada0bb757",
-				"6984e823-051f-4622-b4e5-550e47a71f25",
 				"1d4a84e3-80f0-4bfa-9f4e-dc8ded043bf8",
-				"506720e5-64c8-495a-8def-f8297f3ba311",
 				"3280b4ad-3dbf-4e9c-b1d8-b574f7e5b1a2",
 				"1a0a878c-f167-4b56-9199-e9024cfb4ef6",
 				"967222d2-d78b-441c-a5ec-a928427fe9b5",
@@ -26,20 +22,22 @@
 			"uuid": "7eef13de-40bd-46c5-9947-055715090f4d",
 			"title": "Doing",
 			"tasks": [
-				"cdddbf03-c8c2-4699-ae23-1db936d14273",
-				"ed64d58e-61ba-46ff-9e5b-bcba35ed5a4c"
+				"3a242825-86c5-4dc7-b99a-46961716e040",
+				"6494383d-b879-49ef-9255-22acde51c312"
 			]
 		},
 		{
 			"uuid": "cfd612a1-151a-4ac6-a306-f10c05e2b58d",
 			"title": "Done",
 			"tasks": [
-				"d026ddca-9083-462b-9725-df63376858a5",
-				"0b190117-e9a2-4cc1-859d-5c6fc5f9d289",
-				"d37b7333-ebab-4dcb-a4d1-39294b1a4b93",
-				"87ff376d-0bbb-454d-b168-4559ada615f3",
+				"ed64d58e-61ba-46ff-9e5b-bcba35ed5a4c",
 				"243e4625-afef-4e13-b4d3-1db28f077bed",
-				"ea5b2667-739a-4046-afd6-bbc06db56357"
+				"ea5b2667-739a-4046-afd6-bbc06db56357",
+				"87ff376d-0bbb-454d-b168-4559ada615f3",
+				"d37b7333-ebab-4dcb-a4d1-39294b1a4b93",
+				"0b190117-e9a2-4cc1-859d-5c6fc5f9d289",
+				"d026ddca-9083-462b-9725-df63376858a5",
+				"cdddbf03-c8c2-4699-ae23-1db936d14273"
 			]
 		}
 	],
@@ -56,11 +54,11 @@
 				},
 				{
 					"details": "Add descriptions to tasks",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Implement tasks",
-					"done": false
+					"done": true
 				}
 			]
 		},
@@ -148,13 +146,6 @@
 			]
 		},
 		{
-			"uuid": "45f528bc-fdae-4f15-913f-951621835da9",
-			"title": "HP",
-			"description": "",
-			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
-			"steps": []
-		},
-		{
 			"uuid": "ed64d58e-61ba-46ff-9e5b-bcba35ed5a4c",
 			"title": "Stamina",
 			"description": "",
@@ -162,36 +153,15 @@
 			"steps": []
 		},
 		{
-			"uuid": "2ddeb472-3c34-4334-8567-22eada0bb757",
-			"title": "Strength",
-			"description": "",
-			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
-			"steps": []
-		},
-		{
-			"uuid": "6984e823-051f-4622-b4e5-550e47a71f25",
-			"title": "Defence",
-			"description": "",
-			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
-			"steps": []
-		},
-		{
 			"uuid": "1d4a84e3-80f0-4bfa-9f4e-dc8ded043bf8",
-			"title": "Experience",
-			"description": "",
-			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
-			"steps": []
-		},
-		{
-			"uuid": "506720e5-64c8-495a-8def-f8297f3ba311",
-			"title": "Levelling",
+			"title": "Experience and levelling",
 			"description": "",
 			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
 			"steps": []
 		},
 		{
 			"uuid": "3280b4ad-3dbf-4e9c-b1d8-b574f7e5b1a2",
-			"title": "Magic",
+			"title": "Magic stats",
 			"description": "",
 			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
 			"steps": []
@@ -224,7 +194,7 @@
 		},
 		{
 			"uuid": "243e4625-afef-4e13-b4d3-1db28f077bed",
-			"title": "Fix moving too quickling while in air",
+			"title": "Fix moving too quickly while in air",
 			"description": "",
 			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
 			"steps": []
@@ -242,6 +212,25 @@
 			"description": "",
 			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
 			"steps": []
+		},
+		{
+			"uuid": "6494383d-b879-49ef-9255-22acde51c312",
+			"title": "Shared stats (STR, DEF)",
+			"description": "",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": []
+		},
+		{
+			"uuid": "3a242825-86c5-4dc7-b99a-46961716e040",
+			"title": "HP",
+			"description": "Mostly a copy of stamina, but with a killed signal and no auto-recovery",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": [
+				{
+					"details": "Integrate with character",
+					"done": false
+				}
+			]
 		}
 	],
 	"layout": {

@@ -3,11 +3,15 @@ extends CharacterBody3D
 
 #region exports
 @export_group("Stats")
+@export_subgroup("HP")
+@export var _hp: float = Health.DEFAULT_HP
+@export var _max_hp: float = Health.DEFAULT_MAX_HP
 @export_subgroup("Stamina")
 @export var _stamina: float = Stamina.DEFAULT_STAMINA
 @export var _max_stamina: float = Stamina.DEFAULT_MAX_STAMINA
 @export var _stamina_recharge_rate: float = Stamina.DEFAULT_STAMINA_RECHARGE_RATE
 @export_subgroup("Labels")
+@export var _hp_label: Label
 @export var _stamina_label: Label
 
 @export_group("Movement")
@@ -86,6 +90,11 @@ var input_vec: Vector2 = Vector2.ZERO
 var charging_melee: bool = false
 
 #region onready
+@onready var health: Health = Health.new(
+	_hp,
+	_max_hp,
+)
+
 @onready var stamina: Stamina = Stamina.new(
 	_stamina,
 	_max_stamina,
@@ -176,11 +185,19 @@ var charging_melee: bool = false
 )
 
 func _ready() -> void:
+	health.damaged.connect(_on_health_damaged)
+	health.killed.connect(_on_health_killed)
 	melee.attack_released.connect(_on_melee_attack_released)
+
+	_update_hp_label()
+	_update_stamina_label()
 #endregion onready
 
 #region processing
 func _process(delta: float) -> void:
+	var last_hp = health.current
+	var last_stamina = stamina.current
+
 	if charging_melee:
 		var charge_state: Melee.ChargeState = melee.charge_attack(delta)
 
@@ -209,7 +226,11 @@ func _process(delta: float) -> void:
 
 		stamina.recharge_stamina(delta)
 
-	_update_stamina_label()
+	if health.current != last_hp:
+		_update_hp_label()
+
+	if stamina.current != last_stamina:
+		_update_stamina_label()
 
 func _physics_process(delta: float) -> void:
 	if charging_melee:
@@ -220,6 +241,12 @@ func _physics_process(delta: float) -> void:
 	movement.physics_process(delta)
 	player_camera.physics_process(delta)
 #endregion processing
+
+func _on_health_damaged(amount: float) -> void:
+	prints("Damaged:", amount)
+
+func _on_health_killed() -> void:
+	print("ded")
 
 func _on_melee_attack_released(_strength: float, _combo: int) -> void:
 	var lunge_speed: float
@@ -232,6 +259,9 @@ func _on_melee_attack_released(_strength: float, _combo: int) -> void:
 	var lunge_vec: Vector2 = Vector2.from_angle(rotation.y + Movement.HALF_PI) * lunge_speed
 	velocity.x = -lunge_vec.x
 	velocity.z = lunge_vec.y
+
+func _update_hp_label() -> void:
+	_hp_label.text = ("HP: %.0f/%.0f" % [health.current, health.maximum])
 
 func _update_stamina_label() -> void:
 	_stamina_label.text = ("Stamina: %.1f/%.1f" % [stamina.current, stamina.maximum])

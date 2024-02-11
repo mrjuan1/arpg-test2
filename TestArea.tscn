@@ -60,8 +60,9 @@ material = ExtResource("1_1wiyq")
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 0, 4, 4)
 
-[node name="Character" type="CharacterBody3D" parent="." node_paths=PackedStringArray("_stamina_label", "_dodge_timer", "_combo_timer", "_camera")]
+[node name="Character" type="CharacterBody3D" parent="." node_paths=PackedStringArray("_hp_label", "_stamina_label", "_dodge_timer", "_combo_timer", "_camera")]
 script = ExtResource("3_oyp42")
+_hp_label = NodePath("../UI/StatsContainer/HPLabel")
 _stamina_label = NodePath("../UI/StatsContainer/StaminaLabel")
 _velocity_to_target_y_rotation = true
 _dodge_timer = NodePath("DodgeTimer")
@@ -104,6 +105,11 @@ grow_vertical = 2
 layout_mode = 1
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="HPLabel" type="Label" parent="UI/StatsContainer"]
+layout_mode = 2
+text = "HP"
+label_settings = ExtResource("5_emu38")
 
 [node name="StaminaLabel" type="Label" parent="UI/StatsContainer"]
 layout_mode = 2
