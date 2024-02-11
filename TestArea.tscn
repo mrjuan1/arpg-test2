@@ -62,7 +62,6 @@ transform = Transform3D(1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 
 
 [node name="Character" type="CharacterBody3D" parent="." node_paths=PackedStringArray("_stamina_label", "_dodge_timer", "_combo_timer", "_camera")]
 script = ExtResource("3_oyp42")
-_stamina_recharge_rate = 0.0
 _stamina_label = NodePath("../UI/StatsContainer/StaminaLabel")
 _velocity_to_target_y_rotation = true
 _dodge_timer = NodePath("DodgeTimer")

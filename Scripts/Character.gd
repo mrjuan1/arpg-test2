@@ -69,6 +69,8 @@ extends CharacterBody3D
 @export var _initial_attack_stamina: float = Melee.DEFAULT_INITIAL_ATTACK_STAMINA
 @export var _initial_attack_stamina_incrememnt_factor: float = Melee.DEFAULT_INITIAL_ATTACK_STAMINA_INCREMEMNT_FACTOR
 @export var _attack_stamina_incrememnt: float = Melee.DEFAULT_ATTACK_STAMINA_INCREMEMNT
+@export var _charge_stamina_threshold: float = Melee.DEFAULT_CHARGE_STAMINA_THRESHOLD
+@export var _air_attack_stamina_factor: float = Melee.DEFAULT_AIR_ATTACK_STAMINA_FACTOR
 
 @export_group("Camera")
 @export var _camera: Camera3D
@@ -158,6 +160,8 @@ var charging_melee: bool = false
 	_initial_attack_stamina,
 	_initial_attack_stamina_incrememnt_factor,
 	_attack_stamina_incrememnt,
+	_charge_stamina_threshold,
+	_air_attack_stamina_factor,
 )
 
 @onready var player_camera: PlayerCamera = PlayerCamera.new(

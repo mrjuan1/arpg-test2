@@ -27,6 +27,8 @@ const DEFAULT_MAX_COMBOS: int = 3
 const DEFAULT_INITIAL_ATTACK_STAMINA: float = 0.5
 const DEFAULT_INITIAL_ATTACK_STAMINA_INCREMEMNT_FACTOR: float = 1.25
 const DEFAULT_ATTACK_STAMINA_INCREMEMNT: float = 0.1
+const DEFAULT_CHARGE_STAMINA_THRESHOLD: float = 0.05
+const DEFAULT_AIR_ATTACK_STAMINA_FACTOR: float = 2.0
 #endregion constants
 
 #region privates
@@ -51,6 +53,8 @@ var _max_combos: int
 var _initial_attack_stamina: float
 var _initial_attack_stamina_incrememnt_factor: float
 var _attack_stamina_incrememnt: float
+var _charge_stamina_threshold: float
+var _air_attack_stamina_factor: float
 
 var _may_attack: bool = true
 var _combo: int = 0
@@ -92,6 +96,8 @@ func _init(
 	initial_attack_stamina: float = DEFAULT_INITIAL_ATTACK_STAMINA,
 	initial_attack_stamina_incrememnt_factor: float = DEFAULT_INITIAL_ATTACK_STAMINA_INCREMEMNT_FACTOR,
 	attack_stamina_incrememnt: float = DEFAULT_ATTACK_STAMINA_INCREMEMNT,
+	charge_stamina_threshold: float = DEFAULT_CHARGE_STAMINA_THRESHOLD,
+	air_attack_stamina_factor: float = DEFAULT_AIR_ATTACK_STAMINA_FACTOR,
 ) -> void:
 	_character = character
 
@@ -116,6 +122,8 @@ func _init(
 	_initial_attack_stamina = initial_attack_stamina
 	_initial_attack_stamina_incrememnt_factor = initial_attack_stamina_incrememnt_factor
 	_attack_stamina_incrememnt = attack_stamina_incrememnt
+	_charge_stamina_threshold = charge_stamina_threshold
+	_air_attack_stamina_factor = air_attack_stamina_factor
 #endregion constructor
 
 #region functions
@@ -168,12 +176,23 @@ func release_attack() -> void:
 		var release_strength: float = _strength + _charge
 		if release_strength < _release_strength_cutoff:
 			release_strength = _release_strength_cutoff
-		attack_released.emit(release_strength, _combo)
+
+		var can_attack: bool = true
+		if absf(release_strength - _strength) < _charge_stamina_threshold:
+			var required_stamina: float = _attack_stamina
+			if not _character.is_on_floor():
+				required_stamina *= _air_attack_stamina_factor
+
+			if not _character.stamina.use_stamina(required_stamina):
+				can_attack = false
+
+		if can_attack:
+			attack_released.emit(release_strength, _combo)
 
 		_charge = 0.0
 
 		_combo += 1
-		if (_max_combos > 0 and _combo == _max_combos) or release_strength == _release_strength_cutoff:
+		if not can_attack or (_max_combos > 0 and _combo == _max_combos) or release_strength == _release_strength_cutoff:
 			_combo = 0
 			_may_attack = false
 		else:
