@@ -22,11 +22,15 @@ const DEFAULT_INITIAL_MAX_CHARGE_REDUCTION_FACTOR: float = 0.9
 const DEFAULT_MAX_CHARGE_REDUCTION_DECREMENT: float = 0.1
 
 const DEFAULT_RELEASE_STRENGTH_CUTOFF: float = 0.1
-
 const DEFAULT_MAX_COMBOS: int = 3
+
+const DEFAULT_INITIAL_ATTACK_STAMINA: float = 0.5
+const DEFAULT_INITIAL_ATTACK_STAMINA_INCREMEMNT_FACTOR: float = 1.25
+const DEFAULT_ATTACK_STAMINA_INCREMEMNT: float = 0.1
 #endregion constants
 
 #region privates
+var _character: Character
 var _combo_timer: Timer
 
 var _initial_strength: float
@@ -44,6 +48,10 @@ var _max_charge_reduction_decrement: float
 var _release_strength_cutoff: float
 var _max_combos: int
 
+var _initial_attack_stamina: float
+var _initial_attack_stamina_incrememnt_factor: float
+var _attack_stamina_incrememnt: float
+
 var _may_attack: bool = true
 var _combo: int = 0
 var _charge: float = 0.0
@@ -56,10 +64,14 @@ var _charge_rate_reduction_factor: float
 
 var _max_charge: float
 var _max_charge_reduction_factor: float
+
+var _attack_stamina: float
+var _attack_stamina_reduction_factor: float
 #endregion privates
 
 #region constructor
 func _init(
+	character: Character,
 	combo_timer: Timer,
 
 	initial_strength: float = DEFAULT_INITIAL_STRENGTH,
@@ -76,7 +88,13 @@ func _init(
 
 	release_strength_cutoff: float = DEFAULT_RELEASE_STRENGTH_CUTOFF,
 	max_combos: int = DEFAULT_MAX_COMBOS,
+
+	initial_attack_stamina: float = DEFAULT_INITIAL_ATTACK_STAMINA,
+	initial_attack_stamina_incrememnt_factor: float = DEFAULT_INITIAL_ATTACK_STAMINA_INCREMEMNT_FACTOR,
+	attack_stamina_incrememnt: float = DEFAULT_ATTACK_STAMINA_INCREMEMNT,
 ) -> void:
+	_character = character
+
 	_combo_timer = combo_timer
 	_combo_timer.connect("timeout", _on_combo_timer_timeout)
 
@@ -94,6 +112,10 @@ func _init(
 
 	_release_strength_cutoff = release_strength_cutoff
 	_max_combos = max_combos
+
+	_initial_attack_stamina = initial_attack_stamina
+	_initial_attack_stamina_incrememnt_factor = initial_attack_stamina_incrememnt_factor
+	_attack_stamina_incrememnt = attack_stamina_incrememnt
 #endregion constructor
 
 #region functions
@@ -112,7 +134,10 @@ func _prepare_attack() -> bool:
 			_max_charge = _initial_max_charge
 			_max_charge_reduction_factor = _initial_max_charge_reduction_factor
 
-		return true
+			_attack_stamina = _initial_attack_stamina
+			_attack_stamina_reduction_factor = _initial_attack_stamina_incrememnt_factor
+
+		return not is_zero_approx(_character.stamina.current)
 
 	return false
 
@@ -124,13 +149,17 @@ func _on_combo_timer_timeout() -> void:
 
 func charge_attack(delta: float) -> ChargeState:
 	if _prepare_attack():
-		_charge += _charge_rate * delta
-		if _charge > _max_charge:
-			_charge = _max_charge
+		if _character.stamina.use_stamina(_attack_stamina * delta):
+			_charge += _charge_rate * delta
+			if _charge > _max_charge:
+				_charge = _max_charge
+				release_attack()
+				return ChargeState.RELEASED
+			else:
+				return ChargeState.CHARGING
+		else:
 			release_attack()
 			return ChargeState.RELEASED
-		else:
-			return ChargeState.CHARGING
 
 	return ChargeState.COOLING_OFF
 
@@ -156,6 +185,9 @@ func release_attack() -> void:
 
 			_max_charge *= _max_charge_reduction_factor
 			_max_charge_reduction_factor -= _max_charge_reduction_decrement
+
+			_attack_stamina *= _attack_stamina_reduction_factor
+			_attack_stamina_reduction_factor += _attack_stamina_incrememnt
 
 		_combo_timer.start()
 #endregion functions

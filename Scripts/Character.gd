@@ -32,6 +32,9 @@ extends CharacterBody3D
 @export_subgroup("Double-jumping")
 @export var _double_jump_min_velocity: float = Jumping.DEFAULT_DOUBLE_JUMP_MIN_VELOCITY
 @export var _double_jump_scale: float = Jumping.DEFAULT_DOUBLE_JUMP_SCALE
+@export_subgroup("Stamina")
+@export var _jump_stamina: float = Jumping.DEFAULT_JUMP_STAMINA
+@export var _double_jump_stamina: float = Jumping.DEFAULT_DOUBLE_JUMP_STAMINA
 
 @export_group("Dodging")
 @export var _dodge_timer: Timer
@@ -62,6 +65,10 @@ extends CharacterBody3D
 @export_subgroup("")
 @export var _release_strength_cutoff: float = Melee.DEFAULT_RELEASE_STRENGTH_CUTOFF
 @export var _max_combos: int = Melee.DEFAULT_MAX_COMBOS
+@export_subgroup("Stamina")
+@export var _initial_attack_stamina: float = Melee.DEFAULT_INITIAL_ATTACK_STAMINA
+@export var _initial_attack_stamina_incrememnt_factor: float = Melee.DEFAULT_INITIAL_ATTACK_STAMINA_INCREMEMNT_FACTOR
+@export var _attack_stamina_incrememnt: float = Melee.DEFAULT_ATTACK_STAMINA_INCREMEMNT
 
 @export_group("Camera")
 @export var _camera: Camera3D
@@ -107,8 +114,12 @@ var charging_melee: bool = false
 	self,
 
 	_jump_height,
+
 	_double_jump_min_velocity,
 	_double_jump_scale,
+
+	_jump_stamina,
+	_double_jump_stamina,
 )
 
 @onready var dodging: Dodging = Dodging.new(
@@ -126,6 +137,7 @@ var charging_melee: bool = false
 )
 
 @onready var melee: Melee = Melee.new(
+	self,
 	_combo_timer,
 
 	_initial_strength,
@@ -142,6 +154,10 @@ var charging_melee: bool = false
 
 	_release_strength_cutoff,
 	_max_combos,
+
+	_initial_attack_stamina,
+	_initial_attack_stamina_incrememnt_factor,
+	_attack_stamina_incrememnt,
 )
 
 @onready var player_camera: PlayerCamera = PlayerCamera.new(
@@ -201,7 +217,7 @@ func _physics_process(delta: float) -> void:
 	player_camera.physics_process(delta)
 #endregion processing
 
-func _on_melee_attack_released(strength: float, combo: int) -> void:
+func _on_melee_attack_released(_strength: float, _combo: int) -> void:
 	var lunge_speed: float
 	if is_on_floor():
 		lunge_speed = 10.0
@@ -214,4 +230,4 @@ func _on_melee_attack_released(strength: float, combo: int) -> void:
 	velocity.z = lunge_vec.y
 
 func _update_stamina_label() -> void:
-	_stamina_label.text = ("Stamina: %.1f/%.1f" % [stamina.current, stamina.max])
+	_stamina_label.text = ("Stamina: %.1f/%.1f" % [stamina.current, stamina.maximum])

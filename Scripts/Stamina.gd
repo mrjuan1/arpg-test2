@@ -4,7 +4,7 @@ class_name Stamina
 const DEFAULT_STAMINA: float = 3.0
 const DEFAULT_MAX_STAMINA: float = 3.0
 
-const DEFAULT_STAMINA_RECHARGE_RATE: float = 1.0
+const DEFAULT_STAMINA_RECHARGE_RATE: float = 2.0
 #endregion constants
 
 #region privates
@@ -31,7 +31,7 @@ var current: float:
 	get:
 		return _stamina
 
-var max: float:
+var maximum: float:
 	get:
 		return _max_stamina
 
