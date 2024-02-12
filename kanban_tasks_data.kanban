@@ -22,6 +22,7 @@
 			"uuid": "7eef13de-40bd-46c5-9947-055715090f4d",
 			"title": "Doing",
 			"tasks": [
+				"90334d96-26ac-4cdc-92a5-8ab521ed3bd5",
 				"3a242825-86c5-4dc7-b99a-46961716e040",
 				"6494383d-b879-49ef-9255-22acde51c312"
 			]
@@ -239,6 +240,26 @@
 			"description": "",
 			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
 			"steps": []
+		},
+		{
+			"uuid": "90334d96-26ac-4cdc-92a5-8ab521ed3bd5",
+			"title": "Separate player and character logic",
+			"description": "New character class extending Character3D, implementing existing classes that can be shared between the player and NPCs. Additionally, a new player class extending the previously-mentioned character class. This will implement the remaining player-specific classes.\n\nNext would be an NPC class extending the character one, implementing NPC-specific classes (if there end up being any). Additionally, a \"lite\" NPC class can be created for NPCs like villagers who will never be involved in combat and cannot be killed (basically just movement).",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": [
+				{
+					"details": "Create a character class extending Character3D",
+					"done": false
+				},
+				{
+					"details": "Implement classes that can be shared between player and NPCs",
+					"done": false
+				},
+				{
+					"details": "Create a player class that extends the above-created character one",
+					"done": false
+				}
+			]
 		}
 	],
 	"layout": {
