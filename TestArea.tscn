@@ -1,10 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://dwhx1oceopqqn"]
+[gd_scene load_steps=16 format=3 uid="uid://dwhx1oceopqqn"]
 
 [ext_resource type="Material" uid="uid://cn5iowwsepxbh" path="res://TestMaterial.tres" id="1_1wiyq"]
 [ext_resource type="Script" path="res://Scripts/TestArea.gd" id="1_ymii5"]
 [ext_resource type="Material" uid="uid://ceojehcun6eky" path="res://CharacterMaterial.tres" id="2_pha63"]
+[ext_resource type="Texture2D" uid="uid://dnua4ngr3wa2s" path="res://addons/Godot-Prototype-Texture-a00f682a79b2cf85e2b595c062013dc3e34d69bc/Textures/logo_lime_512x512.png" id="3_n2bfy"]
 [ext_resource type="Script" path="res://Scripts/Character.gd" id="3_oyp42"]
 [ext_resource type="LabelSettings" uid="uid://2j0j5e3korby" path="res://LabelSettings.tres" id="5_emu38"]
+[ext_resource type="LabelSettings" uid="uid://bcoobxln8ijln" path="res://DebugLabelSettings.tres" id="6_pdxex"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cu8dv"]
 sky_horizon_color = Color(0.64625, 0.6635, 0.6875, 1)
@@ -21,8 +23,14 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_xcgwy"]
-vertices = PackedVector3Array(-49.5, 0.5, -49.5, -49.5, 0.5, 49.5, 49.5, 0.5, 49.5, 49.5, 0.5, -49.5)
-polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+vertices = PackedVector3Array(1, 0.5, -1.75, 2, 0.5, -2, 2, 0.5, -49.5, -49.5, 0.5, -49.5, -49.5, 0.5, -0.25, -49.5, 0.5, -0.25, 1, 0.5, -0.25, 1, 0.5, -1.75, 3.25, 0.5, -1.75, 3.25, 0.5, -0.5, 49.5, 0.5, -0.5, 2, 0.5, -2, 3.25, 0.5, -1.75, 49.5, 0.5, -0.5, 49.5, 0.5, -49.5, 2, 0.5, -49.5, 49.5, 0.5, -0.5, 3.25, 0.5, -0.5, 3.25, 0.5, 0.75, 49.5, 0.5, -0.5, 3.25, 0.5, 0.75, 2, 0.5, 1.25, 2, 0.5, 49.5, 49.5, 0.5, 49.5, 2, 0.5, 49.5, 2, 0.5, 1.25, 1, 0.5, 1, -49.5, 0.5, -0.25, -49.5, 0.5, 49.5, 1, 0.5, 1, 1, 0.5, -0.25, -49.5, 0.5, -0.25)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(7, 6, 5), PackedInt32Array(10, 9, 8), PackedInt32Array(12, 11, 13), PackedInt32Array(13, 11, 15), PackedInt32Array(13, 15, 14), PackedInt32Array(18, 17, 16), PackedInt32Array(20, 19, 21), PackedInt32Array(21, 19, 22), PackedInt32Array(22, 19, 23), PackedInt32Array(25, 24, 26), PackedInt32Array(26, 24, 28), PackedInt32Array(26, 28, 27), PackedInt32Array(31, 30, 29)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wucci"]
+albedo_texture = ExtResource("3_n2bfy")
+uv1_offset = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+texture_filter = 5
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ovgpm"]
 radius = 0.25
@@ -57,17 +65,128 @@ use_collision = true
 size = Vector3(100, 1, 100)
 material = ExtResource("1_1wiyq")
 
+[node name="Boxes" type="Node3D" parent="NavigationRegion"]
+
+[node name="Box1" type="CSGBox3D" parent="NavigationRegion/Boxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_wucci")
+
+[node name="Box2" type="CSGBox3D" parent="NavigationRegion/Boxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, -1)
+use_collision = true
+material = SubResource("StandardMaterial3D_wucci")
+
+[node name="Box3" type="CSGBox3D" parent="NavigationRegion/Boxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2.5, -2)
+use_collision = true
+material = SubResource("StandardMaterial3D_wucci")
+
+[node name="Box4" type="CSGBox3D" parent="NavigationRegion/Boxes"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 3.5, -2)
+use_collision = true
+material = SubResource("StandardMaterial3D_wucci")
+
+[node name="Box5" type="CSGBox3D" parent="NavigationRegion/Boxes"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 4.5, -2)
+use_collision = true
+material = SubResource("StandardMaterial3D_wucci")
+
+[node name="Box6" type="CSGBox3D" parent="NavigationRegion/Boxes"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 5.5, -2)
+use_collision = true
+material = SubResource("StandardMaterial3D_wucci")
+
+[node name="Box7" type="CSGBox3D" parent="NavigationRegion/Boxes"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 6.5, -1)
+use_collision = true
+material = SubResource("StandardMaterial3D_wucci")
+
+[node name="Box8" type="CSGBox3D" parent="NavigationRegion/Boxes"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 7.5, 1.19209e-07)
+use_collision = true
+material = SubResource("StandardMaterial3D_wucci")
+
+[node name="Box9" type="CSGBox3D" parent="NavigationRegion/Boxes"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 8.5, 1)
+use_collision = true
+material = SubResource("StandardMaterial3D_wucci")
+
+[node name="Box10" type="CSGBox3D" parent="NavigationRegion/Boxes"]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0, 9.5, 1)
+use_collision = true
+material = SubResource("StandardMaterial3D_wucci")
+
+[node name="Box11" type="CSGBox3D" parent="NavigationRegion/Boxes"]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 1, 10.5, 1)
+use_collision = true
+material = SubResource("StandardMaterial3D_wucci")
+
+[node name="Box12" type="CSGBox3D" parent="NavigationRegion/Boxes"]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 2, 11.5, 1)
+use_collision = true
+material = SubResource("StandardMaterial3D_wucci")
+
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 0, 4, 4)
 
 [node name="Character" type="CharacterBody3D" parent="." node_paths=PackedStringArray("_hp_label", "_stamina_label", "_dodge_timer", "_combo_timer", "_camera")]
 script = ExtResource("3_oyp42")
+_hp = null
+_max_hp = null
+_stamina = null
+_max_stamina = null
+_stamina_recharge_rate = null
 _hp_label = NodePath("../UI/StatsContainer/HPLabel")
 _stamina_label = NodePath("../UI/StatsContainer/StaminaLabel")
+_gravity_multiplier = null
+_initial_movement_speed = null
+_movement_speed_lerp_speed = null
+_movement_speed_air_dampening = null
+_max_air_movement_multiplier = null
+_velocity_lerp_speed = null
+_velocity_air_dampening = null
+_y_rotation_lerp_speed = null
+_y_rotation_air_dampening = null
 _velocity_to_target_y_rotation = true
+_y_reset = null
+_fall_damage_y_velocity = null
+_fall_damage_velocity_divisor = null
+_fall_damage_threshold = null
+_jump_height = null
+_double_jump_min_velocity = null
+_double_jump_scale = null
+_jump_stamina = null
+_double_jump_stamina = null
 _dodge_timer = NodePath("DodgeTimer")
+_floor_dodge_speed = null
+_air_dodge_speed = null
+_dodging_min_directional_speed = null
+_dodging_stationary_air_dampening = null
+_floor_dodge_stamina = null
+_air_dodge_stamina = null
 _combo_timer = NodePath("ComboTimer")
+_initial_strength = null
+_initial_strength_reduction_factor = null
+_strength_reduction_decrement = null
+_initial_charge_rate = null
+_initial_charge_rate_reduction_factor = null
+_charge_rate_reduction_decrement = null
+_initial_max_charge = null
+_initial_max_charge_reduction_factor = null
+_max_charge_reduction_decrement = null
+_release_strength_cutoff = null
+_max_combos = null
+_initial_attack_stamina = null
+_initial_attack_stamina_incrememnt_factor = null
+_attack_stamina_incrememnt = null
+_charge_stamina_threshold = null
+_air_attack_stamina_factor = null
 _camera = NodePath("../Camera")
+_camera_xz_lerp_speed = null
+_camera_y_lerp_speed = null
+_camera_y_positive_follow_distance = null
+_camera_y_negative_follow_distance = null
 
 [node name="CharacterCollision" type="CollisionShape3D" parent="Character"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
@@ -115,3 +234,19 @@ label_settings = ExtResource("5_emu38")
 layout_mode = 2
 text = "Stamina"
 label_settings = ExtResource("5_emu38")
+
+[node name="DebugContainer" type="VBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="PositionLabel" type="Label" parent="UI/DebugContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Position"
+label_settings = ExtResource("6_pdxex")

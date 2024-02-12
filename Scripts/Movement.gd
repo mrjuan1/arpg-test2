@@ -18,6 +18,9 @@ const DEFAULT_Y_ROTATION_AIR_DAMPENING: float = 0.5
 
 const DEFAULT_VELOCITY_TO_TARGET_Y_ROTATION: bool = false
 const DEFAULT_Y_RESET: float = -30.0
+
+const DEFAULT_FALL_DAMAGE_Y_DISTANCE: float = -4.0
+const DEFAULT_FALL_DAMAGE_Y_VELOCITY: float = -14.0
 #endregion constants
 
 #region privates
@@ -39,6 +42,12 @@ var _y_rotation_air_dampening: float
 
 var _velocity_to_target_y_rotation: bool
 var _y_reset: float
+
+var _fall_damage_y_distance: float
+var _fall_damage_y_velocity: float
+
+var _last_floored_y_position: float
+var _last_y_velocity: float = 0.0
 #endregion privates
 
 #region publics
@@ -66,6 +75,9 @@ func _init(
 
 	velocity_to_target_y_rotation: bool = DEFAULT_VELOCITY_TO_TARGET_Y_ROTATION,
 	y_reset: float = DEFAULT_Y_RESET,
+
+	fall_damage_y_distance: float = DEFAULT_FALL_DAMAGE_Y_DISTANCE,
+	fall_damage_y_velocity: float = DEFAULT_FALL_DAMAGE_Y_VELOCITY,
 ) -> void:
 	_character = character
 	_gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * gravity_multiplier
@@ -86,8 +98,13 @@ func _init(
 
 	_velocity_to_target_y_rotation = velocity_to_target_y_rotation
 	_y_reset = y_reset
-
 	reset_position = _character.position
+
+	_fall_damage_y_distance = fall_damage_y_distance
+	_fall_damage_y_velocity = fall_damage_y_velocity
+
+	_last_floored_y_position = _character.position.y
+	_last_y_velocity = _character.velocity.y
 #endregion constructor
 
 var direction: Vector2:
@@ -102,11 +119,22 @@ func physics_process(delta: float) -> void:
 	var velocity_lerp_speed: float = _velocity_lerp_speed * delta
 	var y_rotation_lerp_speed: float = _y_rotation_lerp_speed * delta
 
-	if not is_on_floor:
+	if is_on_floor:
+		var y_distance: float = _character.position.y - _last_floored_y_position
+		if y_distance < _fall_damage_y_distance and _last_y_velocity < _fall_damage_y_velocity:
+			var distance_damage: float = _fall_damage_y_distance - y_distance
+			var velocity_damage: float = _fall_damage_y_velocity - _last_y_velocity
+			if distance_damage < velocity_damage:
+				_character.health.current -= distance_damage
+			else:
+				_character.health.current -= velocity_damage
+		_last_floored_y_position = _character.position.y
+	else:
 		_character.velocity.y -= _gravity * delta
 		movement_speed_lerp_speed *= _movement_speed_air_dampening
 		velocity_lerp_speed *= _velocity_air_dampening
 		y_rotation_lerp_speed *= _y_rotation_air_dampening
+		_last_y_velocity = _character.velocity.y
 
 	movement_speed = lerpf(movement_speed, _movement_speed, movement_speed_lerp_speed)
 	_character.rotation.y = lerp_angle(_character.rotation.y, -_target_y_rotation + HALF_PI, y_rotation_lerp_speed)
@@ -128,9 +156,9 @@ func physics_process(delta: float) -> void:
 		_character.velocity.x = clampf(_character.velocity.x, -max_air_movement, max_air_movement)
 		_character.velocity.z = clampf(_character.velocity.z, -max_air_movement, max_air_movement)
 
-	_character.move_and_slide()
-
 	if _character.position.y < _y_reset:
 		_character.position = reset_position
 		printerr("Character \"%s\" fell off the map, resetting their position..." % _character.name)
+
+	_character.move_and_slide()
 #endregion functions

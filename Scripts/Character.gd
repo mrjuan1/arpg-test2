@@ -30,6 +30,9 @@ extends CharacterBody3D
 @export_subgroup("")
 @export var _velocity_to_target_y_rotation: bool = Movement.DEFAULT_VELOCITY_TO_TARGET_Y_ROTATION
 @export var _y_reset: float = Movement.DEFAULT_Y_RESET
+@export_subgroup("Fall damage")
+@export var _fall_damage_y_distance: float = Movement.DEFAULT_FALL_DAMAGE_Y_DISTANCE
+@export var _fall_damage_y_velocity: float = Movement.DEFAULT_FALL_DAMAGE_Y_VELOCITY
 
 @export_group("Jumping")
 @export var _jump_height: float = Jumping.DEFAULT_JUMP_HEIGHT
@@ -119,6 +122,9 @@ var charging_melee: bool = false
 
 	_velocity_to_target_y_rotation,
 	_y_reset,
+
+	_fall_damage_y_distance,
+	_fall_damage_y_velocity,
 )
 
 @onready var jumping: Jumping = Jumping.new(
@@ -184,6 +190,8 @@ var charging_melee: bool = false
 	_camera_y_negative_follow_distance,
 )
 
+#@onready var _position_label: Label = %PositionLabel
+
 func _ready() -> void:
 	health.damaged.connect(_on_health_damaged)
 	health.killed.connect(_on_health_killed)
@@ -195,8 +203,8 @@ func _ready() -> void:
 
 #region processing
 func _process(delta: float) -> void:
-	var last_hp = health.current
-	var last_stamina = stamina.current
+	var last_hp: float = health.current
+	var last_stamina: float = stamina.current
 
 	if charging_melee:
 		var charge_state: Melee.ChargeState = melee.charge_attack(delta)
@@ -232,6 +240,8 @@ func _process(delta: float) -> void:
 	if stamina.current != last_stamina:
 		_update_stamina_label()
 
+	#_position_label.text = "Position: %.2f, %.2f, %.2f" % [position.x, position.y, position.z]
+
 func _physics_process(delta: float) -> void:
 	if charging_melee:
 		var reverse_vec: Vector2 = Vector2.from_angle(rotation.y + (PI / 2.0)) * 0.5
@@ -243,9 +253,11 @@ func _physics_process(delta: float) -> void:
 #endregion processing
 
 func _on_health_damaged(amount: float) -> void:
+	_update_hp_label()
 	prints("Damaged:", amount)
 
 func _on_health_killed() -> void:
+	_update_hp_label()
 	print("ded")
 
 func _on_melee_attack_released(_strength: float, _combo: int) -> void:

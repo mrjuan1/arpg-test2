@@ -30,6 +30,7 @@
 			"uuid": "cfd612a1-151a-4ac6-a306-f10c05e2b58d",
 			"title": "Done",
 			"tasks": [
+				"3c199eeb-d611-47cf-bbe6-8978db7265d1",
 				"ed64d58e-61ba-46ff-9e5b-bcba35ed5a4c",
 				"243e4625-afef-4e13-b4d3-1db28f077bed",
 				"ea5b2667-739a-4046-afd6-bbc06db56357",
@@ -231,6 +232,13 @@
 					"done": false
 				}
 			]
+		},
+		{
+			"uuid": "3c199eeb-d611-47cf-bbe6-8978db7265d1",
+			"title": "Fall damage",
+			"description": "",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": []
 		}
 	],
 	"layout": {
