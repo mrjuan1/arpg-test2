@@ -2,21 +2,23 @@ class_name Character
 extends CharacterBody3D
 
 #region exports
+#region stats
 @export_group("Stats")
-@export_subgroup("HP")
+@export var _has_health: bool = false
+@export var _has_stamina: bool = false
+@export_subgroup("Health")
 @export var _hp: float = Health.DEFAULT_HP
 @export var _max_hp: float = Health.DEFAULT_MAX_HP
 @export_subgroup("Stamina")
 @export var _stamina: float = Stamina.DEFAULT_STAMINA
 @export var _max_stamina: float = Stamina.DEFAULT_MAX_STAMINA
 @export var _stamina_recharge_rate: float = Stamina.DEFAULT_STAMINA_RECHARGE_RATE
-@export_subgroup("Labels")
-@export var _hp_label: Label
-@export var _stamina_label: Label
+#endregion stats
 
+#region movement
 @export_group("Movement")
 @export var _gravity_multiplier: float = Movement.DEFAULT_GRAVITY_MULTIPLIER
-@export_subgroup("Movement speed")
+@export_subgroup("Movement")
 @export var _initial_movement_speed: float = Movement.DEFAULT_INITIAL_MOVEMENT_SPEED
 @export var _movement_speed_lerp_speed: float = Movement.DEFAULT_MOVEMENT_SPEED_LERP_SPEED
 @export var _movement_speed_air_dampening: float = Movement.DEFAULT_MOVEMENT_SPEED_AIR_DAMPENING
@@ -33,6 +35,13 @@ extends CharacterBody3D
 @export_subgroup("Fall damage")
 @export var _fall_damage_y_distance: float = Movement.DEFAULT_FALL_DAMAGE_Y_DISTANCE
 @export var _fall_damage_y_velocity: float = Movement.DEFAULT_FALL_DAMAGE_Y_VELOCITY
+#endregion movement
+
+#region abilities
+@export_group("Abilities")
+@export var _can_jump: bool = false
+@export var _can_dodge: bool = false
+@export var _can_attack: bool = false
 
 @export_group("Jumping")
 @export var _jump_height: float = Jumping.DEFAULT_JUMP_HEIGHT
@@ -45,12 +54,12 @@ extends CharacterBody3D
 
 @export_group("Dodging")
 @export var _dodge_timer: Timer
-@export_subgroup("Dodging speed")
+@export_subgroup("Speed")
 @export var _floor_dodge_speed: float = Dodging.DEFAULT_FLOOR_DODGE_SPEED
 @export var _air_dodge_speed: float = Dodging.DEFAULT_AIR_DODGE_SPEED
 @export_subgroup("")
-@export var _dodging_min_directional_speed: float = Dodging.DEFAULT_MIN_DIRECTIONAL_SPEED
-@export var _dodging_stationary_air_dampening: float = Dodging.DEFAULT_STATIONARY_AIR_DAMPENING
+@export var _min_directional_speed: float = Dodging.DEFAULT_MIN_DIRECTIONAL_SPEED
+@export var _stationary_air_dampening: float = Dodging.DEFAULT_STATIONARY_AIR_DAMPENING
 @export_subgroup("Stamina")
 @export var _floor_dodge_stamina: float = Dodging.DEFAULT_FLOOR_DODGE_STAMINA
 @export var _air_dodge_stamina: float = Dodging.DEFAULT_AIR_DODGE_STAMINA
@@ -78,33 +87,18 @@ extends CharacterBody3D
 @export var _attack_stamina_incrememnt: float = Melee.DEFAULT_ATTACK_STAMINA_INCREMEMNT
 @export var _charge_stamina_threshold: float = Melee.DEFAULT_CHARGE_STAMINA_THRESHOLD
 @export var _air_attack_stamina_factor: float = Melee.DEFAULT_AIR_ATTACK_STAMINA_FACTOR
-
-@export_group("Camera")
-@export var _camera: Camera3D
-@export_subgroup("Lerp speeds")
-@export var _camera_xz_lerp_speed: float = PlayerCamera.DEFAULT_CAMERA_XZ_LERP_SPEED
-@export var _camera_y_lerp_speed: float = PlayerCamera.DEFAULT_CAMERA_Y_LERP_SPEED
-@export_subgroup("Y follow distances")
-@export var _camera_y_positive_follow_distance: float = PlayerCamera.DEFAULT_CAMERA_Y_POSITIVE_FOLLOW_DISTANCE
-@export var _camera_y_negative_follow_distance: float = PlayerCamera.DEFAULT_CAMERA_Y_NEGATIVE_FOLLOW_DISTANCE
+#endregion abilities
 #endregion exports
 
-var input_vec: Vector2 = Vector2.ZERO
-var charging_melee: bool = false
+#region public variables
+var health: Health
+var stamina: Stamina
+var jumping: Jumping
+var dodging: Dodging
+var melee: Melee
+#endregion public variables
 
-#region onready
-@onready var health: Health = Health.new(
-	_hp,
-	_max_hp,
-)
-
-@onready var stamina: Stamina = Stamina.new(
-	_stamina,
-	_max_stamina,
-
-	_stamina_recharge_rate,
-)
-
+#region onready variables
 @onready var movement: Movement = Movement.new(
 	self,
 	_gravity_multiplier,
@@ -126,154 +120,75 @@ var charging_melee: bool = false
 	_fall_damage_y_distance,
 	_fall_damage_y_velocity,
 )
+#endregion onready variables
 
-@onready var jumping: Jumping = Jumping.new(
-	self,
+#region public functions
+func init_character() -> void:
+	if _has_health:
+		health = Health.new(
+			_hp,
+			_max_hp,
+		)
 
-	_jump_height,
+	if _has_stamina:
+		stamina = Stamina.new(
+			_stamina,
+			_max_stamina,
 
-	_double_jump_min_velocity,
-	_double_jump_scale,
+			_stamina_recharge_rate,
+		)
 
-	_jump_stamina,
-	_double_jump_stamina,
-)
+		if _can_jump:
+			jumping = Jumping.new(
+				self,
+				_jump_height,
 
-@onready var dodging: Dodging = Dodging.new(
-	self,
-	_dodge_timer,
+				_double_jump_min_velocity,
+				_double_jump_scale,
 
-	_floor_dodge_speed,
-	_air_dodge_speed,
+				_jump_stamina,
+				_double_jump_stamina,
+			)
 
-	_dodging_min_directional_speed,
-	_dodging_stationary_air_dampening,
+		if _can_dodge:
+			dodging = Dodging.new(
+				self,
+				_dodge_timer,
 
-	_floor_dodge_stamina,
-	_air_dodge_stamina,
-)
+				_floor_dodge_speed,
+				_air_dodge_speed,
 
-@onready var melee: Melee = Melee.new(
-	self,
-	_combo_timer,
+				_min_directional_speed,
+				_stationary_air_dampening,
 
-	_initial_strength,
-	_initial_strength_reduction_factor,
-	_strength_reduction_decrement,
+				_floor_dodge_stamina,
+				_air_dodge_stamina,
+			)
 
-	_initial_charge_rate,
-	_initial_charge_rate_reduction_factor,
-	_charge_rate_reduction_decrement,
+		if _can_attack:
+			melee = Melee.new(
+				self,
+				_combo_timer,
 
-	_initial_max_charge,
-	_initial_max_charge_reduction_factor,
-	_max_charge_reduction_decrement,
+				_initial_strength,
+				_initial_strength_reduction_factor,
+				_strength_reduction_decrement,
 
-	_release_strength_cutoff,
-	_max_combos,
+				_initial_charge_rate,
+				_initial_charge_rate_reduction_factor,
+				_charge_rate_reduction_decrement,
 
-	_initial_attack_stamina,
-	_initial_attack_stamina_incrememnt_factor,
-	_attack_stamina_incrememnt,
-	_charge_stamina_threshold,
-	_air_attack_stamina_factor,
-)
+				_initial_max_charge,
+				_initial_max_charge_reduction_factor,
+				_max_charge_reduction_decrement,
 
-@onready var player_camera: PlayerCamera = PlayerCamera.new(
-	self,
-	_camera,
+				_release_strength_cutoff,
+				_max_combos,
 
-	_camera_xz_lerp_speed,
-	_camera_y_lerp_speed,
-
-	_camera_y_positive_follow_distance,
-	_camera_y_negative_follow_distance,
-)
-
-#@onready var _position_label: Label = %PositionLabel
-
-func _ready() -> void:
-	health.damaged.connect(_on_health_damaged)
-	health.killed.connect(_on_health_killed)
-	melee.attack_released.connect(_on_melee_attack_released)
-
-	_update_hp_label()
-	_update_stamina_label()
-#endregion onready
-
-#region processing
-func _process(delta: float) -> void:
-	var last_hp: float = health.current
-	var last_stamina: float = stamina.current
-
-	if charging_melee:
-		var charge_state: Melee.ChargeState = melee.charge_attack(delta)
-
-		if charge_state == Melee.ChargeState.CHARGING and Input.is_action_just_released("attack"):
-			melee.release_attack()
-			charging_melee = false
-		elif charge_state == Melee.ChargeState.RELEASED or charge_state == Melee.ChargeState.COOLING_OFF:
-			charging_melee = false
-	else:
-		input_vec = Input.get_vector("left", "right", "up", "down")
-		if input_vec:
-			movement.direction = input_vec
-			movement.moving = true
-		else:
-			movement.moving = false
-
-		if Input.is_action_just_pressed("jump"):
-			jumping.jump()
-		elif Input.is_action_just_pressed("dodge"):
-			dodging.dodge()
-		elif Input.is_action_just_pressed("attack"):
-			if is_on_floor():
-				charging_melee = true
-			else:
-				melee.release_attack()
-
-		stamina.recharge_stamina(delta)
-
-	if health.current != last_hp:
-		_update_hp_label()
-
-	if stamina.current != last_stamina:
-		_update_stamina_label()
-
-	#_position_label.text = "Position: %.2f, %.2f, %.2f" % [position.x, position.y, position.z]
-
-func _physics_process(delta: float) -> void:
-	if charging_melee:
-		var reverse_vec: Vector2 = Vector2.from_angle(rotation.y + (PI / 2.0)) * 0.5
-		velocity.x = reverse_vec.x
-		velocity.z = -reverse_vec.y
-
-	movement.physics_process(delta)
-	player_camera.physics_process(delta)
-#endregion processing
-
-func _on_health_damaged(amount: float) -> void:
-	_update_hp_label()
-	prints("Damaged:", amount)
-
-func _on_health_killed() -> void:
-	_update_hp_label()
-	print("ded")
-
-func _on_melee_attack_released(_strength: float, _combo: int) -> void:
-	var lunge_speed: float
-	if is_on_floor():
-		lunge_speed = 10.0
-	else:
-		lunge_speed = 3.0
-		velocity.y = 2.0
-
-	var lunge_vec: Vector2 = Vector2.from_angle(rotation.y + Movement.HALF_PI) * lunge_speed
-	velocity.x = -lunge_vec.x
-	velocity.z = lunge_vec.y
-
-func _update_hp_label() -> void:
-	_hp_label.text = ("HP: %.0f/%.0f" % [health.current, health.maximum])
-
-func _update_stamina_label() -> void:
-	_stamina_label.text = ("Stamina: %.1f/%.1f" % [stamina.current, stamina.maximum])
+				_initial_attack_stamina,
+				_initial_attack_stamina_incrememnt_factor,
+				_attack_stamina_incrememnt,
+				_charge_stamina_threshold,
+				_air_attack_stamina_factor,
+			)
+#endregion public functions

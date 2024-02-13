@@ -11,7 +11,7 @@ const DEFAULT_FLOOR_DODGE_STAMINA: float = 1.0
 const DEFAULT_AIR_DODGE_STAMINA: float = 2.0
 #endregion constants
 
-#region privates
+#region private variables
 var _character: Character
 var _dodge_timer: Timer
 
@@ -25,7 +25,7 @@ var _floor_dodge_stamina: float
 var _air_dodge_stamina: float
 
 var _is_dodging: bool
-#endregion privates
+#endregion private variables
 
 #region constructor
 func _init(

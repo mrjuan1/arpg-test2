@@ -7,12 +7,12 @@ const DEFAULT_MAX_STAMINA: float = 3.0
 const DEFAULT_STAMINA_RECHARGE_RATE: float = 2.0
 #endregion constants
 
-#region privates
+#region private variables
 var _stamina: float
 var _max_stamina: float
 
 var _stamina_recharge_rate: float
-#endregion privates
+#endregion private variables
 
 #region constructor
 func _init(
@@ -27,6 +27,7 @@ func _init(
 	_stamina_recharge_rate = stamina_recharge_rate
 #endregion constructor
 
+#region functions
 var current: float:
 	get:
 		return _stamina
@@ -44,7 +45,6 @@ var recharge_rate: float:
 		else:
 			_stamina_recharge_rate = value
 
-#region functions
 func use_stamina(amount: float) -> bool:
 	if _stamina >= amount:
 		_stamina -= amount

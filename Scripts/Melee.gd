@@ -31,7 +31,7 @@ const DEFAULT_CHARGE_STAMINA_THRESHOLD: float = 0.05
 const DEFAULT_AIR_ATTACK_STAMINA_FACTOR: float = 2.0
 #endregion constants
 
-#region privates
+#region private variables
 var _character: Character
 var _combo_timer: Timer
 
@@ -71,7 +71,7 @@ var _max_charge_reduction_factor: float
 
 var _attack_stamina: float
 var _attack_stamina_reduction_factor: float
-#endregion privates
+#endregion private variables
 
 #region constructor
 func _init(
@@ -126,7 +126,7 @@ func _init(
 	_air_attack_stamina_factor = air_attack_stamina_factor
 #endregion constructor
 
-#region functions
+#region private functions
 func _prepare_attack() -> bool:
 	if _may_attack:
 		if not _combo_timer.is_stopped():
@@ -154,7 +154,9 @@ func _on_combo_timer_timeout() -> void:
 		_combo = 0
 	else:
 		_may_attack = true
+#endregion private functions
 
+#region public functions
 func charge_attack(delta: float) -> ChargeState:
 	if _prepare_attack():
 		if _character.stamina.use_stamina(_attack_stamina * delta):
@@ -209,4 +211,4 @@ func release_attack() -> void:
 			_attack_stamina_reduction_factor += _attack_stamina_incrememnt
 
 		_combo_timer.start()
-#endregion functions
+#endregion public functions

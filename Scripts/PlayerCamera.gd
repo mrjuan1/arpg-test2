@@ -8,7 +8,7 @@ const DEFAULT_CAMERA_Y_POSITIVE_FOLLOW_DISTANCE: float = 2.0
 const DEFAULT_CAMERA_Y_NEGATIVE_FOLLOW_DISTANCE: float = -8.0
 #endregion constants
 
-#region privates
+#region private variables
 var _character: Character
 
 var _camera: Camera3D
@@ -20,7 +20,7 @@ var _camera_y_lerp_speed: float
 var _camera_y_positive_follow_distance: float
 var _camera_y_negative_follow_distance: float
 var _camera_target_y: float
-#endregion privates
+#endregion private variables
 
 #region constructor
 func _init(

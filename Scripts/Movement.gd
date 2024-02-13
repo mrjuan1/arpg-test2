@@ -23,7 +23,7 @@ const DEFAULT_FALL_DAMAGE_Y_DISTANCE: float = -4.0
 const DEFAULT_FALL_DAMAGE_Y_VELOCITY: float = -14.0
 #endregion constants
 
-#region privates
+#region private variables
 var _character: Character
 var _gravity: float
 
@@ -48,14 +48,14 @@ var _fall_damage_y_velocity: float
 
 var _last_floored_y_position: float
 var _last_y_velocity: float = 0.0
-#endregion privates
+#endregion private variables
 
-#region publics
+#region public variables
 var movement_speed: float
 var moving: bool = false
 
 var reset_position: Vector3
-#endregion publics
+#endregion public variables
 
 #region constructor
 func _init(
@@ -107,11 +107,16 @@ func _init(
 	_last_y_velocity = _character.velocity.y
 #endregion constructor
 
+#region functions
 var direction: Vector2:
+	get:
+		if _velocity_to_target_y_rotation:
+			return Vector2.from_angle(_target_y_rotation)
+		else:
+			return Vector2.from_angle(-_character.rotation.y + HALF_PI)
 	set(value):
 		_target_y_rotation = atan2(value.y, value.x)
 
-#region functions
 func physics_process(delta: float) -> void:
 	var is_on_floor: bool = _character.is_on_floor()
 
@@ -119,7 +124,7 @@ func physics_process(delta: float) -> void:
 	var velocity_lerp_speed: float = _velocity_lerp_speed * delta
 	var y_rotation_lerp_speed: float = _y_rotation_lerp_speed * delta
 
-	if is_on_floor:
+	if _character.health and is_on_floor:
 		var y_distance: float = _character.position.y - _last_floored_y_position
 		if y_distance < _fall_damage_y_distance and _last_y_velocity < _fall_damage_y_velocity:
 			var distance_damage: float = _fall_damage_y_distance - y_distance
@@ -129,7 +134,7 @@ func physics_process(delta: float) -> void:
 			else:
 				_character.health.current -= velocity_damage
 		_last_floored_y_position = _character.position.y
-	else:
+	elif not is_on_floor:
 		_character.velocity.y -= _gravity * delta
 		movement_speed_lerp_speed *= _movement_speed_air_dampening
 		velocity_lerp_speed *= _velocity_air_dampening
@@ -143,7 +148,7 @@ func physics_process(delta: float) -> void:
 		if _velocity_to_target_y_rotation:
 			_target_velocity = Vector2.from_angle(_target_y_rotation)
 		else:
-			_target_velocity = Vector2.from_angle(_character.rotation.y)
+			_target_velocity = Vector2.from_angle(-_character.rotation.y + HALF_PI)
 		_target_velocity *= movement_speed
 	else:
 		_target_velocity = Vector2.ZERO

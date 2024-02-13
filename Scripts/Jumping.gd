@@ -10,7 +10,7 @@ const DEFAULT_JUMP_STAMINA: float = 1.0
 const DEFAULT_DOUBLE_JUMP_STAMINA: float = 2.0
 #endregion constants
 
-#region privates
+#region private variables
 var _character: Character
 
 var _jump_height: float
@@ -22,7 +22,7 @@ var _jump_stamina: float
 var _double_jump_stamina: float
 
 var _has_double_jumped: bool
-#endregion privates
+#endregion private variables
 
 #region constructor
 func _init(

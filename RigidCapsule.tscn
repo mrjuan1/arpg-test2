@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://cjg0u16b0jnud"]
+
+[ext_resource type="Texture2D" uid="uid://ccs625rlotj5s" path="res://addons/Godot-Prototype-Texture/Textures/checker_red_512x512.png" id="1_uqtp1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h3qmn"]
+radius = 0.25
+height = 1.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r3ghd"]
+shading_mode = 0
+albedo_texture = ExtResource("1_uqtp1")
+uv1_scale = Vector3(1, 1, -1)
+uv1_offset = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+texture_filter = 5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_e8ef5"]
+material = SubResource("StandardMaterial3D_r3ghd")
+radius = 0.25
+height = 1.7
+radial_segments = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nqjia"]
+shading_mode = 0
+albedo_texture = ExtResource("1_uqtp1")
+uv1_scale = Vector3(1, 1, -1)
+uv1_offset = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+texture_filter = 5
+
+[sub_resource type="BoxMesh" id="BoxMesh_fuvx2"]
+material = SubResource("StandardMaterial3D_nqjia")
+size = Vector3(0.1, 0.1, 0.5)
+
+[node name="RigidCapsule" type="RigidBody3D"]
+
+[node name="RigidCapsuleCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+shape = SubResource("CapsuleShape3D_h3qmn")
+
+[node name="RigidCapsuleMesh" type="MeshInstance3D" parent="RigidCapsuleCollision"]
+mesh = SubResource("CapsuleMesh_e8ef5")
+
+[node name="RigidCapsuleMeshPointer" type="MeshInstance3D" parent="RigidCapsuleCollision/RigidCapsuleMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.45)
+mesh = SubResource("BoxMesh_fuvx2")

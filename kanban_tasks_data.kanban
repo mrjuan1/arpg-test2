@@ -22,8 +22,6 @@
 			"uuid": "7eef13de-40bd-46c5-9947-055715090f4d",
 			"title": "Doing",
 			"tasks": [
-				"90334d96-26ac-4cdc-92a5-8ab521ed3bd5",
-				"3a242825-86c5-4dc7-b99a-46961716e040",
 				"6494383d-b879-49ef-9255-22acde51c312"
 			]
 		},
@@ -31,6 +29,8 @@
 			"uuid": "cfd612a1-151a-4ac6-a306-f10c05e2b58d",
 			"title": "Done",
 			"tasks": [
+				"3a242825-86c5-4dc7-b99a-46961716e040",
+				"90334d96-26ac-4cdc-92a5-8ab521ed3bd5",
 				"3c199eeb-d611-47cf-bbe6-8978db7265d1",
 				"ed64d58e-61ba-46ff-9e5b-bcba35ed5a4c",
 				"243e4625-afef-4e13-b4d3-1db28f077bed",
@@ -230,7 +230,7 @@
 			"steps": [
 				{
 					"details": "Integrate with character",
-					"done": false
+					"done": true
 				}
 			]
 		},
@@ -249,15 +249,15 @@
 			"steps": [
 				{
 					"details": "Create a character class extending Character3D",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Implement classes that can be shared between player and NPCs",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Create a player class that extends the above-created character one",
-					"done": false
+					"done": true
 				}
 			]
 		}
