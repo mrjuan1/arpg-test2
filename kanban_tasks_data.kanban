@@ -22,7 +22,8 @@
 			"uuid": "7eef13de-40bd-46c5-9947-055715090f4d",
 			"title": "Doing",
 			"tasks": [
-				"6494383d-b879-49ef-9255-22acde51c312"
+				"6494383d-b879-49ef-9255-22acde51c312",
+				"d0b41172-e4ef-4693-bae4-1a538237c18e"
 			]
 		},
 		{
@@ -260,6 +261,13 @@
 					"done": true
 				}
 			]
+		},
+		{
+			"uuid": "d0b41172-e4ef-4693-bae4-1a538237c18e",
+			"title": "Enemy class",
+			"description": "",
+			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
+			"steps": []
 		}
 	],
 	"layout": {

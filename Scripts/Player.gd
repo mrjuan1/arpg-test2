@@ -1,11 +1,7 @@
 class_name Player
-extends Character
+extends CapsuleCharacter
 
 #region exports
-@export_group("Colours")
-@export var _meshes: Array[MeshInstance3D]
-@export var _colour_lerp_speed: float = 5.0
-
 @export_group("Camera")
 @export var _camera: Camera3D
 @export_subgroup("Speed")
@@ -21,17 +17,12 @@ extends Character
 #endregion exports
 
 #region private variables
-var _mesh_materials: Array[StandardMaterial3D]
-var _mesh_original_colours: Array[Color]
-
 var _input_vec: Vector2 = Vector2.ZERO
 var _last_stamina: float = 0.0
 var _melee_charge_state: Melee.ChargeState = Melee.ChargeState.RELEASED
 #endregion private variables
 
-#region public variables
-@onready var _rigid_capsule: PackedScene = preload("res://RigidCapsule.tscn")
-
+#region onready
 @onready var player_camera: PlayerCamera = PlayerCamera.new(
 	self,
 	_camera,
@@ -44,25 +35,24 @@ var _melee_charge_state: Melee.ChargeState = Melee.ChargeState.RELEASED
 )
 
 @onready var _player_ray: RayCast3D = $PlayerRay
-#endregion public variables
+
+@onready var _game_over_res: PackedScene = preload("res://GameOver.tscn")
+#endregion onready
 
 #region events
 func _ready() -> void:
-	_init_mesh_materials_colours()
+	init_capsule_character()
 
-	init_character()
-
-	health.damaged.connect(_on_health_damaged)
-	health.killed.connect(_on_health_killed)
-
+	capsule_character_damaged.connect(_on_capsule_character_damaged)
+	capsule_character_killed.connect(_on_capsule_character_killed)
 	melee.attack_released.connect(_on_melee_attack_released)
 
 	_update_hp_label()
 
 func _process(delta: float) -> void:
-	if health.current > 0.0:
-		_lerp_mesh_colours(delta)
+	lerp_capsule_character_colours(delta)
 
+	if health.current > 0.0:
 		if _melee_charge_state == Melee.ChargeState.CHARGING:
 			if Input.is_action_just_released("attack"):
 				melee.release_attack()
@@ -97,30 +87,17 @@ func _process(delta: float) -> void:
 		get_tree().reload_current_scene()
 
 func _physics_process(delta: float) -> void:
-	if health.current > 0.0:
-		movement.physics_process(delta)
-
+	capsule_character_physics_process(delta)
 	player_camera.physics_process(delta)
 #endregion events
 
 #region signal events
-func _on_health_damaged(amount: float) -> void:
-	_set_mesh_colours(Color.RED)
-
+func _on_capsule_character_damaged(_amount: float) -> void:
 	_update_hp_label()
-	prints("Damaged:", amount)
 
-func _on_health_killed() -> void:
-	_set_mesh_colours(Color.WHITE)
-
-	var children: Array[Node] = get_children()
-	for child: Node in children:
-		child.queue_free()
-
-	var rigid_capsule: RigidBody3D = _rigid_capsule.instantiate()
-	rigid_capsule.linear_velocity = Vector3(randf_range(-0.5, 0.5), randf_range(0.0, 1.0), randf_range(-0.5, 0.5)) * 5.0
-	rigid_capsule.angular_velocity = Vector3(randf_range(-PI, PI), randf_range(-PI, PI), randf_range(-PI, PI)) * 2.0
-	add_child(rigid_capsule)
+func _on_capsule_character_killed() -> void:
+	var game_over: ColorRect = _game_over_res.instantiate()
+	add_child(game_over)
 
 func _on_melee_attack_released(strength: float, combo: int) -> void:
 	if is_on_floor():
@@ -149,20 +126,6 @@ func _on_melee_attack_released(strength: float, combo: int) -> void:
 #endregion signal events
 
 #region private functions
-func _init_mesh_materials_colours() -> void:
-	for mesh: MeshInstance3D in _meshes:
-		var material: StandardMaterial3D = (mesh.mesh as PrimitiveMesh).material
-		_mesh_materials.push_back(material)
-		_mesh_original_colours.push_back(material.albedo_color)
-
-func _lerp_mesh_colours(delta: float) -> void:
-	for i: int in len(_mesh_materials):
-		_mesh_materials[i].albedo_color = lerp(_mesh_materials[i].albedo_color, _mesh_original_colours[i], _colour_lerp_speed * delta)
-
-func _set_mesh_colours(colour: Color) -> void:
-	for i: int in len(_mesh_materials):
-		_mesh_materials[i].albedo_color = colour
-
 func _update_hp_label() -> void:
 	if _hp_label:
 		_hp_label.text = "HP: %.0f/%.0f" % [ceilf(health.current), health.maximum]
