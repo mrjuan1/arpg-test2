@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://vmqypttwq1se"]
+[gd_scene load_steps=22 format=3 uid="uid://vmqypttwq1se"]
 
 [ext_resource type="Script" path="res://Scripts/TestScene.gd" id="1_lgsas"]
 [ext_resource type="Texture2D" uid="uid://bxh21ml68ujuf" path="res://addons/Godot-Prototype-Texture/Textures/checker_black_512x512.png" id="2_jk878"]
@@ -9,8 +9,6 @@
 [ext_resource type="Script" path="res://Scripts/FPSLabel.gd" id="4_ppu5h"]
 [ext_resource type="Texture2D" uid="uid://bw7ctn4vp4k1n" path="res://addons/Godot-Prototype-Texture/Textures/checker_white_512x512.png" id="8_5l4oc"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="8_ondms"]
-[ext_resource type="Texture2D" uid="uid://s1jfx4fb5akn" path="res://addons/Godot-Prototype-Texture/Textures/checker_orange_512x512.png" id="9_wq2rk"]
-[ext_resource type="Script" path="res://Scripts/NPC.gd" id="10_tjaiy"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_8wynb"]
 vertices = PackedVector3Array(-49.5, 0.2, -15.6, -23.8, 0.2, -15.5, -23.8, 0.2, -16.1, -49.5, 0.2, -15.6, -23.8, 0.2, -16.1, -23.6, 0.2, -16.4, -49.5, 0.2, -15.6, -23.6, 0.2, -16.4, -22.6, 0.2, -16.5, -22.6, 0.2, -49.5, -49.5, 0.2, -49.5, -22.6, 0.2, -16.5, -20.9, 0.2, -16.5, -20.9, 0.2, -49.5, -22.6, 0.2, -49.5, -19.7, 0.2, -16.1, -19.7, 0.2, -15.4, -14.8, 0.2, -15.4, -14.8, 0.2, -16.1, -20.9, 0.2, -16.5, -19.9, 0.2, -16.4, -14.6, 0.2, -16.4, -13.6, 0.2, -16.5, -13.6, 0.2, -49.5, -20.9, 0.2, -49.5, -19.9, 0.2, -16.4, -19.7, 0.2, -16.1, -14.8, 0.2, -16.1, -14.6, 0.2, -16.4, -13.6, 0.2, -16.5, -11.9, 0.2, -16.5, -11.9, 0.2, -49.5, -13.6, 0.2, -49.5, -3.1, 0.2, -5, -2, 0.2, -3.9, -1.3, 0.2, -4.2, -1.3, 0.2, -5.9, 1.3, 0.2, -4.2, 2, 0.2, -3.9, 3.1, 0.2, -5, 1.3, 0.2, -5.9, 13.6, 0.2, -22.5, 14.4, 0.2, -22.5, 14.4, 0.2, -49.5, -10.7, 0.2, -9.8, -11, 0.2, -9.5, -5, 0.2, -3.8, -3.7, 0.2, -5.1, 1.1, 0.2, -6.2, 1.3, 0.2, -5.9, 3.1, 0.2, -5, 3.8, 0.2, -5, -3.7, 0.2, -5.1, -3.1, 0.2, -5, -1.3, 0.2, -5.9, -0.899998, 0.2, -6.3, -10.7, 0.2, -9.8, 3.8, 0.2, -5, 13.3, 0.2, -9.7, 13.2, 0.2, -13.1, -10.7, 0.2, -9.8, -0.899998, 0.2, -6.3, 1.1, 0.2, -6.2, -10.7, 0.2, -16.1, 13.6, 0.2, -13.5, 14.3, 0.2, -13.5, 14.3, 0.2, -18.4, 13.6, 0.2, -18.4, -11.1, 0.2, -16.5, -10.7, 0.2, -16.1, 1.1, 0.2, -6.2, 13.2, 0.2, -18.8, 13.2, 0.2, -22.1, 13.2, 0.2, -13.1, 13.6, 0.2, -13.5, 13.6, 0.2, -18.4, 13.2, 0.2, -18.8, 1.1, 0.2, -6.2, 3.8, 0.2, -5, -11.1, 0.2, -16.5, 13.2, 0.2, -22.1, 13.6, 0.2, -22.5, 14.4, 0.2, -49.5, -11.9, 0.2, -49.5, -11.9, 0.2, -16.5, 14.4, 0.2, -22.5, 19.1, 0.2, -22.5, 19.1, 0.2, -49.5, 14.4, 0.2, -49.5, 19.1, 0.2, -49.5, 19.1, 0.2, -22.5, 20.1, 0.2, -22.4, 19.1, 0.2, -49.5, 20.1, 0.2, -22.4, 20.3, 0.2, -22.1, 49.5, 0.2, -21.3, 49.5, 0.2, -49.5, 20.3, 0.2, -22.1, 20.3, 0.2, -21.3, 49.5, 0.2, -21.3, 14.2, 1.7, -21.5, 14.2, 1.7, -21, 19.3, 1.7, -21, 19.3, 1.7, -21.5, 20.3, 0.2, -19.6, 49.5, 0.2, -19.6, 49.5, 0.2, -21.3, 20.3, 0.2, -21.3, 14.2, 3.2, -20, 14.2, 3.2, -19.5, 19.3, 3.2, -19.5, 19.3, 3.2, -20, 19.9, 0.2, -18.4, 19.2, 0.2, -18.4, 19.2, 0.2, -13.5, 19.9, 0.2, -13.5, 20.3, 0.2, -19.6, 20.2, 0.2, -18.6, 20.2, 0.2, -13.3, 20.3, 0.2, -12.3, 49.5, 0.2, -12.3, 49.5, 0.2, -19.6, 20.2, 0.2, -18.6, 19.9, 0.2, -18.4, 19.9, 0.2, -13.5, 20.2, 0.2, -13.3, 14.2, 4.7, -18.5, 14.2, 4.7, -18, 19.3, 4.7, -18, 19.3, 4.7, -18.5, 14.3, 0.2, -13.5, 19.2, 0.2, -13.5, 19.2, 0.2, -18.4, 14.3, 0.2, -18.4, 14.2, 6.2, -17, 14.2, 6.2, -15, 19.3, 6.2, -15, 19.3, 6.2, -17, -49.5, 0.2, -10.3, -23.8, 0.2, -10.4, -23.8, 0.2, -15.5, -49.5, 0.2, -15.6, -22.8, 1.7, -15.5, -22.8, 1.7, -10.5, -22.3, 1.7, -10.5, -22.3, 1.7, -15.5, -21.3, 3.2, -15.5, -21.3, 3.2, -10.5, -20.8, 3.2, -10.5, -20.8, 3.2, -15.5, -19.8, 4.7, -15.5, -19.8, 4.7, -10.5, -19.3, 4.7, -10.5, -19.3, 4.7, -15.5, -18.3, 6.2, -15.5, -18.3, 6.2, -10.5, -16.2, 6.2, -10.5, -16.2, 6.2, -15.5, -15.2, 4.7, -15.5, -15.2, 4.7, -10.5, -14.7, 4.7, -10.5, -14.7, 4.7, -15.5, -13.7, 3.2, -15.5, -13.7, 3.2, -10.5, -13.2, 3.2, -10.5, -13.2, 3.2, -15.5, -12.2, 1.7, -15.5, -12.2, 1.7, -10.5, -11.7, 1.7, -10.5, -11.7, 1.7, -15.5, -19.7, 0.2, -10.5, -14.8, 0.2, -10.5, -14.8, 0.2, -15.4, -19.7, 0.2, -15.4, 14.2, 4.7, -13.9, 14.2, 4.7, -13.5, 19.3, 4.7, -13.5, 19.3, 4.7, -13.9, 14.2, 3.2, -12.4, 14.2, 3.2, -12, 19.3, 3.2, -12, 19.3, 3.2, -12.4, 20.3, 0.2, -10.6, 49.5, 0.2, -10.6, 49.5, 0.2, -12.3, 20.3, 0.2, -12.3, 14.2, 1.7, -10.9, 14.2, 1.7, -10.5, 19.3, 1.7, -10.5, 19.3, 1.7, -10.9, 5, 0.2, -3.1, 3.9, 0.2, -2, 4.2, 0.2, -1.3, 5.9, 0.2, -1.3, 3.1, 0.2, 5, 2, 0.2, 3.9, 1.3, 0.2, 4.2, 1.2, 0.2, 6.1, 13.5, 0.2, -9.5, 6.3, 0.2, -0.899998, 6.2, 0.2, 1.1, 5.9, 0.2, 1.3, 4.2, 0.2, 1.3, 3.9, 0.2, 2, 5.1, 0.2, 3.3, 49.5, 0.2, -10.6, 20.3, 0.2, -10.6, 20.3, 0.2, -9.8, 49.5, 0.2, -10.6, 20.3, 0.2, -9.8, 19.9, 0.2, -9.4, 6.2, 0.2, 1.1, 5.9, 0.2, 1.3, 5.1, 0.2, 3.3, 5, 0.2, -3.1, 5.9, 0.2, -1.3, 6.3, 0.2, -0.899998, 13.5, 0.2, -9.5, 5, 0.2, -3.8, 3.1, 0.2, 5, 1.2, 0.2, 6.1, 0.900002, 0.2, 6.3, 0, 0.2, 49.5, 3.9, 0.2, 5, 6.2, 0.2, 1.1, 5.1, 0.2, 3.3, 5, 0.2, 3.9, 19.9, 0.2, -9.4, 13.5, 0.2, -9.5, 19.9, 0.2, -9.4, 5, 0.2, 3.9, 3.9, 0.2, 5, 0, 0.2, 49.5, 49.5, 0.2, 49.5, 49.5, 0.2, -10.6, 0.900002, 0.2, 6.3, 0, 0.2, 6.3, 0, 0.2, 49.5, -1.3, 0.2, 4.2, -2, 0.2, 3.9, -3.1, 0.2, 5, -1.2, 0.2, 6.1, -5, 0.2, 3.1, -3.9, 0.2, 2, -4.2, 0.2, 1.3, -5.9, 0.2, 1.3, -4.2, 0.2, -1.3, -3.9, 0.2, -2, -5, 0.2, -3.1, -5.9, 0.2, -1.3, -23.8, 0.2, -9.8, -23.8, 0.2, -10.4, -49.5, 0.2, -10.3, -14.4, 0.2, -9.4, -14.8, 0.2, -9.8, -19.7, 0.2, -9.8, -20.1, 0.2, -9.4, -5, 0.2, 3.9, -6.2, 0.2, 1.1, -3.7, 0.2, 5.1, -5, 0.2, 3.9, -20.1, 0.2, -9.4, -23.4, 0.2, -9.4, -5, 0.2, 3.1, -5.9, 0.2, 1.3, -6.2, 0.2, 1.1, -5, 0.2, 3.9, -0.899998, 0.2, 6.3, -1.2, 0.2, 6.1, -3.1, 0.2, 5, -3.7, 0.2, 5.1, 0, 0.2, 49.5, -6.3, 0.2, -0.899998, -5.9, 0.2, -1.3, -5, 0.2, -3.1, -5, 0.2, -3.8, -11, 0.2, -9.5, -23.4, 0.2, -9.4, -23.8, 0.2, -9.8, -49.5, 0.2, -10.3, -6.2, 0.2, 1.1, -6.3, 0.2, -0.899998, -11, 0.2, -9.5, -14.4, 0.2, -9.4, 0, 0.2, 49.5, 0, 0.2, 6.3, -0.899998, 0.2, 6.3, -14.8, 0.2, -9.8, -14.8, 0.2, -10.5, -19.7, 0.2, -10.5, -19.7, 0.2, -9.8, -3.7, 0.2, 5.1, -23.4, 0.2, -9.4, -49.5, 0.2, -10.3, -49.5, 0.2, 49.5, 0, 0.2, 49.5, 5, 0.2, -3.8, 13.5, 0.2, -9.5, 13.3, 0.2, -9.7, 3.8, 0.2, -5, -0.299999, 1.7, -5.3, -0.299999, 1.7, -4.7, 0.299999, 1.7, -4.7, 0.299999, 1.7, -5.3, -3.9, 0.2, -2, -4.2, 0.2, -1.3, -3.7, 0.2, -0.899998, -3.1, 0.2, -2, -3.7, 0.2, 0.900002, -4.2, 0.2, 1.3, -3.9, 0.2, 2, -3.1, 0.2, 2, -2, 0.2, 3.9, -1.3, 0.2, 4.2, -0.899998, 0.2, 3.7, -2, 0.2, 3.1, 0.900002, 0.2, 3.7, 1.3, 0.2, 4.2, 2, 0.2, 3.9, 2, 0.2, 3.1, 3.9, 0.2, 2, 4.2, 0.2, 1.3, 3.7, 0.2, 0.900002, 3.1, 0.2, 2, 3.7, 0.2, -0.899998, 4.2, 0.2, -1.3, 3.9, 0.2, -2, 3.1, 0.2, -2, 2, 0.2, -3.9, 1.3, 0.2, -4.2, 0.900002, 0.2, -3.7, 2, 0.2, -3.1, -0.899998, 0.2, -3.7, -1.3, 0.2, -4.2, -2, 0.2, -3.9, -2, 0.2, -3.1, 2, 0.2, -3.1, 0.900002, 0.2, -3.7, -0.899998, 0.2, -3.7, -2, 0.2, 3.1, 0.900002, 0.2, 3.7, 3.1, 0.2, 2, 2, 0.2, -3.1, -0.899998, 0.2, -3.7, -3.7, 0.2, -0.899998, -2, 0.2, 3.1, -0.899998, 0.2, 3.7, 0.900002, 0.2, 3.7, 3.7, 0.2, -0.899998, 3.1, 0.2, -2, 2, 0.2, -3.1, 3.1, 0.2, 2, 3.7, 0.2, 0.900002, 0.900002, 0.2, 3.7, 2, 0.2, 3.1, 3.1, 0.2, 2, -3.7, 0.2, 0.900002, -3.1, 0.2, 2, -2, 0.2, 3.1, -3.7, 0.2, -0.899998, -2, 0.2, -3.1, -3.1, 0.2, -2, -3.7, 0.2, -0.899998, -0.899998, 0.2, -3.7, -3.9, 1.7, -3.6, -3.6, 1.7, -3.1, -3.1, 1.7, -3.4, -3.4, 1.7, -3.9, 3.1, 1.7, -3.6, 3.4, 1.7, -3.1, 3.9, 1.7, -3.4, 3.6, 1.7, -3.9, -5.3, 1.7, -0.299999, -5.3, 1.7, 0.299999, -4.7, 1.7, 0.299999, -4.7, 1.7, -0.299999, 4.7, 1.7, -0.299999, 4.7, 1.7, 0.299999, 5.3, 1.7, 0.299999, 5.3, 1.7, -0.299999, -3.9, 1.7, 3.4, -3.6, 1.7, 3.9, -3.1, 1.7, 3.6, -3.4, 1.7, 3.1, 3.1, 1.7, 3.4, 3.4, 1.7, 3.9, 3.9, 1.7, 3.6, 3.6, 1.7, 3.1, -0.299999, 1.7, 4.7, -0.299999, 1.7, 5.3, 0.299999, 1.7, 5.3, 0.299999, 1.7, 4.7)
@@ -86,36 +84,6 @@ texture_filter = 5
 
 [sub_resource type="BoxMesh" id="BoxMesh_rr2dw"]
 material = SubResource("StandardMaterial3D_57gl4")
-size = Vector3(0.1, 0.1, 0.5)
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wftfe"]
-radius = 0.25
-height = 1.7
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qmoaq"]
-shading_mode = 0
-albedo_texture = ExtResource("9_wq2rk")
-uv1_scale = Vector3(1, 1, -1)
-uv1_offset = Vector3(0.5, 0.5, 0.5)
-uv1_triplanar = true
-texture_filter = 5
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_lerl1"]
-material = SubResource("StandardMaterial3D_qmoaq")
-radius = 0.25
-height = 1.7
-radial_segments = 16
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x6hab"]
-shading_mode = 0
-albedo_texture = ExtResource("9_wq2rk")
-uv1_scale = Vector3(1, 1, -1)
-uv1_offset = Vector3(0.5, 0.5, 0.5)
-uv1_triplanar = true
-texture_filter = 5
-
-[sub_resource type="BoxMesh" id="BoxMesh_6bq13"]
-material = SubResource("StandardMaterial3D_x6hab")
 size = Vector3(0.1, 0.1, 0.5)
 
 [node name="TestScene" type="Node3D"]
@@ -320,70 +288,33 @@ layout_mode = 2
 text = "Stamina"
 label_settings = SubResource("LabelSettings_0j0hm")
 
-[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("_camera", "_hp_label", "_stamina_label", "_meshes", "_dodge_timer", "_combo_timer")]
+[node name="StrengthLabel" type="Label" parent="UI/StatLabels"]
+layout_mode = 2
+text = "Strength"
+label_settings = SubResource("LabelSettings_0j0hm")
+
+[node name="DefenceLabel" type="Label" parent="UI/StatLabels"]
+layout_mode = 2
+text = "Defence	"
+label_settings = SubResource("LabelSettings_0j0hm")
+
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("_camera", "_hp_label", "_stamina_label", "_str_label", "_def_label", "_meshes", "_dodge_timer", "_combo_timer")]
 script = ExtResource("8_ondms")
 _camera = NodePath("../Camera")
-_camera_xz_lerp_speed = null
-_camera_y_lerp_speed = null
-_camera_y_positive_follow_distance = null
-_camera_y_negative_follow_distance = null
 _hp_label = NodePath("../UI/StatLabels/HPLabel")
 _stamina_label = NodePath("../UI/StatLabels/StaminaLabel")
+_str_label = NodePath("../UI/StatLabels/StrengthLabel")
+_def_label = NodePath("../UI/StatLabels/DefenceLabel")
 _meshes = [NodePath("PlayerCollision/PlayerMesh"), NodePath("PlayerCollision/PlayerMesh/PlayerPointerMesh")]
-_colour_lerp_speed = null
-_damage_colour = null
 _has_health = true
 _has_stamina = true
-_hp = null
-_max_hp = null
-_stamina = null
-_max_stamina = null
-_stamina_recharge_rate = null
-_gravity_multiplier = null
-_initial_movement_speed = null
-_movement_speed_lerp_speed = null
-_movement_speed_air_dampening = null
-_max_air_movement_multiplier = null
-_velocity_lerp_speed = null
-_velocity_air_dampening = null
-_y_rotation_lerp_speed = null
-_y_rotation_air_dampening = null
+_has_str_and_def = true
 _velocity_to_target_y_rotation = true
-_y_reset = null
-_fall_damage_y_distance = null
-_fall_damage_y_velocity = null
 _can_jump = true
 _can_dodge = true
 _can_attack = true
-_jump_height = null
-_double_jump_min_velocity = null
-_double_jump_scale = null
-_jump_stamina = null
-_double_jump_stamina = null
 _dodge_timer = NodePath("DodgeTimer")
-_floor_dodge_speed = null
-_air_dodge_speed = null
-_min_directional_speed = null
-_stationary_air_dampening = null
-_floor_dodge_stamina = null
-_air_dodge_stamina = null
 _combo_timer = NodePath("ComboTimer")
-_initial_strength = null
-_initial_strength_reduction_factor = null
-_strength_reduction_decrement = null
-_initial_charge_rate = null
-_initial_charge_rate_reduction_factor = null
-_charge_rate_reduction_decrement = null
-_initial_max_charge = null
-_initial_max_charge_reduction_factor = null
-_max_charge_reduction_decrement = null
-_release_strength_cutoff = null
-_max_combos = null
-_initial_attack_stamina = null
-_initial_attack_stamina_incrememnt_factor = null
-_attack_stamina_incrememnt = null
-_charge_stamina_threshold = null
-_air_attack_stamina_factor = null
 
 [node name="PlayerCollision" type="CollisionShape3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
@@ -408,23 +339,5 @@ one_shot = true
 [node name="PlayerRay" type="RayCast3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 target_position = Vector3(0, 0, 2)
-
-[node name="NPC" type="CharacterBody3D" parent="." node_paths=PackedStringArray("_meshes")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
-script = ExtResource("10_tjaiy")
-_meshes = [NodePath("NPCCollision/NPCMesh"), NodePath("NPCCollision/NPCMesh/NPCPointerMesh")]
-_has_health = true
-
-[node name="NPCCollision" type="CollisionShape3D" parent="NPC"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
-shape = SubResource("CapsuleShape3D_wftfe")
-
-[node name="NPCMesh" type="MeshInstance3D" parent="NPC/NPCCollision"]
-mesh = SubResource("CapsuleMesh_lerl1")
-skeleton = NodePath("../../../Player")
-
-[node name="NPCPointerMesh" type="MeshInstance3D" parent="NPC/NPCCollision/NPCMesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.45)
-mesh = SubResource("BoxMesh_6bq13")
 
 [connection signal="timeout" from="UI/FPSLabel/FPSTimer" to="UI/FPSLabel" method="_on_fps_timer_timeout"]

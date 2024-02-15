@@ -6,6 +6,7 @@ extends CharacterBody3D
 @export_group("Stats")
 @export var _has_health: bool = false
 @export var _has_stamina: bool = false
+@export var _has_str_and_def: bool = false
 @export_subgroup("Health")
 @export var _hp: float = Health.DEFAULT_HP
 @export var _max_hp: float = Health.DEFAULT_MAX_HP
@@ -13,6 +14,9 @@ extends CharacterBody3D
 @export var _stamina: float = Stamina.DEFAULT_STAMINA
 @export var _max_stamina: float = Stamina.DEFAULT_MAX_STAMINA
 @export var _stamina_recharge_rate: float = Stamina.DEFAULT_STAMINA_RECHARGE_RATE
+@export_subgroup("Strength and defence")
+@export var _strength: float = StrDef.DEFAULT_STRENGTH
+@export var _defence: float = StrDef.DEFAULT_DEFENCE
 #endregion stats
 
 #region movement
@@ -93,6 +97,7 @@ extends CharacterBody3D
 #region public variables
 var health: Health
 var stamina: Stamina
+var strdef: StrDef
 var jumping: Jumping
 var dodging: Dodging
 var melee: Melee
@@ -191,4 +196,10 @@ func init_character() -> void:
 				_charge_stamina_threshold,
 				_air_attack_stamina_factor,
 			)
+
+	if _has_str_and_def:
+		strdef = StrDef.new(
+			_strength,
+			_defence,
+		)
 #endregion public functions

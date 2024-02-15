@@ -14,6 +14,8 @@ extends CapsuleCharacter
 @export_group("Stat labels")
 @export var _hp_label: Label
 @export var _stamina_label: Label
+@export var _str_label: Label
+@export var _def_label: Label
 #endregion exports
 
 #region private variables
@@ -34,7 +36,7 @@ var _melee_charge_state: Melee.ChargeState = Melee.ChargeState.RELEASED
 	_camera_y_negative_follow_distance,
 )
 
-@onready var _player_ray: RayCast3D = $PlayerRay
+#@onready var _player_ray: RayCast3D = $PlayerRay
 
 @onready var _game_over_res: PackedScene = preload("res://GameOver.tscn")
 #endregion onready
@@ -48,6 +50,8 @@ func _ready() -> void:
 	melee.attack_released.connect(_on_melee_attack_released)
 
 	_update_hp_label()
+	_str_label.text = "STR: %.0f" % strdef.strength
+	_def_label.text = "DEF: %.0f" % strdef.defence
 
 func _process(delta: float) -> void:
 	lerp_capsule_character_colours(delta)
@@ -116,11 +120,8 @@ func _on_melee_attack_released(strength: float, combo: int) -> void:
 			else:
 				velocity.y *= -1.0
 
-	if _player_ray.is_colliding():
-		var collider: Object = _player_ray.get_collider()
-		if collider is NPC:
-			var npc: NPC = collider as NPC
-			npc.health.current -= strength
+	#if _player_ray.is_colliding():
+		#var collider: Object = _player_ray.get_collider()
 
 	prints("Melee attack released with", strength, "strength and", combo, "combos")
 #endregion signal events

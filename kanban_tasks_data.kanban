@@ -22,7 +22,6 @@
 			"uuid": "7eef13de-40bd-46c5-9947-055715090f4d",
 			"title": "Doing",
 			"tasks": [
-				"6494383d-b879-49ef-9255-22acde51c312",
 				"d0b41172-e4ef-4693-bae4-1a538237c18e"
 			]
 		},
@@ -30,6 +29,7 @@
 			"uuid": "cfd612a1-151a-4ac6-a306-f10c05e2b58d",
 			"title": "Done",
 			"tasks": [
+				"6494383d-b879-49ef-9255-22acde51c312",
 				"3a242825-86c5-4dc7-b99a-46961716e040",
 				"90334d96-26ac-4cdc-92a5-8ab521ed3bd5",
 				"3c199eeb-d611-47cf-bbe6-8978db7265d1",
@@ -265,9 +265,18 @@
 		{
 			"uuid": "d0b41172-e4ef-4693-bae4-1a538237c18e",
 			"title": "Enemy class",
-			"description": "",
+			"description": "Create an enemy class extending the capsule character one, then setup an enemy node using this class.",
 			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
-			"steps": []
+			"steps": [
+				{
+					"details": "Create enemy class, extending capsule character",
+					"done": false
+				},
+				{
+					"details": "Setup enemy node suing enemy class",
+					"done": false
+				}
+			]
 		}
 	],
 	"layout": {
