@@ -270,11 +270,11 @@
 			"steps": [
 				{
 					"details": "Create enemy class, extending capsule character",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Setup enemy node suing enemy class",
-					"done": false
+					"done": true
 				}
 			]
 		}

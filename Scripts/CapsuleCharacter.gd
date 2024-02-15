@@ -20,19 +20,20 @@ func init_capsule_character() -> void:
 	_init_mesh_materials_colours()
 
 	init_character()
-	health.damaged.connect(_on_health_damaged)
-	health.killed.connect(_on_health_killed)
+	if health:
+		health.damaged.connect(_on_health_damaged)
+		health.killed.connect(_on_health_killed)
 
 func lerp_capsule_character_colours(delta: float) -> void:
 	for i: int in len(_mesh_materials):
 		_mesh_materials[i].albedo_color = lerp(_mesh_materials[i].albedo_color, _mesh_original_colours[i], _colour_lerp_speed * delta)
 
-func capsule_character_physics_process(delta: float) -> bool:
-	if health.current > 0.0:
+func capsule_character_physics_process(delta: float) -> void:
+	if health:
+		if health.current > 0.0:
+			movement.physics_process(delta)
+	else:
 		movement.physics_process(delta)
-		return true
-
-	return false
 #endregion public functions
 
 #region signal events
