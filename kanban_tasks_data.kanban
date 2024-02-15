@@ -265,7 +265,7 @@
 		{
 			"uuid": "d0b41172-e4ef-4693-bae4-1a538237c18e",
 			"title": "Enemy class",
-			"description": "Create an enemy class extending the capsule character one, then setup an enemy node using this class.",
+			"description": "Create an enemy class extending the capsule character one, then setup an enemy node using this class.\n\nAfter implementing target detection and tracking, add initial behaviour actions. These will consist of idling, moving on a path or randomly on the navmesh, looking around/observing (rotate detection cone and head(?)), pursuing, charging attack and releasing attack.",
 			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
 			"steps": [
 				{
@@ -275,6 +275,38 @@
 				{
 					"details": "Setup enemy node suing enemy class",
 					"done": true
+				},
+				{
+					"details": "Add enemy detection Area3Ds",
+					"done": false
+				},
+				{
+					"details": "Add debug shapes for detection areas",
+					"done": false
+				},
+				{
+					"details": "Setup events for detection area entering and exiting",
+					"done": false
+				},
+				{
+					"details": "Check if detection area event bodies are the player",
+					"done": false
+				},
+				{
+					"details": "For radius detection, only mark target if its moving",
+					"done": false
+				},
+				{
+					"details": "For cone detection, mark target immediately",
+					"done": false
+				},
+				{
+					"details": "Only unmark target after it's left both areas",
+					"done": false
+				},
+				{
+					"details": "If target is marked, track their last seen location",
+					"done": false
 				}
 			]
 		}
