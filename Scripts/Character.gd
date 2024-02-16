@@ -22,7 +22,7 @@ extends CharacterBody3D
 #region movement
 @export_group("Movement")
 @export var _gravity_multiplier: float = Movement.DEFAULT_GRAVITY_MULTIPLIER
-@export_subgroup("Movement")
+@export_subgroup("Speeds")
 @export var _initial_movement_speed: float = Movement.DEFAULT_INITIAL_MOVEMENT_SPEED
 @export var _movement_speed_lerp_speed: float = Movement.DEFAULT_MOVEMENT_SPEED_LERP_SPEED
 @export var _movement_speed_air_dampening: float = Movement.DEFAULT_MOVEMENT_SPEED_AIR_DAMPENING

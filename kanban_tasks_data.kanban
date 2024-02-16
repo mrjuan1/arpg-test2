@@ -310,19 +310,19 @@
 				},
 				{
 					"details": "Move toward tracked target location on navmesh",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Add avoidance",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Add event for reaching target location",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Check for target character after reaching target location",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Implement initial behaviour as-per task description",

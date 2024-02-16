@@ -1,0 +1,87 @@
+[gd_scene load_steps=10 format=3 uid="uid://k2mhfa7v5bky"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_ciay8"]
+[ext_resource type="Texture2D" uid="uid://s1jfx4fb5akn" path="res://addons/Godot-Prototype-Texture/Textures/checker_orange_512x512.png" id="2_1jmw4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_j5uvt"]
+radius = 0.25
+height = 1.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dmdwh"]
+shading_mode = 0
+albedo_texture = ExtResource("2_1jmw4")
+uv1_scale = Vector3(1, 1, -1)
+uv1_offset = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+texture_filter = 5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_53xgd"]
+material = SubResource("StandardMaterial3D_dmdwh")
+radius = 0.25
+height = 1.7
+radial_segments = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xj7aw"]
+shading_mode = 0
+albedo_texture = ExtResource("2_1jmw4")
+uv1_scale = Vector3(1, 1, -1)
+uv1_offset = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+texture_filter = 5
+
+[sub_resource type="BoxMesh" id="BoxMesh_u485m"]
+material = SubResource("StandardMaterial3D_xj7aw")
+size = Vector3(0.1, 0.1, 0.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_22vj8"]
+radius = 5.0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mhlh3"]
+points = PackedVector3Array(0, 10, -20, 0, 5.99843, -17.0008, -7.65466, 10, -18.4808, 7.65074, 10, -18.4808, 6.50352, 5.99843, -15.7087, 0, -6.00039, -8.00313, -6.50744, 5.99843, -15.7087, -12.0243, 5.99843, -12.0243, -14.1425, 10, -14.1425, 14.1386, 10, -14.1425, 12.0204, 5.99843, -12.0243, 4.20908, -2.00078, -10.1644, 1.91073, -10, -4.6202, 0, -10, -5, -1.91464, -10, -4.6202, -4.213, -2.00078, -10.1644, -10.1644, -2.00078, -4.213, -15.7087, 5.99843, -6.50744, -18.4808, 10, -7.65466, -3.53563, -10, -3.53563, -4.6202, -10, -1.91464, 18.4769, 10, -7.65466, 15.7048, 5.99843, -6.50744, 10.1605, -2.00078, -4.213, 4.61629, -10, -1.91464, 3.53172, -10, -3.53563, -8.00313, -6.00039, 0, -17.0008, 5.99843, 0, -20, 10, 0, -5, -10, 0, 20, 10, 0, 5, -10, 0, -10.1644, -2.00078, 4.20908, -15.7087, 5.99843, 6.50352, -4.6202, -10, 1.91073, -18.4808, 10, 7.65074, 18.4769, 10, 7.65074, 15.7048, 5.99843, 6.50352, 4.61629, -10, 1.91073, 10.1605, -2.00078, 4.20908, -12.0243, 5.99843, 12.0204, -3.53563, -10, 3.53172, -14.1425, 10, 14.1386, 14.1386, 10, 14.1386, 12.0204, 5.99843, 12.0204, 3.53172, -10, 3.53172, -6.50744, 5.99843, 15.7048, -7.65466, 10, 18.4769, -1.91464, -10, 4.61629, -4.213, -2.00078, 10.1605, 7.65074, 10, 18.4769, 6.50352, 5.99843, 15.7048, 4.20908, -2.00078, 10.1605, 1.91073, -10, 4.61629, 0, -10, 5, 0, 10, 20)
+
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_meshes")]
+transform = Transform3D(-0.999811, 0, 0.0194593, 0, 1, 0, -0.0194593, 0, -0.999811, 9.43503, -9.53674e-07, -12.4337)
+script = ExtResource("1_ciay8")
+_detection_area = NodePath("EnemyDetectionArea")
+_vision_area = NodePath("EnemyVisionArea")
+_detection_ray = NodePath("EnemyDetectionRay")
+_nav_agent = NodePath("EnemyNavAgent")
+_meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
+_has_health = true
+_strength = 2.0
+_initial_movement_speed = 3.0
+_movement_speed_lerp_speed = 5.0
+_velocity_lerp_speed = 5.0
+_y_rotation_lerp_speed = 2.0
+
+[node name="EnemyCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+shape = SubResource("CapsuleShape3D_j5uvt")
+
+[node name="EnemyMesh" type="MeshInstance3D" parent="EnemyCollision"]
+mesh = SubResource("CapsuleMesh_53xgd")
+
+[node name="EnemyPointerMesh" type="MeshInstance3D" parent="EnemyCollision/EnemyMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.45)
+mesh = SubResource("BoxMesh_u485m")
+
+[node name="EnemyDetectionArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+
+[node name="EnemyDetectionCollision" type="CollisionShape3D" parent="EnemyDetectionArea"]
+shape = SubResource("SphereShape3D_22vj8")
+
+[node name="EnemyVisionArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.135, 10)
+
+[node name="EnemyVisionCollision" type="CollisionShape3D" parent="EnemyVisionArea"]
+shape = SubResource("ConvexPolygonShape3D_mhlh3")
+
+[node name="EnemyDetectionRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0)
+target_position = Vector3(0, 0, 1)
+
+[node name="EnemyNavAgent" type="NavigationAgent3D" parent="."]
+target_desired_distance = 2.0
+avoidance_enabled = true
+radius = 1.0
