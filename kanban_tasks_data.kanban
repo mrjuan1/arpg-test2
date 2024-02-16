@@ -290,22 +290,54 @@
 				},
 				{
 					"details": "Check if detection area event bodies are the player",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "For radius detection, only mark target if its moving",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "For cone detection, mark target immediately",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Only unmark target after it's left both areas",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "If target is marked, track their last seen location",
+					"done": true
+				},
+				{
+					"details": "Move toward tracked target location on navmesh",
+					"done": false
+				},
+				{
+					"details": "Add avoidance",
+					"done": false
+				},
+				{
+					"details": "Add event for reaching target location",
+					"done": false
+				},
+				{
+					"details": "Check for target character after reaching target location",
+					"done": false
+				},
+				{
+					"details": "Implement initial behaviour as-per task description",
+					"done": false
+				},
+				{
+					"details": "If target character is present at target location, prepare to attack",
+					"done": false
+				},
+				{
+					"details": "If not, enter observing behaviour state",
+					"done": false
+				},
+				{
+					"details": "If not target is marked after a certain amount of time, return to idle behaviour state",
 					"done": false
 				}
 			]

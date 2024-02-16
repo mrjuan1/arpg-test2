@@ -400,11 +400,12 @@ one_shot = true
 wait_time = 0.5
 one_shot = true
 
-[node name="Enemy" type="CharacterBody3D" parent="." node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_mesh", "_vision_mesh", "_meshes")]
+[node name="Enemy" type="CharacterBody3D" parent="." node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_detection_mesh", "_vision_mesh", "_meshes")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
 script = ExtResource("10_x4y5j")
 _detection_area = NodePath("DetectionArea")
 _vision_area = NodePath("VisionArea")
+_detection_ray = NodePath("DetectionRay")
 _detection_mesh = NodePath("DetectionArea/DetectionCollision/DetectionDebugMesh")
 _vision_mesh = NodePath("VisionArea/VisionCollision/VisionDebugMesh")
 _meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
@@ -439,5 +440,9 @@ shape = SubResource("ConvexPolygonShape3D_mhlh3")
 [node name="VisionDebugMesh" type="MeshInstance3D" parent="Enemy/VisionArea/VisionCollision"]
 mesh = SubResource("CylinderMesh_om0lx")
 skeleton = NodePath("../..")
+
+[node name="DetectionRay" type="RayCast3D" parent="Enemy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0)
+target_position = Vector3(0, 0, 1)
 
 [connection signal="timeout" from="UI/FPSLabel/FPSTimer" to="UI/FPSLabel" method="_on_fps_timer_timeout"]
