@@ -278,15 +278,15 @@
 				},
 				{
 					"details": "Add enemy detection Area3Ds",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Add debug shapes for detection areas",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Setup events for detection area entering and exiting",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Check if detection area event bodies are the player",

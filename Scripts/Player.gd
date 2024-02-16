@@ -36,8 +36,6 @@ var _melee_charge_state: Melee.ChargeState = Melee.ChargeState.RELEASED
 	_camera_y_negative_follow_distance,
 )
 
-#@onready var _player_ray: RayCast3D = $PlayerRay
-
 @onready var _game_over_res: PackedScene = preload("res://GameOver.tscn")
 #endregion onready
 
@@ -119,9 +117,6 @@ func _on_melee_attack_released(strength: float, combo: int) -> void:
 				velocity.y = -VELOCITY_SCALE
 			else:
 				velocity.y *= -1.0
-
-	#if _player_ray.is_colliding():
-		#var collider: Object = _player_ray.get_collider()
 
 	prints("Melee attack released with", strength, "strength and", combo, "combos")
 #endregion signal events
