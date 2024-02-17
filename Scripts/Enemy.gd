@@ -152,7 +152,7 @@ func _on_nav_agent_navigation_finished() -> void:
 	elif _behaviour_action == BehaviourAction.PURSUING:
 		movement.moving = false
 
-		if _target_character and position.distance_squared_to(_nav_agent.target_position) < _target_distance_threshold:
+		if _target_character and position.distance_squared_to(_target_character.position) < _target_distance_threshold:
 			target_character_reached.emit(_target_character)
 		else:
 			_behaviour_action = BehaviourAction.OBSERVING
