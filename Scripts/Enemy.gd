@@ -177,17 +177,16 @@ func _on_behaviour_timer_timeout() -> void:
 
 #region private functions
 func _aware_of_target() -> bool:
-	if _in_vision_area:
-		return true
-
 	if _in_detection_area:
 		var result: bool = _target_character.is_on_floor() != _target_was_on_floor or \
 			(_target_character.is_on_floor() and \
 			(absf(_target_character.velocity.x) > _target_detection_velocity or \
 			absf(_target_character.velocity.z) > _target_detection_velocity))
 		_target_was_on_floor = _target_character.is_on_floor()
-
 		return result
+
+	if _in_vision_area:
+		return true
 
 	return false
 
