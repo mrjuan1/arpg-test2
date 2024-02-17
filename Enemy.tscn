@@ -1,36 +1,41 @@
-[gd_scene load_steps=10 format=3 uid="uid://k2mhfa7v5bky"]
+[gd_scene load_steps=11 format=3 uid="uid://k2mhfa7v5bky"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_ciay8"]
-[ext_resource type="Texture2D" uid="uid://s1jfx4fb5akn" path="res://addons/Godot-Prototype-Texture/Textures/checker_orange_512x512.png" id="2_1jmw4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_j5uvt"]
 radius = 0.25
 height = 1.7
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dmdwh"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xivhq"]
+load_path = "res://.godot/imported/checker_orange_512x512.png-98c38636b3fee784421cb95b2a66a997.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4q0tm"]
 shading_mode = 0
-albedo_texture = ExtResource("2_1jmw4")
+albedo_texture = SubResource("CompressedTexture2D_xivhq")
 uv1_scale = Vector3(1, 1, -1)
 uv1_offset = Vector3(0.5, 0.5, 0.5)
 uv1_triplanar = true
 texture_filter = 5
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_53xgd"]
-material = SubResource("StandardMaterial3D_dmdwh")
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_yvs14"]
+material = SubResource("StandardMaterial3D_4q0tm")
 radius = 0.25
 height = 1.7
 radial_segments = 16
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xj7aw"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_b78j8"]
+load_path = "res://.godot/imported/checker_orange_512x512.png-98c38636b3fee784421cb95b2a66a997.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xfi2a"]
 shading_mode = 0
-albedo_texture = ExtResource("2_1jmw4")
+albedo_texture = SubResource("CompressedTexture2D_b78j8")
 uv1_scale = Vector3(1, 1, -1)
 uv1_offset = Vector3(0.5, 0.5, 0.5)
 uv1_triplanar = true
 texture_filter = 5
 
-[sub_resource type="BoxMesh" id="BoxMesh_u485m"]
-material = SubResource("StandardMaterial3D_xj7aw")
+[sub_resource type="BoxMesh" id="BoxMesh_kx743"]
+material = SubResource("StandardMaterial3D_xfi2a")
 size = Vector3(0.1, 0.1, 0.5)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_22vj8"]
@@ -50,6 +55,11 @@ _target_distance_threshold = 4.0
 _behaviour_timer = NodePath("BehaviourTimer")
 _meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 _has_health = true
+_has_str_and_def = true
+_hp = 4.0
+_max_hp = 4.0
+_strength = 2.0
+_defence = 1.0
 _initial_movement_speed = 3.0
 _movement_speed_lerp_speed = 5.0
 _velocity_lerp_speed = 5.0
@@ -60,11 +70,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 shape = SubResource("CapsuleShape3D_j5uvt")
 
 [node name="EnemyMesh" type="MeshInstance3D" parent="EnemyCollision"]
-mesh = SubResource("CapsuleMesh_53xgd")
+mesh = SubResource("CapsuleMesh_yvs14")
 
 [node name="EnemyPointerMesh" type="MeshInstance3D" parent="EnemyCollision/EnemyMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.45)
-mesh = SubResource("BoxMesh_u485m")
+mesh = SubResource("BoxMesh_kx743")
 
 [node name="EnemyDetectionArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)

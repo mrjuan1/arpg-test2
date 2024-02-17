@@ -71,7 +71,6 @@ extends CharacterBody3D
 @export_group("Melee")
 @export var _combo_timer: Timer
 @export_subgroup("Strength")
-@export var _initial_strength: float = Melee.DEFAULT_INITIAL_STRENGTH
 @export var _initial_strength_reduction_factor: float = Melee.DEFAULT_INITIAL_STRENGTH_REDUCTION_FACTOR
 @export var _strength_reduction_decrement: float = Melee.DEFAULT_STRENGTH_REDUCTION_DECREMENT
 @export_subgroup("Charge rate")
@@ -135,6 +134,12 @@ func init_character() -> void:
 			_max_hp,
 		)
 
+	if _has_str_and_def:
+		strdef = StrDef.new(
+			_strength,
+			_defence,
+		)
+
 	if _has_stamina:
 		stamina = Stamina.new(
 			_stamina,
@@ -170,12 +175,12 @@ func init_character() -> void:
 				_air_dodge_stamina,
 			)
 
-		if _can_attack:
+		if _has_str_and_def and _can_attack:
 			melee = Melee.new(
 				self,
 				_combo_timer,
 
-				_initial_strength,
+				strdef.strength,
 				_initial_strength_reduction_factor,
 				_strength_reduction_decrement,
 
@@ -196,10 +201,4 @@ func init_character() -> void:
 				_charge_stamina_threshold,
 				_air_attack_stamina_factor,
 			)
-
-	if _has_str_and_def:
-		strdef = StrDef.new(
-			_strength,
-			_defence,
-		)
 #endregion public functions

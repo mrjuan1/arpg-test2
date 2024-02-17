@@ -11,6 +11,9 @@ extends CapsuleCharacter
 @export var _camera_y_positive_follow_distance: float = PlayerCamera.DEFAULT_CAMERA_Y_POSITIVE_FOLLOW_DISTANCE
 @export var _camera_y_negative_follow_distance: float = PlayerCamera.DEFAULT_CAMERA_Y_NEGATIVE_FOLLOW_DISTANCE
 
+@export_group("Melee")
+@export var _melee_area: Area3D
+
 @export_group("Stat labels")
 @export var _hp_label: Label
 @export var _stamina_label: Label
@@ -20,8 +23,10 @@ extends CapsuleCharacter
 
 #region private variables
 var _input_vec: Vector2 = Vector2.ZERO
-var _last_stamina: float = 0.0
 var _melee_charge_state: Melee.ChargeState = Melee.ChargeState.RELEASED
+var _enemies_in_range: Array[Enemy] = []
+
+var _last_stamina: float = 0.0
 #endregion private variables
 
 #region onready
@@ -46,6 +51,10 @@ func _ready() -> void:
 	capsule_character_damaged.connect(_on_capsule_character_damaged)
 	capsule_character_killed.connect(_on_capsule_character_killed)
 	melee.attack_released.connect(_on_melee_attack_released)
+
+	if _melee_area:
+		_melee_area.body_entered.connect(_on_melee_area_body_entered)
+		_melee_area.body_exited.connect(_on_melee_area_body_exited)
 
 	_update_hp_label()
 	_str_label.text = "STR: %.0f" % strdef.strength
@@ -101,7 +110,7 @@ func _on_capsule_character_killed() -> void:
 	var game_over: ColorRect = _game_over_res.instantiate()
 	add_child(game_over)
 
-func _on_melee_attack_released(strength: float, combo: int) -> void:
+func _on_melee_attack_released(strength: float, _combo: int) -> void:
 	if is_on_floor():
 		velocity = Vector3(movement.direction.x, 0.0, movement.direction.y) * 10.0
 	else:
@@ -118,7 +127,22 @@ func _on_melee_attack_released(strength: float, combo: int) -> void:
 			else:
 				velocity.y *= -1.0
 
-	prints("Melee attack released with", strength, "strength and", combo, "combos")
+	for enemy: Enemy in _enemies_in_range:
+		var damage: float = strength - enemy.strdef.defence
+		if damage < 0.0:
+			damage = 0.0
+		enemy.health.current -= damage
+		prints("Attempted to do %.2f damage on" % damage, enemy)
+
+func _on_melee_area_body_entered(body: Node3D) -> void:
+	if body is Enemy:
+		var enemy: Enemy = body as Enemy
+		_enemies_in_range.append(enemy)
+
+func _on_melee_area_body_exited(body: Node3D) -> void:
+	if body is Enemy:
+		var enemy: Enemy = body as Enemy
+		_enemies_in_range.erase(enemy)
 #endregion signal events
 
 #region private functions
