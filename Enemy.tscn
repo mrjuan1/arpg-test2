@@ -46,14 +46,14 @@ _detection_area = NodePath("EnemyDetectionArea")
 _vision_area = NodePath("EnemyVisionArea")
 _detection_ray = NodePath("EnemyDetectionRay")
 _nav_agent = NodePath("EnemyNavAgent")
-_target_distance_threshold = 2.5
+_target_distance_threshold = 3.0
 _behaviour_timer = NodePath("BehaviourTimer")
 _meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 _has_health = true
 _initial_movement_speed = 3.0
 _movement_speed_lerp_speed = 5.0
 _velocity_lerp_speed = 5.0
-_y_rotation_lerp_speed = 5.0
+_y_rotation_lerp_speed = 3.0
 
 [node name="EnemyCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)

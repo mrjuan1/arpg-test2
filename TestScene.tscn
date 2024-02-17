@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://vmqypttwq1se"]
+[gd_scene load_steps=27 format=3 uid="uid://vmqypttwq1se"]
 
 [ext_resource type="Script" path="res://Scripts/TestScene.gd" id="1_lgsas"]
 [ext_resource type="Texture2D" uid="uid://bxh21ml68ujuf" path="res://addons/Godot-Prototype-Texture/Textures/checker_black_512x512.png" id="2_jk878"]
@@ -91,6 +91,27 @@ _data = {
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 8
+
+[sub_resource type="Curve3D" id="Curve3D_m88bd"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 18.2069, 0, 12.253, 0, 0, 0, 0, 0, 0, 29.9859, 0, 12.5364, 0, 0, 0, 0, 0, 0, 30.0264, 0, 22.413, 0, 0, 0, 0, 0, 0, 18.5307, 0, 22.1296, 0, 0, 0, 0, 0, 0, 19.0569, 0, 31.7634, 0, 0, 0, 0, 0, 0, 5.25394, 0, 31.2776, 0, 0, 0, 0, 0, 0, 5.25394, 0, 21.3606, 0, 0, 0, 0, 0, 0, 10.8804, 0, 18.7295, 0, 0, 0, 0, 0, 0, 9.46364, 0, 10.8768, 0, 0, 0, 0, 0, 0, 18.2069, 0, 12.253),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 10
+
+[sub_resource type="Curve3D" id="Curve3D_osins"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 18.3661, 0, -4.29096, 0, 0, 0, 0, 0, 0, 31.2161, 0, -4.29096, 0, 0, 0, 0, 0, 0, 30.6386, 0, -15.5528, 0, 0, 0, 0, 0, 0, 21.0371, 0, -15.7835, 0, 0, 0, 0, 0, 0, 11.7244, 0, -15.9639, 0, 0, 0, 0, 0, 0, 7.86221, 0, -4.16066, 0, 0, 0, 0, 0, 0, 11.8919, 0, 3.32182, 0, 0, 0, 0, 0, 0, 18.3661, 0, -4.29096),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
+
+[sub_resource type="Curve3D" id="Curve3D_djjvg"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -15.6418, 0, 13.0379, 0, 0, 0, 0, 0, 0, -25.1848, 0, 12.609, 0, 0, 0, 0, 0, 0, -25.5065, 0, 25.6905, 0, 0, 0, 0, 0, 0, -35.4784, 0, 33.089, 0, 0, 0, 0, 0, 0, -43.0914, 0, 24.7254, 0, 0, 0, 0, 0, 0, -36.5507, 0, 13.574, 0, 0, 0, 0, 0, 0, -42.7697, 0, 2.74434, 0, 0, 0, 0, 0, 0, -43.3058, 0, -11.8382, 0, 0, 0, 0, 0, 0, -31.5111, 0, -10.9804, 0, 0, 0, 0, 0, 0, -22.0753, 0, -0.579627, 0, 0, 0, 0, 0, 0, -16.9285, 0, -0.686852, 0, 0, 0, 0, 0, 0, -16.9285, 0, -8.94316, 0, 0, 0, 0, 0, 0, -17.2502, 0, -19.4512, 0, 0, 0, 0, 0, 0, -27.7582, 0, -19.2367, 0, 0, 0, 0, 0, 0, -27.2221, 0, 0.0637205, 0, 0, 0, 0, 0, 0, -19.3947, 0, 3.92382, 0, 0, 0, 0, 0, 0, -19.7164, 0, 7.89113, 0, 0, 0, 0, 0, 0, -8.24332, 0, 7.89113, 0, 0, 0, 0, 0, 0, -9.53002, 0, 23.2243, 0, 0, 0, 0, 0, 0, -14.5696, 0, 27.9422, 0, 0, 0, 0, 0, 0, -19.7164, 0, 21.8304, 0, 0, 0, 0, 0, 0, -14.9985, 0, 18.2919, 0, 0, 0, 0, 0, 0, -15.6418, 0, 13.0379),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 23
 
 [node name="TestScene" type="Node3D"]
 script = ExtResource("1_lgsas")
@@ -359,8 +380,11 @@ _vision_area = NodePath("EnemyVisionArea")
 _detection_ray = NodePath("EnemyDetectionRay")
 _nav_agent = NodePath("EnemyNavAgent")
 _behaviour_timer = NodePath("BehaviourTimer")
-_path = NodePath("../../TestPath")
+_path = NodePath("../Enemy2Path")
 _meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
+
+[node name="Enemy2Path" type="Path3D" parent="Enemies"]
+curve = SubResource("Curve3D_vs3h1")
 
 [node name="Enemy3" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_meshes") instance=ExtResource("10_xtkd2")]
 transform = Transform3D(0.998765, 0, -0.0496867, 0, 1, 0, 0.0496867, 0, 0.998765, -6.3553, -9.53674e-07, 20.7796)
@@ -380,23 +404,31 @@ _nav_agent = NodePath("EnemyNavAgent")
 _behaviour_timer = NodePath("BehaviourTimer")
 _meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
-[node name="Enemy5" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_meshes") instance=ExtResource("10_xtkd2")]
+[node name="Enemy5" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_path", "_meshes") instance=ExtResource("10_xtkd2")]
 transform = Transform3D(0.0239961, 0, 0.999712, 0, 1, 0, -0.999712, 0, 0.0239961, 18.234, -9.53674e-07, 12.2713)
 _detection_area = NodePath("EnemyDetectionArea")
 _vision_area = NodePath("EnemyVisionArea")
 _detection_ray = NodePath("EnemyDetectionRay")
 _nav_agent = NodePath("EnemyNavAgent")
 _behaviour_timer = NodePath("BehaviourTimer")
+_path = NodePath("../Enemy5Path")
 _meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
-[node name="Enemy6" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_meshes") instance=ExtResource("10_xtkd2")]
+[node name="Enemy5Path" type="Path3D" parent="Enemies"]
+curve = SubResource("Curve3D_m88bd")
+
+[node name="Enemy6" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_path", "_meshes") instance=ExtResource("10_xtkd2")]
 transform = Transform3D(0.0239961, 0, 0.999712, 0, 1, 0, -0.999712, 0, 0.0239961, 18.3093, -9.53674e-07, -4.31284)
 _detection_area = NodePath("EnemyDetectionArea")
 _vision_area = NodePath("EnemyVisionArea")
 _detection_ray = NodePath("EnemyDetectionRay")
 _nav_agent = NodePath("EnemyNavAgent")
 _behaviour_timer = NodePath("BehaviourTimer")
+_path = NodePath("../Enemy6Path")
 _meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
+
+[node name="Enemy6Path" type="Path3D" parent="Enemies"]
+curve = SubResource("Curve3D_osins")
 
 [node name="Enemy7" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_meshes") instance=ExtResource("10_xtkd2")]
 transform = Transform3D(-0.0542184, 0, -0.998529, 0, 1, 0, 0.998529, 0, -0.0542184, -14.9073, -9.53674e-07, -3.66963)
@@ -407,16 +439,18 @@ _nav_agent = NodePath("EnemyNavAgent")
 _behaviour_timer = NodePath("BehaviourTimer")
 _meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
-[node name="Enemy8" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_meshes") instance=ExtResource("10_xtkd2")]
+[node name="Enemy8" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_path", "_meshes") instance=ExtResource("10_xtkd2")]
 transform = Transform3D(-0.0542184, 0, -0.998529, 0, 1, 0, 0.998529, 0, -0.0542184, -15.4841, -9.53674e-07, 12.9046)
 _detection_area = NodePath("EnemyDetectionArea")
 _vision_area = NodePath("EnemyVisionArea")
 _detection_ray = NodePath("EnemyDetectionRay")
 _nav_agent = NodePath("EnemyNavAgent")
 _behaviour_timer = NodePath("BehaviourTimer")
+_path = NodePath("../Enemy8Path")
 _meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
-[node name="TestPath" type="Path3D" parent="."]
-curve = SubResource("Curve3D_vs3h1")
+[node name="Enemy8Path" type="Path3D" parent="Enemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+curve = SubResource("Curve3D_djjvg")
 
 [connection signal="timeout" from="UI/FPSLabel/FPSTimer" to="UI/FPSLabel" method="_on_fps_timer_timeout"]
