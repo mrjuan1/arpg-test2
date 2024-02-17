@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://vmqypttwq1se"]
+[gd_scene load_steps=24 format=3 uid="uid://vmqypttwq1se"]
 
 [ext_resource type="Script" path="res://Scripts/TestScene.gd" id="1_lgsas"]
 [ext_resource type="Texture2D" uid="uid://bxh21ml68ujuf" path="res://addons/Godot-Prototype-Texture/Textures/checker_black_512x512.png" id="2_jk878"]
@@ -84,6 +84,13 @@ texture_filter = 5
 [sub_resource type="BoxMesh" id="BoxMesh_rr2dw"]
 material = SubResource("StandardMaterial3D_57gl4")
 size = Vector3(0.1, 0.1, 0.5)
+
+[sub_resource type="Curve3D" id="Curve3D_vs3h1"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -7.15672, 0, -12.4027, 0, 0, 0, 0, 0, 0, -7.17619, 0, -21.2203, 0, 0, 0, 0, 0, 0, 2.33794, 0, -20.928, 0, 0, 0, 0, 0, 0, 4.93566, 0, -10.1151, 0, 0, 0, 0, 0, 0, -7.5009, 0, -5.27681, 0, 0, 0, 0, 0, 0, -13.4756, 0, -8.39407, 0, 0, 0, 0, 0, 0, -9.092, 0, -9.66046, 0, 0, 0, 0, 0, 0, -7.15672, 0, -12.4027),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
 
 [node name="TestScene" type="Node3D"]
 script = ExtResource("1_lgsas")
@@ -335,67 +342,81 @@ one_shot = true
 wait_time = 0.5
 one_shot = true
 
-[node name="Enemy1" parent="." node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_meshes") instance=ExtResource("10_xtkd2")]
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="Enemy1" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_meshes") instance=ExtResource("10_xtkd2")]
 _detection_area = NodePath("EnemyDetectionArea")
 _vision_area = NodePath("EnemyVisionArea")
 _detection_ray = NodePath("EnemyDetectionRay")
 _nav_agent = NodePath("EnemyNavAgent")
+_behaviour_timer = NodePath("BehaviourTimer")
 _meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
-[node name="Enemy2" parent="." node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_meshes") instance=ExtResource("10_xtkd2")]
+[node name="Enemy2" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_path", "_meshes") instance=ExtResource("10_xtkd2")]
 transform = Transform3D(-0.999811, 0, 0.0194593, 0, 1, 0, -0.0194593, 0, -0.999811, -7.14923, -9.53674e-07, -12.4337)
 _detection_area = NodePath("EnemyDetectionArea")
 _vision_area = NodePath("EnemyVisionArea")
 _detection_ray = NodePath("EnemyDetectionRay")
 _nav_agent = NodePath("EnemyNavAgent")
+_behaviour_timer = NodePath("BehaviourTimer")
+_path = NodePath("../../TestPath")
 _meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
-[node name="Enemy3" parent="." node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_meshes") instance=ExtResource("10_xtkd2")]
+[node name="Enemy3" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_meshes") instance=ExtResource("10_xtkd2")]
 transform = Transform3D(0.998765, 0, -0.0496867, 0, 1, 0, 0.0496867, 0, 0.998765, -6.3553, -9.53674e-07, 20.7796)
 _detection_area = NodePath("EnemyDetectionArea")
 _vision_area = NodePath("EnemyVisionArea")
 _detection_ray = NodePath("EnemyDetectionRay")
 _nav_agent = NodePath("EnemyNavAgent")
+_behaviour_timer = NodePath("BehaviourTimer")
 _meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
-[node name="Enemy4" parent="." node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_meshes") instance=ExtResource("10_xtkd2")]
+[node name="Enemy4" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_meshes") instance=ExtResource("10_xtkd2")]
 transform = Transform3D(0.998765, 0, -0.0496867, 0, 1, 0, 0.0496867, 0, 0.998765, 10.2214, -9.53674e-07, 21.2812)
 _detection_area = NodePath("EnemyDetectionArea")
 _vision_area = NodePath("EnemyVisionArea")
 _detection_ray = NodePath("EnemyDetectionRay")
 _nav_agent = NodePath("EnemyNavAgent")
+_behaviour_timer = NodePath("BehaviourTimer")
 _meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
-[node name="Enemy5" parent="." node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_meshes") instance=ExtResource("10_xtkd2")]
+[node name="Enemy5" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_meshes") instance=ExtResource("10_xtkd2")]
 transform = Transform3D(0.0239961, 0, 0.999712, 0, 1, 0, -0.999712, 0, 0.0239961, 18.234, -9.53674e-07, 12.2713)
 _detection_area = NodePath("EnemyDetectionArea")
 _vision_area = NodePath("EnemyVisionArea")
 _detection_ray = NodePath("EnemyDetectionRay")
 _nav_agent = NodePath("EnemyNavAgent")
+_behaviour_timer = NodePath("BehaviourTimer")
 _meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
-[node name="Enemy6" parent="." node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_meshes") instance=ExtResource("10_xtkd2")]
+[node name="Enemy6" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_meshes") instance=ExtResource("10_xtkd2")]
 transform = Transform3D(0.0239961, 0, 0.999712, 0, 1, 0, -0.999712, 0, 0.0239961, 18.3093, -9.53674e-07, -4.31284)
 _detection_area = NodePath("EnemyDetectionArea")
 _vision_area = NodePath("EnemyVisionArea")
 _detection_ray = NodePath("EnemyDetectionRay")
 _nav_agent = NodePath("EnemyNavAgent")
+_behaviour_timer = NodePath("BehaviourTimer")
 _meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
-[node name="Enemy7" parent="." node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_meshes") instance=ExtResource("10_xtkd2")]
+[node name="Enemy7" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_meshes") instance=ExtResource("10_xtkd2")]
 transform = Transform3D(-0.0542184, 0, -0.998529, 0, 1, 0, 0.998529, 0, -0.0542184, -14.9073, -9.53674e-07, -3.66963)
 _detection_area = NodePath("EnemyDetectionArea")
 _vision_area = NodePath("EnemyVisionArea")
 _detection_ray = NodePath("EnemyDetectionRay")
 _nav_agent = NodePath("EnemyNavAgent")
+_behaviour_timer = NodePath("BehaviourTimer")
 _meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
-[node name="Enemy8" parent="." node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_meshes") instance=ExtResource("10_xtkd2")]
+[node name="Enemy8" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_meshes") instance=ExtResource("10_xtkd2")]
 transform = Transform3D(-0.0542184, 0, -0.998529, 0, 1, 0, 0.998529, 0, -0.0542184, -15.4841, -9.53674e-07, 12.9046)
 _detection_area = NodePath("EnemyDetectionArea")
 _vision_area = NodePath("EnemyVisionArea")
 _detection_ray = NodePath("EnemyDetectionRay")
 _nav_agent = NodePath("EnemyNavAgent")
+_behaviour_timer = NodePath("BehaviourTimer")
 _meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
+
+[node name="TestPath" type="Path3D" parent="."]
+curve = SubResource("Curve3D_vs3h1")
 
 [connection signal="timeout" from="UI/FPSLabel/FPSTimer" to="UI/FPSLabel" method="_on_fps_timer_timeout"]

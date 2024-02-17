@@ -1,6 +1,15 @@
 class_name Enemy
 extends CapsuleCharacter
 
+enum BehaviourAction {
+	NONE,
+	MOVING,
+	OBSERVING,
+	PURSUING,
+	CHARGING,
+	RELEASING,
+}
+
 signal target_character_reached
 
 #region exports
@@ -15,6 +24,10 @@ signal target_character_reached
 @export_group("Movement")
 @export var _nav_agent: NavigationAgent3D
 @export var _target_distance_threshold: float = 1.0
+
+@export_group("Behaviour")
+@export var _behaviour_timer: Timer
+@export var _path: Path3D
 #endregion exports
 
 #region private variables
@@ -24,7 +37,9 @@ var _in_detection_area: bool = false
 var _in_vision_area: bool = false
 
 var _target_was_on_floor: bool = true
-var _is_chasing: bool = false # TODO: Replace with behaviour action
+
+var _behaviour_action: BehaviourAction = BehaviourAction.NONE
+var _path_target_point: int = 0
 #endregion private variables
 
 #region events
@@ -45,15 +60,25 @@ func _ready() -> void:
 
 	target_character_reached.connect(_on_target_character_reached)
 
+	if _behaviour_timer:
+		_behaviour_timer.timeout.connect(_on_behaviour_timer_timeout)
+		_on_behaviour_timer_timeout()
+
+	if _path:
+		_nav_agent.target_position = _path.curve.get_point_position(_path_target_point)
+	else:
+		_nav_agent.target_position = position
+
 func _process(delta: float) -> void:
 	lerp_capsule_character_colours(delta)
 
-	if _aware_of_target():
+	if _behaviour_action < BehaviourAction.CHARGING and _aware_of_target():
 		_update_chase_state()
 
 func _physics_process(delta: float) -> void:
-	if _is_chasing:
-		_nav_agent.velocity = (_nav_agent.get_next_path_position() - position).normalized()
+	if _behaviour_action == BehaviourAction.MOVING or \
+		_behaviour_action == BehaviourAction.PURSUING:
+			_nav_agent.velocity = (_nav_agent.get_next_path_position() - position).normalized()
 
 	capsule_character_physics_process(delta)
 #endregion events
@@ -101,20 +126,53 @@ func _on_vision_body_exited(body: Node3D) -> void:
 			_target_character = null
 
 func _on_nav_agent_velocity_computed(safe_velocity: Vector3) -> void:
-	if _is_chasing:
-		var angle: float = -atan2(safe_velocity.x, safe_velocity.z) + Movement.HALF_PI
-		movement.direction = Vector2.from_angle(angle)
-		movement.moving = true
+	if _behaviour_action == BehaviourAction.MOVING or \
+		_behaviour_action == BehaviourAction.PURSUING:
+			var angle: float = -atan2(safe_velocity.x, safe_velocity.z) + Movement.HALF_PI
+			movement.direction = Vector2.from_angle(angle)
+			movement.moving = true
 
 func _on_nav_agent_navigation_finished() -> void:
-	movement.moving = false
-	_is_chasing = false
+	if _behaviour_action == BehaviourAction.MOVING:
+		if _path:
+			_path_target_point += 1
+			if _path_target_point == _path.curve.point_count:
+				_path_target_point = 0
+			_nav_agent.target_position = _path.curve.get_point_position(_path_target_point)
+		else:
+			# If there's no path assigned, move randomly
+			if randf() < 0.5:
+				_nav_agent.target_position.x = position.x - randf_range(2.0, 5.0)
+			else:
+				_nav_agent.target_position.x = position.x + randf_range(2.0, 5.0)
+			if randf() < 0.5:
+				_nav_agent.target_position.z = position.z - randf_range(2.0, 5.0)
+			else:
+				_nav_agent.target_position.z = position.z + randf_range(2.0, 5.0)
+	elif _behaviour_action == BehaviourAction.PURSUING:
+		movement.moving = false
 
-	if _target_character and position.distance_squared_to(_nav_agent.target_position) < _target_distance_threshold:
-		target_character_reached.emit(_target_character)
+		if _target_character and position.distance_squared_to(_nav_agent.target_position) < _target_distance_threshold:
+			target_character_reached.emit(_target_character)
+		else:
+			_behaviour_action = BehaviourAction.OBSERVING
 
 func _on_target_character_reached(target_character: Character) -> void:
+	_behaviour_action = BehaviourAction.CHARGING
 	prints("Target character reached:", target_character)
+
+func _on_behaviour_timer_timeout() -> void:
+	if _behaviour_action < BehaviourAction.PURSUING:
+		var last_action: BehaviourAction = _behaviour_action
+		while _behaviour_action == last_action:
+			_behaviour_action = randi_range(BehaviourAction.NONE, BehaviourAction.OBSERVING) as BehaviourAction
+
+		if _behaviour_action == BehaviourAction.NONE or \
+			_behaviour_action == BehaviourAction.OBSERVING:
+				movement.moving = false
+
+		_behaviour_timer.wait_time = randf_range(1.0, 4.0) # TODO: Define as exports?
+		_behaviour_timer.start()
 #endregion signal events
 
 #region private functions
@@ -137,7 +195,7 @@ func _update_chase_state() -> void:
 	if not _target_character.position.is_equal_approx(_nav_agent.target_position):
 		if _in_detection_area:
 			_nav_agent.target_position = _target_character.position
-			_is_chasing = true
+			_behaviour_action = BehaviourAction.PURSUING
 		elif _in_vision_area:
 			_detection_ray.rotation.y = -rotation.y
 			_detection_ray.target_position = _target_character.position - position
@@ -146,5 +204,5 @@ func _update_chase_state() -> void:
 			if _detection_ray.is_colliding() and \
 				_detection_ray.get_collider().get_instance_id() == _target_character.get_instance_id():
 					_nav_agent.target_position = _target_character.position
-					_is_chasing = true
+					_behaviour_action = BehaviourAction.PURSUING
 #endregion private functions
