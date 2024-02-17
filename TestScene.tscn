@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://vmqypttwq1se"]
+[gd_scene load_steps=20 format=3 uid="uid://vmqypttwq1se"]
 
 [ext_resource type="Script" path="res://Scripts/TestScene.gd" id="1_lgsas"]
 [ext_resource type="Texture2D" uid="uid://bxh21ml68ujuf" path="res://addons/Godot-Prototype-Texture/Textures/checker_black_512x512.png" id="2_jk878"]
@@ -7,8 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://whapb7gky67b" path="res://addons/Godot-Prototype-Texture/Textures/checker_lime_512x512.png" id="4_ay18u"]
 [ext_resource type="Texture2D" uid="uid://dgif31owb288f" path="res://addons/Godot-Prototype-Texture/Textures/checker_yellow_512x512.png" id="4_eoomf"]
 [ext_resource type="Script" path="res://Scripts/FPSLabel.gd" id="4_ppu5h"]
-[ext_resource type="Texture2D" uid="uid://bw7ctn4vp4k1n" path="res://addons/Godot-Prototype-Texture/Textures/checker_white_512x512.png" id="8_5l4oc"]
-[ext_resource type="Script" path="res://Scripts/Player.gd" id="8_ondms"]
+[ext_resource type="PackedScene" uid="uid://chqmk88uiq6lp" path="res://Player.tscn" id="8_pasi5"]
 [ext_resource type="PackedScene" uid="uid://k2mhfa7v5bky" path="res://Enemy.tscn" id="10_xtkd2"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_8wynb"]
@@ -51,39 +50,6 @@ texture_filter = 5
 [sub_resource type="LabelSettings" id="LabelSettings_0j0hm"]
 shadow_size = 2
 shadow_color = Color(0, 0, 0, 0.501961)
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v18xk"]
-radius = 0.25
-height = 1.7
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_84uf8"]
-load_path = "res://.godot/imported/checker_white_512x512.png-db28a15ea4464aa8c03503ca61cdaaed.s3tc.ctex"
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1sk6t"]
-shading_mode = 0
-albedo_texture = SubResource("CompressedTexture2D_84uf8")
-uv1_scale = Vector3(1, 1, -1)
-uv1_offset = Vector3(0.5, 0.5, 0.5)
-uv1_triplanar = true
-texture_filter = 5
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_wce7j"]
-material = SubResource("StandardMaterial3D_1sk6t")
-radius = 0.25
-height = 1.7
-radial_segments = 16
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_57gl4"]
-shading_mode = 0
-albedo_texture = ExtResource("8_5l4oc")
-uv1_scale = Vector3(1, 1, -1)
-uv1_offset = Vector3(0.5, 0.5, 0.5)
-uv1_triplanar = true
-texture_filter = 5
-
-[sub_resource type="BoxMesh" id="BoxMesh_rr2dw"]
-material = SubResource("StandardMaterial3D_57gl4")
-size = Vector3(0.1, 0.1, 0.5)
 
 [sub_resource type="Curve3D" id="Curve3D_vs3h1"]
 _data = {
@@ -325,43 +291,15 @@ layout_mode = 2
 text = "Defence	"
 label_settings = SubResource("LabelSettings_0j0hm")
 
-[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("_camera", "_hp_label", "_stamina_label", "_str_label", "_def_label", "_meshes", "_dodge_timer", "_combo_timer")]
-script = ExtResource("8_ondms")
+[node name="Player" parent="." node_paths=PackedStringArray("_camera", "_hp_label", "_stamina_label", "_str_label", "_def_label", "_meshes", "_dodge_timer", "_combo_timer") instance=ExtResource("8_pasi5")]
 _camera = NodePath("../Camera")
 _hp_label = NodePath("../UI/StatLabels/HPLabel")
 _stamina_label = NodePath("../UI/StatLabels/StaminaLabel")
 _str_label = NodePath("../UI/StatLabels/StrengthLabel")
 _def_label = NodePath("../UI/StatLabels/DefenceLabel")
 _meshes = [NodePath("PlayerCollision/PlayerMesh"), NodePath("PlayerCollision/PlayerMesh/PlayerPointerMesh")]
-_has_health = true
-_has_stamina = true
-_has_str_and_def = true
-_velocity_to_target_y_rotation = true
-_can_jump = true
-_can_dodge = true
-_can_attack = true
 _dodge_timer = NodePath("DodgeTimer")
 _combo_timer = NodePath("ComboTimer")
-
-[node name="PlayerCollision" type="CollisionShape3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
-shape = SubResource("CapsuleShape3D_v18xk")
-
-[node name="PlayerMesh" type="MeshInstance3D" parent="Player/PlayerCollision"]
-mesh = SubResource("CapsuleMesh_wce7j")
-skeleton = NodePath("../..")
-
-[node name="PlayerPointerMesh" type="MeshInstance3D" parent="Player/PlayerCollision/PlayerMesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.45)
-mesh = SubResource("BoxMesh_rr2dw")
-
-[node name="DodgeTimer" type="Timer" parent="Player"]
-wait_time = 0.5
-one_shot = true
-
-[node name="ComboTimer" type="Timer" parent="Player"]
-wait_time = 0.5
-one_shot = true
 
 [node name="Enemies" type="Node3D" parent="."]
 
@@ -450,7 +388,6 @@ _path = NodePath("../Enemy8Path")
 _meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
 [node name="Enemy8Path" type="Path3D" parent="Enemies"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 curve = SubResource("Curve3D_djjvg")
 
 [connection signal="timeout" from="UI/FPSLabel/FPSTimer" to="UI/FPSLabel" method="_on_fps_timer_timeout"]

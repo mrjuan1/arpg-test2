@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=3 uid="uid://chqmk88uiq6lp"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_80sr4"]
+[ext_resource type="Texture2D" uid="uid://bw7ctn4vp4k1n" path="res://addons/Godot-Prototype-Texture/Textures/checker_white_512x512.png" id="2_hqg23"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v18xk"]
+radius = 0.25
+height = 1.7
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_84uf8"]
+load_path = "res://.godot/imported/checker_white_512x512.png-db28a15ea4464aa8c03503ca61cdaaed.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1sk6t"]
+shading_mode = 0
+albedo_texture = SubResource("CompressedTexture2D_84uf8")
+uv1_scale = Vector3(1, 1, -1)
+uv1_offset = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+texture_filter = 5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wce7j"]
+material = SubResource("StandardMaterial3D_1sk6t")
+radius = 0.25
+height = 1.7
+radial_segments = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_57gl4"]
+shading_mode = 0
+albedo_texture = ExtResource("2_hqg23")
+uv1_scale = Vector3(1, 1, -1)
+uv1_offset = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+texture_filter = 5
+
+[sub_resource type="BoxMesh" id="BoxMesh_rr2dw"]
+material = SubResource("StandardMaterial3D_57gl4")
+size = Vector3(0.1, 0.1, 0.5)
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("_meshes", "_dodge_timer", "_combo_timer")]
+script = ExtResource("1_80sr4")
+_meshes = [NodePath("PlayerCollision/PlayerMesh"), NodePath("PlayerCollision/PlayerMesh/PlayerPointerMesh")]
+_has_health = true
+_has_stamina = true
+_has_str_and_def = true
+_velocity_to_target_y_rotation = true
+_can_jump = true
+_can_dodge = true
+_can_attack = true
+_dodge_timer = NodePath("DodgeTimer")
+_combo_timer = NodePath("ComboTimer")
+
+[node name="PlayerCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+shape = SubResource("CapsuleShape3D_v18xk")
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="PlayerCollision"]
+mesh = SubResource("CapsuleMesh_wce7j")
+skeleton = NodePath("../..")
+
+[node name="PlayerPointerMesh" type="MeshInstance3D" parent="PlayerCollision/PlayerMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.45)
+mesh = SubResource("BoxMesh_rr2dw")
+
+[node name="DodgeTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="ComboTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
