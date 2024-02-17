@@ -23,9 +23,7 @@ var _target_character: Character
 var _in_detection_area: bool = false
 var _in_vision_area: bool = false
 
-var _track_target_position: bool = false
 var _target_was_on_floor: bool = true
-
 var _is_chasing: bool = false # TODO: Replace with behaviour action
 #endregion private variables
 
@@ -50,30 +48,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	lerp_capsule_character_colours(delta)
 
-	if _in_vision_area:
-		_track_target_position = true
-	elif _in_detection_area:
-		_track_target_position = _target_character.is_on_floor() != _target_was_on_floor or \
-			(_target_character.is_on_floor() and \
-			(absf(_target_character.velocity.x) > _target_detection_velocity or \
-			absf(_target_character.velocity.z) > _target_detection_velocity))
-		_target_was_on_floor = _target_character.is_on_floor()
-	else:
-		_track_target_position = false
-
-	if _track_target_position and \
-		not _target_character.position.is_equal_approx(_nav_agent.target_position):
-			if _in_detection_area:
-				_nav_agent.target_position = _target_character.position
-				_is_chasing = true
-			elif _in_vision_area:
-				_detection_ray.rotation.y = -rotation.y
-				_detection_ray.target_position = _target_character.position - position
-				_detection_ray.force_raycast_update()
-				if _detection_ray.is_colliding() and \
-					_detection_ray.get_collider().get_instance_id() == _target_character.get_instance_id():
-						_nav_agent.target_position = _target_character.position
-						_is_chasing = true
+	if _aware_of_target():
+		_update_chase_state()
 
 func _physics_process(delta: float) -> void:
 	if _is_chasing:
@@ -140,3 +116,35 @@ func _on_nav_agent_navigation_finished() -> void:
 func _on_target_character_reached(target_character: Character) -> void:
 	prints("Target character reached:", target_character)
 #endregion signal events
+
+#region private functions
+func _aware_of_target() -> bool:
+	if _in_vision_area:
+		return true
+
+	if _in_detection_area:
+		var result: bool = _target_character.is_on_floor() != _target_was_on_floor or \
+			(_target_character.is_on_floor() and \
+			(absf(_target_character.velocity.x) > _target_detection_velocity or \
+			absf(_target_character.velocity.z) > _target_detection_velocity))
+		_target_was_on_floor = _target_character.is_on_floor()
+
+		return result
+
+	return false
+
+func _update_chase_state() -> void:
+	if not _target_character.position.is_equal_approx(_nav_agent.target_position):
+		if _in_detection_area:
+			_nav_agent.target_position = _target_character.position
+			_is_chasing = true
+		elif _in_vision_area:
+			_detection_ray.rotation.y = -rotation.y
+			_detection_ray.target_position = _target_character.position - position
+			_detection_ray.force_raycast_update()
+
+			if _detection_ray.is_colliding() and \
+				_detection_ray.get_collider().get_instance_id() == _target_character.get_instance_id():
+					_nav_agent.target_position = _target_character.position
+					_is_chasing = true
+#endregion private functions
