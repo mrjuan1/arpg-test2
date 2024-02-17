@@ -14,7 +14,6 @@
 				"1d4a84e3-80f0-4bfa-9f4e-dc8ded043bf8",
 				"3280b4ad-3dbf-4e9c-b1d8-b574f7e5b1a2",
 				"1a0a878c-f167-4b56-9199-e9024cfb4ef6",
-				"967222d2-d78b-441c-a5ec-a928427fe9b5",
 				"33b186ee-1be9-494a-ac26-9a5938bad7bd"
 			]
 		},
@@ -210,13 +209,6 @@
 			"steps": []
 		},
 		{
-			"uuid": "967222d2-d78b-441c-a5ec-a928427fe9b5",
-			"title": "Re-look at movement class and remove unneeded public variables",
-			"description": "",
-			"category": "37e9d004-6922-40bc-8ba9-3ca3701c1ca5",
-			"steps": []
-		},
-		{
 			"uuid": "6494383d-b879-49ef-9255-22acde51c312",
 			"title": "Shared stats (STR, DEF)",
 			"description": "",
@@ -326,18 +318,26 @@
 				},
 				{
 					"details": "Implement initial behaviour as-per task description",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "If target character is present at target location, prepare to attack",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "If not, enter observing behaviour state",
+					"done": true
+				},
+				{
+					"details": "Implement observing",
 					"done": false
 				},
 				{
-					"details": "If not target is marked after a certain amount of time, return to idle behaviour state",
+					"details": "Implement charging",
+					"done": false
+				},
+				{
+					"details": "Implement releasing attack",
 					"done": false
 				}
 			]
