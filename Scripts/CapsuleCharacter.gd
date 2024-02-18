@@ -63,6 +63,7 @@ func _on_health_killed() -> void:
 func _init_mesh_materials_colours() -> void:
 	for mesh: MeshInstance3D in _meshes:
 		var material: StandardMaterial3D = (mesh.mesh as PrimitiveMesh).material
-		_mesh_materials.push_back(material)
-		_mesh_original_colours.push_back(material.albedo_color)
+
+		_mesh_materials.append(material)
+		_mesh_original_colours.append(material.albedo_color)
 #endregion private functions
