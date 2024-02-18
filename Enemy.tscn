@@ -10,6 +10,7 @@ height = 1.7
 load_path = "res://.godot/imported/checker_orange_512x512.png-98c38636b3fee784421cb95b2a66a997.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4q0tm"]
+resource_local_to_scene = true
 shading_mode = 0
 albedo_texture = SubResource("CompressedTexture2D_xivhq")
 uv1_scale = Vector3(1, 1, -1)
@@ -18,6 +19,7 @@ uv1_triplanar = true
 texture_filter = 5
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_yvs14"]
+resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_4q0tm")
 radius = 0.25
 height = 1.7
@@ -27,6 +29,7 @@ radial_segments = 16
 load_path = "res://.godot/imported/checker_orange_512x512.png-98c38636b3fee784421cb95b2a66a997.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xfi2a"]
+resource_local_to_scene = true
 shading_mode = 0
 albedo_texture = SubResource("CompressedTexture2D_b78j8")
 uv1_scale = Vector3(1, 1, -1)
@@ -35,6 +38,7 @@ uv1_triplanar = true
 texture_filter = 5
 
 [sub_resource type="BoxMesh" id="BoxMesh_kx743"]
+resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_xfi2a")
 size = Vector3(0.1, 0.1, 0.5)
 
@@ -45,7 +49,6 @@ radius = 5.0
 points = PackedVector3Array(0, 10, -20, 0, 5.99843, -17.0008, -7.65466, 10, -18.4808, 7.65074, 10, -18.4808, 6.50352, 5.99843, -15.7087, 0, -6.00039, -8.00313, -6.50744, 5.99843, -15.7087, -12.0243, 5.99843, -12.0243, -14.1425, 10, -14.1425, 14.1386, 10, -14.1425, 12.0204, 5.99843, -12.0243, 4.20908, -2.00078, -10.1644, 1.91073, -10, -4.6202, 0, -10, -5, -1.91464, -10, -4.6202, -4.213, -2.00078, -10.1644, -10.1644, -2.00078, -4.213, -15.7087, 5.99843, -6.50744, -18.4808, 10, -7.65466, -3.53563, -10, -3.53563, -4.6202, -10, -1.91464, 18.4769, 10, -7.65466, 15.7048, 5.99843, -6.50744, 10.1605, -2.00078, -4.213, 4.61629, -10, -1.91464, 3.53172, -10, -3.53563, -8.00313, -6.00039, 0, -17.0008, 5.99843, 0, -20, 10, 0, -5, -10, 0, 20, 10, 0, 5, -10, 0, -10.1644, -2.00078, 4.20908, -15.7087, 5.99843, 6.50352, -4.6202, -10, 1.91073, -18.4808, 10, 7.65074, 18.4769, 10, 7.65074, 15.7048, 5.99843, 6.50352, 4.61629, -10, 1.91073, 10.1605, -2.00078, 4.20908, -12.0243, 5.99843, 12.0204, -3.53563, -10, 3.53172, -14.1425, 10, 14.1386, 14.1386, 10, 14.1386, 12.0204, 5.99843, 12.0204, 3.53172, -10, 3.53172, -6.50744, 5.99843, 15.7048, -7.65466, 10, 18.4769, -1.91464, -10, 4.61629, -4.213, -2.00078, 10.1605, 7.65074, 10, 18.4769, 6.50352, 5.99843, 15.7048, 4.20908, -2.00078, 10.1605, 1.91073, -10, 4.61629, 0, -10, 5, 0, 10, 20)
 
 [node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_meshes")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("1_ciay8")
 _detection_area = NodePath("EnemyDetectionArea")
 _vision_area = NodePath("EnemyVisionArea")
