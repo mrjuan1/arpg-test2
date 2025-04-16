@@ -69,6 +69,7 @@ func _process(delta: float) -> void:
 				melee.release_attack()
 				_melee_charge_state = Melee.ChargeState.RELEASED
 			else:
+				# TODO: Defined export for the multiplier below and move velocity changes to _physics_process
 				velocity = -Vector3(movement.direction.x, 0.0, movement.direction.y) * 0.5
 				_melee_charge_state = melee.charge_attack(delta)
 		else:
@@ -112,8 +113,10 @@ func _on_capsule_character_killed() -> void:
 
 func _on_melee_attack_released(strength: float, _combo: int) -> void:
 	if is_on_floor():
+		# TODO: Define export for lunge speed
 		velocity = Vector3(movement.direction.x, 0.0, movement.direction.y) * 10.0
 	else:
+		# TODO: Define export for air lunge speed
 		const VELOCITY_SCALE: float = 5.0
 		velocity.x = movement.direction.x * VELOCITY_SCALE
 		velocity.z = movement.direction.y * VELOCITY_SCALE

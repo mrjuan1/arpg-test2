@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://chqmk88uiq6lp"]
 
-[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_80sr4"]
+[ext_resource type="Script" uid="uid://plpol70b4cyj" path="res://Scripts/Player.gd" id="1_80sr4"]
 [ext_resource type="Texture2D" uid="uid://bw7ctn4vp4k1n" path="res://addons/Godot-Prototype-Texture/Textures/checker_white_512x512.png" id="2_hqg23"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v18xk"]

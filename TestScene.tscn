@@ -1,12 +1,12 @@
 [gd_scene load_steps=20 format=3 uid="uid://vmqypttwq1se"]
 
-[ext_resource type="Script" path="res://Scripts/TestScene.gd" id="1_lgsas"]
+[ext_resource type="Script" uid="uid://3hj8hxqca53h" path="res://Scripts/TestScene.gd" id="1_lgsas"]
 [ext_resource type="Texture2D" uid="uid://bxh21ml68ujuf" path="res://addons/Godot-Prototype-Texture/Textures/checker_black_512x512.png" id="2_jk878"]
 [ext_resource type="Texture2D" uid="uid://cbaee2mrh36bj" path="res://addons/Godot-Prototype-Texture/Textures/checker_blue_512x512.png" id="3_5fmma"]
 [ext_resource type="LabelSettings" uid="uid://deyf2ubdogyog" path="res://DebugLabelSettings.tres" id="3_sbhwi"]
 [ext_resource type="Texture2D" uid="uid://whapb7gky67b" path="res://addons/Godot-Prototype-Texture/Textures/checker_lime_512x512.png" id="4_ay18u"]
 [ext_resource type="Texture2D" uid="uid://dgif31owb288f" path="res://addons/Godot-Prototype-Texture/Textures/checker_yellow_512x512.png" id="4_eoomf"]
-[ext_resource type="Script" path="res://Scripts/FPSLabel.gd" id="4_ppu5h"]
+[ext_resource type="Script" uid="uid://c2ly14by45c33" path="res://Scripts/FPSLabel.gd" id="4_ppu5h"]
 [ext_resource type="PackedScene" uid="uid://chqmk88uiq6lp" path="res://Player.tscn" id="8_pasi5"]
 [ext_resource type="PackedScene" uid="uid://k2mhfa7v5bky" path="res://Enemy.tscn" id="10_xtkd2"]
 
@@ -291,105 +291,69 @@ layout_mode = 2
 text = "Defence	"
 label_settings = SubResource("LabelSettings_0j0hm")
 
-[node name="Player" parent="." node_paths=PackedStringArray("_camera", "_melee_area", "_hp_label", "_stamina_label", "_str_label", "_def_label", "_meshes", "_dodge_timer", "_combo_timer") instance=ExtResource("8_pasi5")]
+[node name="Player" parent="." node_paths=PackedStringArray("_camera", "_hp_label", "_stamina_label", "_str_label", "_def_label") instance=ExtResource("8_pasi5")]
 _camera = NodePath("../Camera")
-_melee_area = NodePath("MeleeArea")
 _hp_label = NodePath("../UI/StatLabels/HPLabel")
 _stamina_label = NodePath("../UI/StatLabels/StaminaLabel")
 _str_label = NodePath("../UI/StatLabels/StrengthLabel")
 _def_label = NodePath("../UI/StatLabels/DefenceLabel")
-_meshes = [NodePath("PlayerCollision/PlayerMesh"), NodePath("PlayerCollision/PlayerMesh/PlayerPointerMesh")]
-_dodge_timer = NodePath("DodgeTimer")
-_combo_timer = NodePath("ComboTimer")
 
 [node name="Enemies" type="Node3D" parent="."]
 
-[node name="Enemy1" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_meshes") instance=ExtResource("10_xtkd2")]
+[node name="Enemy1" parent="Enemies" instance=ExtResource("10_xtkd2")]
 transform = Transform3D(-0.999103, 0, -0.0423464, 0, 1, 0, 0.0423464, 0, -0.999103, 7.56416, -9.53674e-07, -14.6599)
-_detection_area = NodePath("EnemyDetectionArea")
-_vision_area = NodePath("EnemyVisionArea")
-_detection_ray = NodePath("EnemyDetectionRay")
-_nav_agent = NodePath("EnemyNavAgent")
-_behaviour_timer = NodePath("BehaviourTimer")
-_meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
-[node name="Enemy2" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_path", "_meshes") instance=ExtResource("10_xtkd2")]
+[node name="Enemy2" parent="Enemies" node_paths=PackedStringArray("_path") instance=ExtResource("10_xtkd2")]
 transform = Transform3D(-0.999811, 0, 0.0194593, 0, 1, 0, -0.0194593, 0, -0.999811, -7.14923, -9.53674e-07, -12.4337)
-_detection_area = NodePath("EnemyDetectionArea")
-_vision_area = NodePath("EnemyVisionArea")
-_detection_ray = NodePath("EnemyDetectionRay")
-_nav_agent = NodePath("EnemyNavAgent")
-_behaviour_timer = NodePath("BehaviourTimer")
 _path = NodePath("../Enemy2Path")
-_meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
 [node name="Enemy2Path" type="Path3D" parent="Enemies"]
 curve = SubResource("Curve3D_vs3h1")
 
-[node name="Enemy3" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_meshes") instance=ExtResource("10_xtkd2")]
+[node name="Enemy3" parent="Enemies" instance=ExtResource("10_xtkd2")]
 transform = Transform3D(0.998765, 0, -0.0496867, 0, 1, 0, 0.0496867, 0, 0.998765, -6.3553, -9.53674e-07, 20.7796)
-_detection_area = NodePath("EnemyDetectionArea")
-_vision_area = NodePath("EnemyVisionArea")
-_detection_ray = NodePath("EnemyDetectionRay")
-_nav_agent = NodePath("EnemyNavAgent")
-_behaviour_timer = NodePath("BehaviourTimer")
-_meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
-[node name="Enemy4" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_meshes") instance=ExtResource("10_xtkd2")]
+[node name="Enemy4" parent="Enemies" instance=ExtResource("10_xtkd2")]
 transform = Transform3D(0.998765, 0, -0.0496867, 0, 1, 0, 0.0496867, 0, 0.998765, 10.2214, -9.53674e-07, 21.2812)
-_detection_area = NodePath("EnemyDetectionArea")
-_vision_area = NodePath("EnemyVisionArea")
-_detection_ray = NodePath("EnemyDetectionRay")
-_nav_agent = NodePath("EnemyNavAgent")
-_behaviour_timer = NodePath("BehaviourTimer")
-_meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
-[node name="Enemy5" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_path", "_meshes") instance=ExtResource("10_xtkd2")]
+[node name="Enemy5" parent="Enemies" node_paths=PackedStringArray("_path") instance=ExtResource("10_xtkd2")]
 transform = Transform3D(0.0239961, 0, 0.999712, 0, 1, 0, -0.999712, 0, 0.0239961, 18.234, -9.53674e-07, 12.2713)
-_detection_area = NodePath("EnemyDetectionArea")
-_vision_area = NodePath("EnemyVisionArea")
-_detection_ray = NodePath("EnemyDetectionRay")
-_nav_agent = NodePath("EnemyNavAgent")
-_behaviour_timer = NodePath("BehaviourTimer")
 _path = NodePath("../Enemy5Path")
-_meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
 [node name="Enemy5Path" type="Path3D" parent="Enemies"]
 curve = SubResource("Curve3D_m88bd")
 
-[node name="Enemy6" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_path", "_meshes") instance=ExtResource("10_xtkd2")]
+[node name="Enemy6" parent="Enemies" node_paths=PackedStringArray("_path") instance=ExtResource("10_xtkd2")]
 transform = Transform3D(0.0239961, 0, 0.999712, 0, 1, 0, -0.999712, 0, 0.0239961, 18.3093, -9.53674e-07, -4.31284)
-_detection_area = NodePath("EnemyDetectionArea")
-_vision_area = NodePath("EnemyVisionArea")
-_detection_ray = NodePath("EnemyDetectionRay")
-_nav_agent = NodePath("EnemyNavAgent")
-_behaviour_timer = NodePath("BehaviourTimer")
 _path = NodePath("../Enemy6Path")
-_meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
 [node name="Enemy6Path" type="Path3D" parent="Enemies"]
 curve = SubResource("Curve3D_osins")
 
-[node name="Enemy7" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_meshes") instance=ExtResource("10_xtkd2")]
+[node name="Enemy7" parent="Enemies" instance=ExtResource("10_xtkd2")]
 transform = Transform3D(-0.0542184, 0, -0.998529, 0, 1, 0, 0.998529, 0, -0.0542184, -14.9073, -9.53674e-07, -3.66963)
-_detection_area = NodePath("EnemyDetectionArea")
-_vision_area = NodePath("EnemyVisionArea")
-_detection_ray = NodePath("EnemyDetectionRay")
-_nav_agent = NodePath("EnemyNavAgent")
-_behaviour_timer = NodePath("BehaviourTimer")
-_meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
-[node name="Enemy8" parent="Enemies" node_paths=PackedStringArray("_detection_area", "_vision_area", "_detection_ray", "_nav_agent", "_behaviour_timer", "_path", "_meshes") instance=ExtResource("10_xtkd2")]
+[node name="Enemy8" parent="Enemies" node_paths=PackedStringArray("_path") instance=ExtResource("10_xtkd2")]
 transform = Transform3D(-0.0542184, 0, -0.998529, 0, 1, 0, 0.998529, 0, -0.0542184, -15.4841, -9.53674e-07, 12.9046)
-_detection_area = NodePath("EnemyDetectionArea")
-_vision_area = NodePath("EnemyVisionArea")
-_detection_ray = NodePath("EnemyDetectionRay")
-_nav_agent = NodePath("EnemyNavAgent")
-_behaviour_timer = NodePath("BehaviourTimer")
 _path = NodePath("../Enemy8Path")
-_meshes = [NodePath("EnemyCollision/EnemyMesh"), NodePath("EnemyCollision/EnemyMesh/EnemyPointerMesh")]
 
 [node name="Enemy8Path" type="Path3D" parent="Enemies"]
 curve = SubResource("Curve3D_djjvg")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -153.0
+offset_right = 301.0
+offset_bottom = -10.0
+grow_vertical = 0
+text = "Controls:
+Move with arrow keys
+Attack with Z
+Jump with X
+Dodge with C
+(enemies don't attack, they only chase)"
 
 [connection signal="timeout" from="UI/FPSLabel/FPSTimer" to="UI/FPSLabel" method="_on_fps_timer_timeout"]

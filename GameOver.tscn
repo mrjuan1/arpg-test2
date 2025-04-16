@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bh0ufmuldyci0"]
 
-[ext_resource type="Script" path="res://Scripts/GameOver.gd" id="1_b1nqb"]
+[ext_resource type="Script" uid="uid://gsjkc4s14r6h" path="res://Scripts/GameOver.gd" id="1_b1nqb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_o0uix"]
 font_size = 32
@@ -32,7 +32,7 @@ offset_right = 86.5
 offset_bottom = 24.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "You ded!
+text = "You dead!
 Press ENTER to reset...
 
 
