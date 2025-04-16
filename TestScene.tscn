@@ -341,7 +341,7 @@ _path = NodePath("../Enemy8Path")
 curve = SubResource("Curve3D_djjvg")
 
 [node name="Label" type="Label" parent="."]
-anchors_preset = -1
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
